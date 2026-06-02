@@ -15,6 +15,7 @@ export default defineConfig([
         console: "readonly",
         clearTimeout: "readonly",
         setTimeout: "readonly",
+        crypto: "readonly",
       },
     },
   },

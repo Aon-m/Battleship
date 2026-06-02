@@ -3,6 +3,7 @@ import toNumber from "../utils/toNumber";
 export default class Ship {
   constructor(length) {
     this.length = this.#set("length", length, 1);
+    this.id = crypto.randomUUID();
     this.hits = 0;
     this.sunk = false;
   }
