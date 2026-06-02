@@ -2,7 +2,7 @@ export default class GameBoard {
   constructor(size = 10) {
     this.board = this.#createBoard(size);
     this.missedShots = [];
-    this.shots = []
+    this.shots = [];
   }
 
   #createBoard(size) {
@@ -52,7 +52,7 @@ export default class GameBoard {
 
     if (this.shots.some(([r, c]) => r === row && c === col)) return false;
 
-    this.shots.push([row, col])
+    this.shots.push([row, col]);
     const ship = this.board[row][col];
 
     if (ship) {
@@ -62,6 +62,24 @@ export default class GameBoard {
 
     this.missedShots.push([row, col]);
     return false;
+  }
+
+  allShipsSunk() {
+    const ships = new Set();
+
+    for (const row of this.board) {
+      for (const ship of row) {
+        if (ship) ships.add(ship);
+      }
+    }
+
+    return [...ships].every((ship) => ship.isSunk());
+  }
+
+  reset(size = 10) {
+    this.board = this.#createBoard(size);
+    this.missedShots = [];
+    this.shots = [];
   }
 
   #getCoordinate(coordinate) {

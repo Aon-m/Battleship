@@ -83,7 +83,7 @@ describe("Gameboard", () => {
 
       gameboard.receiveAttack("J10");
 
-      expect(gameboard.missedShots).toContain([[9, 9]]);
+      expect(gameboard.missedShots).toEqual([[9, 9]]);
     });
 
     test("Does not damage a ship on a miss", () => {
@@ -131,6 +131,21 @@ describe("Gameboard", () => {
       gameboard.receiveAttack("A3");
 
       expect(ship.isSunk()).toBe(true);
+    });
+  });
+
+  describe("All Ships Sunk", () => {
+    test("Sinks a ship", () => {
+      const gameboard = new GameBoard();
+      const ship = new Ship(3);
+
+      gameboard.placeShip(ship, "horizontal", "A1");
+
+      gameboard.receiveAttack("A1");
+      gameboard.receiveAttack("A2");
+      gameboard.receiveAttack("A3");
+
+      expect(gameboard.allShipsSunk()).toBe(true);
     });
   });
 });
