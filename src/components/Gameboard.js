@@ -2,6 +2,7 @@ export default class GameBoard {
   constructor(size = 10) {
     this.board = this.#createBoard(size);
     this.missedShots = [];
+    this.shots = []
   }
 
   #createBoard(size) {
@@ -49,6 +50,9 @@ export default class GameBoard {
   receiveAttack(coordinate) {
     const [row, col] = this.#getCoordinate(coordinate);
 
+    if (this.shots.some(([r, c]) => r === row && c === col)) return false;
+
+    this.shots.push([row, col])
     const ship = this.board[row][col];
 
     if (ship) {

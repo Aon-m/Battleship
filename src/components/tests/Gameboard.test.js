@@ -83,7 +83,7 @@ describe("Gameboard", () => {
 
       gameboard.receiveAttack("J10");
 
-      expect(gameboard.missedShots).toContain("J10");
+      expect(gameboard.missedShots).toContain([[9, 9]]);
     });
 
     test("Does not damage a ship on a miss", () => {
@@ -106,6 +106,31 @@ describe("Gameboard", () => {
       gameboard.receiveAttack("A2");
 
       expect(ship.hits).toBe(2);
+    });
+
+    test("Does not count the same section of the same ship", () => {
+      const gameboard = new GameBoard();
+      const ship = new Ship(3);
+
+      gameboard.placeShip(ship, "horizontal", "A1");
+
+      gameboard.receiveAttack("A1");
+      gameboard.receiveAttack("A1");
+
+      expect(ship.hits).toBe(1);
+    });
+
+    test("Sinks a ship", () => {
+      const gameboard = new GameBoard();
+      const ship = new Ship(3);
+
+      gameboard.placeShip(ship, "horizontal", "A1");
+
+      gameboard.receiveAttack("A1");
+      gameboard.receiveAttack("A2");
+      gameboard.receiveAttack("A3");
+
+      expect(ship.isSunk()).toBe(true);
     });
   });
 });
