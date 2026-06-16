@@ -1,0 +1,11 @@
+.indicator {
+  width: 1rem;
+  background: var(--color-primary);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  opacity: 0.2;
+
+  &--selected {
+    opacity: 1;
+  }
+}

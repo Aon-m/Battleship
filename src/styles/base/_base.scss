@@ -1,0 +1,69 @@
+:root {
+  /* Colors */
+  /* Main colors */
+  --color-primary: rgb(34, 43, 65);
+
+  /* Accent colors */
+  --color-accent-0: hsl(43, 84%, 65%);
+  --color-accent-1: hsl(15, 100%, 70%);
+  --color-accent-2: hsl(195, 74%, 62%);
+  --color-accent-3: hsl(348, 100%, 68%);
+  --color-accent-4: hsl(145, 58%, 55%);
+  --color-accent-5: hsl(264, 64%, 52%);
+
+  /* Fun Colors */
+  --color-fun-0: hsl(330, 65%, 68%); /* pink */
+  --color-fun-1: hsl(15, 80%, 70%); /* peach */
+  --color-fun-2: hsl(85, 55%, 62%); /* lime */
+  --color-fun-3: hsl(195, 55%, 60%); /* sky */
+  --color-fun-4: hsl(280, 60%, 70%); /* lavender */
+
+  /* Neutral colors */
+  --color-neutral-0: hsl(0, 0%, 100%);
+  --color-neutral-1: hsl(0, 0%, 87.5%);
+  --color-neutral-2: hsl(0, 0%, 75%);
+  --color-neutral-3: hsl(0, 0%, 62.5%);
+  --color-neutral-4: hsl(0, 0%, 50%);
+  --color-neutral-5: hsl(0, 0%, 37.5%);
+  --color-neutral-6: hsl(0, 0%, 25%);
+  --color-neutral-7: hsl(0, 0%, 12.5%);
+  --color-neutral-8: hsl(0, 0%, 0%);
+
+  // Status colors
+  --color-success: hsl(100, 100%, 67%);
+  --color-warning: hsl(50, 100%, 67%);
+  --color-error: hsl(4, 100%, 67%);
+  --color-info: hsl(200, 100%, 67%);
+
+  /* Spacing sizes */
+  --size-xs: clamp(0.5rem, calc(0.35rem + 0.4vw), 1rem);
+  --size-sm: clamp(1rem, calc(1.25rem + 0.5vw), 1.75rem);
+  --size-md: clamp(1.5rem, calc(2rem + 0.5vw), 3rem);
+  --size-lg: clamp(2.5rem, calc(3.25rem + 1vw), 4rem);
+
+  /* Font sizes */
+  --fs-sm: clamp(1rem, calc(0.8rem + 0.7vw), 1.3rem);
+  --fs-md: clamp(1.5rem, calc(1.3rem + 1vw), 2rem);
+  --fs-lg: clamp(2rem, calc(1.8rem + 1.2vw), 3rem);
+  --fs-xl: clamp(4rem, calc(4rem + 3vw), 10rem);
+
+  /* Font weights */
+  --fw-thin: 100;
+  --fw-xlight: 200;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-xbold: 800;
+  --fw-black: 900;
+
+  /* Tablet and Desktop */
+  @media screen and (min-width: 40rem) {
+    /* Font sizes */
+    --fs-sm: clamp(1rem, calc(0.8rem + 0.2vw), 3rem);
+    --fs-md: clamp(1.5rem, calc(1.3rem + 0.3vw), 5rem);
+    --fs-lg: clamp(3rem, calc(2rem + 0.5vw), 9rem);
+    --fs-xl: clamp(5rem, calc(4.5rem + 2vw), 15rem);
+  }
+}

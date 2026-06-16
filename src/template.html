@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Icon -->
+    <link rel="icon" href="./assets/favicon.png" type="image/png" />
+
+    <title>Battleship</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+      <img class="icon icon--large" src="./assets/favicon.png" alt="" />
+      <h1 class="text text--primary text--large text--xbold">BattleShip</h1>
+    </header>
+    <main id="main-content">
+      <section class="container container--flex flex-column fade-in">
+        <h2
+          class="container__header text text--primary text--medium text--bolds floating"
+          style="--delay: 0"
+        >
+          Select GameMode
+        </h2>
+        <div class="container__buttons">
+          <div class="floating wide" style="--delay: 1">
+            <button
+              type="button"
+              class="button button--rectangle button--wide button--primary floating-hover"
+            >
+              Single-player
+            </button>
+          </div>
+          <div class="floating wide" style="--delay: 2">
+            <button
+              type="button"
+              class="button button--rectangle button--wide button--primary floating-hover"
+            >
+              Multi-player
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="hidden">
+        <h2>Place Ships</h2>
+        <div class="flex-row">
+          <div class="gameboard"></div>
+          <div class="gameboard__ships"></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

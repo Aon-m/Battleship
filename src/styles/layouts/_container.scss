@@ -1,0 +1,111 @@
+@use "../abstracts/mixins" as m;
+
+.container {
+  padding-block: var(--size-md);
+  position: relative;
+  margin-inline: auto;
+
+  &--wide {
+    width: 100vw;
+  }
+
+  &--flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-md);
+  }
+
+  &--grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      clamp(20rem, calc(20rem + 1vw), 25rem)
+    );
+    justify-content: center;
+    gap: var(--size-sm);
+  }
+
+  &__header {
+    @include m.flex(column);
+    width: 100%;
+    gap: var(--size-sm);
+  }
+  &__image {
+    @include m.flex(column);
+  }
+
+  &__text-content {
+    @include m.flex(column);
+    min-height: 15rem;
+    width: min(90vw, 25rem);
+  }
+
+  &__cards {
+    @include m.flex(column);
+    gap: var(--size-md);
+  }
+
+  &__buttons {
+    @include m.flex(column);
+    gap: var(--size-sm);
+  }
+
+  &__indicators {
+    @include m.flex(row);
+    gap: var(--size-xs);
+    margin-block-start: auto;
+  }
+
+  &__navigation {
+    @include m.flex(row, center, space-between);
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__sub-container {
+    opacity: 1;
+    position: relative;
+    transition: opacity 0.6s ease;
+    margin-block-end: var(--size-md);
+  }
+}
+
+@media screen and (min-width: 40rem) {
+  .container {
+    padding: var(--size-sm) var(--size-lg) var(--size-xs);
+
+    &__cards {
+      flex-direction: row;
+    }
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .container {
+    &__sub-container {
+      min-width: 65%;
+    }
+
+    &__text-content {
+      width: clamp(23rem, calc(20rem + 5vw), 40rem);
+      align-items: flex-start;
+    }
+
+    &__image {
+      height: 100%;
+      width: auto;
+      align-self: flex-end;
+      justify-self: flex-end;
+      margin-inline-start: auto;
+    }
+    &__navigation {
+      width: 120%;
+      padding-inline: var(--size-md);
+      max-width: 80rem;
+    }
+  }
+}

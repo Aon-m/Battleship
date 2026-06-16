@@ -1,0 +1,87 @@
+// @font-face {
+// }
+
+.text {
+  font-family: "Space Mono", monospace, sans-serif;
+
+  &__description {
+    max-width: 40ch;
+    line-height: 1.5;
+
+    @media screen and (min-width: 40rem) {
+      max-width: 45ch;
+    }
+  }
+
+  &--primary {
+    color: var(--color-neutral-0);
+  }
+  &--secondary {
+    color: var(--color-neutral-2);
+  }
+  &--tertiary {
+    color: var(--color-neutral-4);
+  }
+
+  &--small {
+    font-size: var(--fs-sm);
+  }
+  &--medium {
+    font-size: var(--fs-md);
+  }
+  &--large {
+    font-size: var(--fs-lg);
+  }
+  &--larger {
+    font-size: var(--fs-xl);
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+  &--lowercase {
+    text-transform: lowercase;
+  }
+
+  &--thin {
+    font-weight: var(--fw-thin);
+  }
+  &--xlight {
+    font-weight: var(--fw-xlight);
+  }
+  &--light {
+    font-weight: var(--fw-light);
+  }
+  &--regular {
+    font-weight: var(--fw-regular);
+  }
+  &--medium {
+    font-weight: var(--fw-medium);
+  }
+  &--semibold {
+    font-weight: var(--fw-semibold);
+  }
+  &--bold {
+    font-weight: var(--fw-bold);
+  }
+  &--xbold {
+    font-weight: var(--fw-xbold);
+  }
+  &--black {
+    font-weight: var(--fw-black);
+  }
+  &--center {
+    text-align: center;
+  }
+  &--wide-screen-align-left {
+    @media screen and (min-width: 40rem) {
+      text-align: left;
+    }
+  }
+}
+
+@media screen and (min-width: 65rem) {
+  .text {
+    text-align: left;
+  }
+}

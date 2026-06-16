@@ -1,0 +1,58 @@
+@use "../../abstracts/mixins" as m;
+
+.accordion {
+  @include m.flex(column);
+  padding: var(--size-md);
+  gap: var(--size-md);
+  width: clamp(10rem, 85vw, 60rem);
+  background: var(--color-neutral-0);
+  border-radius: var(--size-sm);
+  position: relative;
+
+  &__content {
+    @include m.flex(column);
+    gap: var(--size-md);
+  }
+
+  &__heading {
+    @include m.flex(row, center, flex-start);
+    gap: var(--size-md);
+    width: 100%;
+  }
+
+  &__item {
+    @include m.flex(column);
+  }
+
+  &__title {
+    @include m.flex(row, center, space-between);
+    width: 100%;
+    gap: var(--size-sm);
+    transition: 500ms ease;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-primary);
+      transition: 200ms ease;
+    }
+  }
+
+  &__description {
+    display: block;
+    width: 100%;
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    margin-block-start: calc(var(--size-xs) + 0.25rem);
+
+    &--opened {
+      max-height: 20rem;
+    }
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .accordion {
+    width: clamp(30rem, calc(30rem + 10vw), 50rem);
+  }
+}

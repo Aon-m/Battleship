@@ -1,0 +1,8 @@
+@use "../abstracts/mixins" as m;
+
+header {
+  @include m.flex(row);
+  padding: var(--size-sm);
+  gap: var(--size-xs);
+  margin-inline: auto;
+}
