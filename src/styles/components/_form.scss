@@ -1,0 +1,106 @@
+@use "../abstracts/mixins" as m;
+
+.form {
+  @include m.flex(column);
+  width: clamp(20rem, 85vw, 25rem);
+  background: var(--color-neutral-0);
+  border-radius: var(--size-sm);
+  padding: var(--size-sm);
+  gap: var(--size-sm);
+
+  @media screen and (min-width: 60rem) {
+    width: clamp(30rem, calc(30rem + 0.5vw), 40rem);
+  }
+  position: relative;
+
+  &__field {
+    gap: var(--size-sm);
+    width: 100%;
+    margin-block-end: calc(var(--size-xs) + 0.5rem);
+  }
+
+  &__images {
+    @include m.flex(row);
+    width: 100%;
+    height: 20rem;
+  }
+
+  &__fieldset {
+    @include m.flex(column, unset);
+    border: none;
+    width: 100%;
+  }
+
+  &__legend {
+    margin-block-end: calc(var(--size-md) - 1rem);
+  }
+
+  &__content {
+    @include m.flex(column, flex-start);
+    border: none;
+    width: 100%;
+    height: 100%;
+    gap: var(--size-sm);
+  }
+
+  &__inputs {
+    @include m.flex(row, center, space-between);
+    width: 100%;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  &__label {
+    @include m.flex(row, center, flex-start);
+    gap: var(--size-xs);
+  }
+
+  &__unit {
+    color: var(--color-primary);
+  }
+
+  &__input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    border-radius: calc(var(--size-xs) + 0.2rem);
+    background-color: var(--color-neutral-0);
+    border: 0.1rem solid var(--color-neutral-3);
+    height: clamp(2rem, calc(2rem + 0.5vw), 2.5rem);
+    padding-inline-start: var(--size-xs);
+
+    &::placeholder {
+      color: var(--color-neutral-3);
+    }
+
+    &:focus {
+      outline: 0.1rem solid var(--color-primary);
+    }
+
+    &:hover {
+      outline: 0.1rem solid var(--color-primary);
+      cursor: pointer;
+    }
+    &--text {
+      width: 100%;
+    }
+
+    &--email {
+      width: 100%;
+    }
+  }
+
+  &__text-area {
+    width: 100%;
+    height: calc(var(--size-lg) + 1.5rem);
+    border-radius: var(--size-xs);
+    border: 0.1rem solid var(--color-neutral-3);
+    padding: var(--size-xs);
+
+    &:focus {
+      outline: 0.1rem solid var(--color-primary);
+    }
+  }
+}

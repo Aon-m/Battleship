@@ -16,39 +16,144 @@
       <h1 class="text text--primary text--large text--xbold">BattleShip</h1>
     </header>
     <main id="main-content">
-      <section class="container container--flex flex-column fade-in">
-        <h2
-          class="container__header text text--primary text--medium text--bolds floating"
-          style="--delay: 0"
-        >
-          Select GameMode
-        </h2>
-        <div class="container__buttons">
-          <div class="floating wide" style="--delay: 1">
-            <button
-              type="button"
-              class="button button--rectangle button--wide button--primary floating-hover"
-            >
-              Single-player
-            </button>
+      <template id="screen-gamemode">
+        <section class="container container--flex flex-column fade-in hidden">
+          <h2
+            class="container__header text text--primary text--medium text--bold floating"
+            style="--delay: 0"
+          >
+            Select GameMode
+          </h2>
+          <div class="container__buttons">
+            <div class="floating wide" style="--delay: 1">
+              <button
+                type="button"
+                class="button button--rectangle button--wide button--primary floating-hover"
+              >
+                Single-player
+              </button>
+            </div>
+            <div class="floating wide" style="--delay: 2">
+              <button
+                type="button"
+                class="button button--rectangle button--wide button--primary floating-hover"
+              >
+                Multi-player
+              </button>
+            </div>
           </div>
-          <div class="floating wide" style="--delay: 2">
-            <button
-              type="button"
-              class="button button--rectangle button--wide button--primary floating-hover"
-            >
-              Multi-player
-            </button>
+        </section>
+      </template>
+      <template id="screen-character-info">
+        <section class="container container--flex flex-column hidden">
+          <h2
+            class="container__header text text--primary text--medium text--bold floating"
+          >
+            Character
+          </h2>
+          <form class="form">
+            <fieldset class="form__fieldset">
+              <legend class="form__legend sr-only">Enter name:</legend>
+              <div class="form__field">
+                <label class="form__label" for="character-name"
+                  >What's yer name Captain?
+                </label>
+                <input
+                  type="text"
+                  class="form__input form__input--text"
+                  id="character-name"
+                />
+              </div>
+
+              <div class="form__field">
+                <label for="character-image">Choose yer looks:</label>
+                <div class="form__images">
+                  <button
+                    type="button"
+                    class="button button--primary"
+                    id="back"
+                  >
+                    <svg
+                      class="card__icon"
+                      width="15"
+                      height="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 0L1 12l12 12"
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <img
+                    class="character character--preview"
+                    id="previous-preview"
+                    src="./assets/characters/character-7.png"
+                    alt=""
+                  />
+                  <img
+                    class="character character--default"
+                    id="current-preview"
+                    src="./assets/characters/character-1.png"
+                    alt="character-image"
+                  />
+                  <img
+                    class="character character--preview"
+                    id="next-preview"
+                    src="./assets/characters/character-2.png"
+                    alt=""
+                  />
+                  <button
+                    type="button"
+                    class="button button--primary"
+                    id="forward"
+                  >
+                    <svg
+                      class="card__icon"
+                      width="14"
+                      height="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 0l12 12L1 24"
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="button--rectangle button button--secondary"
+              >
+                Done?
+              </button>
+            </fieldset>
+          </form>
+          <div class="flex-row">
+            <div class="gameboard"></div>
+            <div class="gameboard__ships"></div>
           </div>
-        </div>
-      </section>
-      <section class="hidden">
-        <h2>Place Ships</h2>
-        <div class="flex-row">
-          <div class="gameboard"></div>
-          <div class="gameboard__ships"></div>
-        </div>
-      </section>
+        </section>
+      </template>
+      <template id="screen-placeships">
+        <section class="container container--flex flex-column hidden">
+          <h2
+            class="container__header text text--primary text--medium text--bold floating"
+          >
+            Place Ships
+          </h2>
+          <div class="board__ships"></div>
+        </section>
+      </template>
+      <template id="component-gameboard">
+        <div class="board"><button class="board__square"></button></div>
+      </template>
     </main>
   </body>
 </html>

@@ -49,6 +49,10 @@
     background-color: var(--color-neutral-0);
   }
 
+  &--secondary {
+    background-color: var(--color-accent-2);
+  }
+
   &--dropdown {
     @include m.flex(row, center, flex-end);
   }

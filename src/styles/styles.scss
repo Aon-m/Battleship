@@ -1,6 +1,5 @@
 // Abstracts (variables, mixins, functions)
 @use "./abstracts/mixins" as m;
-@use "./abstracts/utilities";
 
 // Base / Reset
 @use "./base/reset";
@@ -18,12 +17,59 @@
 @use "./components/typography/list";
 @use "./components/media/picture";
 @use "./components/typography/text";
+@use "./components/form";
 
 // Layout
 @use "./layouts/container";
 @use "./layouts/footer";
 @use "./layouts/header";
 
+@use "./abstracts/utilities";
+
 body {
   background: var(--color-primary);
+}
+
+.character {
+  height: 75%;
+  padding-block-end: var(--size-small);
+
+  &--preview {
+    transform: scale(0.5);
+    z-index: 1;
+    opacity: 0.8;
+  }
+  &--default {
+    z-index: 3;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 500ms ease;
+    position: relative;
+
+    &:hover {
+      transform: scale(1.08);
+      transition: 200ms ease;
+    }
+  }
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 80vw;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--color-neutral-0);
+  overflow: hidden;
+
+  &__square {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    background: none;
+    border: 1px solid var(--color-neutral-0);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.295);
+    }
+  }
 }
