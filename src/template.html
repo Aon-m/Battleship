@@ -9,15 +9,15 @@
 
     <title>Battleship</title>
   </head>
-  <body>
+  <body class="expand">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
       <img class="icon icon--large" src="./assets/favicon.png" alt="" />
       <h1 class="text text--primary text--large text--xbold">BattleShip</h1>
     </header>
-    <main id="main-content">
+    <main id="main-content" data-page="container">
       <template id="screen-gamemode">
-        <section class="container container--flex flex-column fade-in hidden">
+        <section class="container container--flex flex-column fade-in">
           <h2
             class="container__header text text--primary text--medium text--bold floating"
             style="--delay: 0"
@@ -28,7 +28,7 @@
             <div class="floating wide" style="--delay: 1">
               <button
                 type="button"
-                class="button button--rectangle button--wide button--primary floating-hover"
+                class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
               >
                 Single-player
               </button>
@@ -36,7 +36,7 @@
             <div class="floating wide" style="--delay: 2">
               <button
                 type="button"
-                class="button button--rectangle button--wide button--primary floating-hover"
+                class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
               >
                 Multi-player
               </button>
@@ -45,7 +45,7 @@
         </section>
       </template>
       <template id="screen-character-info">
-        <section class="container container--flex flex-column hidden">
+        <section class="container container--flex flex-column">
           <h2
             class="container__header text text--primary text--medium text--bold floating"
           >
@@ -142,7 +142,7 @@
         </section>
       </template>
       <template id="screen-placeships">
-        <section class="container container--flex flex-column hidden">
+        <section class="container container--flex flex-column">
           <h2
             class="container__header text text--primary text--medium text--bold floating"
           >

@@ -17,6 +17,7 @@ export default defineConfig([
         setTimeout: "readonly",
         crypto: "readonly",
         document: "readonly",
+        requestAnimationFrame: "readonly",
       },
     },
   },

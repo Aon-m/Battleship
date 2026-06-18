@@ -1,8 +1,5 @@
 import "./styles/styles.css";
 
-document.querySelectorAll(".button--primary").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    btn.classList.remove("floating-hover");
-    btn.classList.add("yeet");
-  });
-});
+import ScreenGamemode from "./pages/screen.gamemode.js";
+const SG = new ScreenGamemode();
+SG.init();

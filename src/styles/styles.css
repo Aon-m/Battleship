@@ -250,6 +250,22 @@ body {
     opacity: 0;
   }
 }
+.expand {
+  animation: expand 500ms ease-in-out;
+  transform-origin: top;
+}
+
+@keyframes expand {
+  0% {
+    transform: scaleY(0);
+  }
+  70% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
 .attribution {
   grid-area: attribution;
   width: 100%;
@@ -1010,6 +1026,7 @@ header {
   padding: var(--size-sm);
   gap: var(--size-xs);
   margin-inline: auto;
+  background: var(--color-primary);
 }
 
 .mobile-hidden {
@@ -1144,4 +1161,13 @@ body {
 }
 .board__square:hover {
   background: rgba(255, 255, 255, 0.295);
+}
+
+body {
+  background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
+}
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url("../assets/background/desktop.jpg");
+  }
 }
