@@ -231,6 +231,19 @@ body {
     transform: scale(1);
   }
 }
+.fade-out {
+  animation: fade-out 1.5s ease-out forwards;
+  will-change: transform;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .yeet {
   animation: yeet 1s ease-out forwards;
   will-change: transform opacity;
@@ -1165,6 +1178,7 @@ body {
 
 body {
   background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
+  cursor: url("../assets/cursor-aim.png") 16 16, crosshair;
 }
 @media screen and (min-width: 768px) {
   body {

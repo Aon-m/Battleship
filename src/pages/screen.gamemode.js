@@ -1,4 +1,4 @@
-import videoSrc from "../assets/effects/swirl-explosion.mp4";
+import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 
 export default class ScreenGamemode {
   constructor() {
@@ -24,7 +24,8 @@ export default class ScreenGamemode {
 
   videoAnimation(btn) {
     const video = document.createElement("video");
-    video.src = videoSrc;
+    video.src = swirlExplosionVideoSrc;
+    video.load();
 
     btn.addEventListener("animationend", () => {
       const rect = this.rect;
@@ -43,12 +44,12 @@ export default class ScreenGamemode {
 
       document.body.appendChild(video);
 
-      video.load();
       requestAnimationFrame(() => {
         video.play();
       });
     });
   }
+
   btnAnimation(btn) {
     btn.addEventListener("click", () => {
       btn.classList.remove("floating-hover");
