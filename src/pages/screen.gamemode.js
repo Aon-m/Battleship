@@ -7,11 +7,11 @@ export default class ScreenGamemode {
     this.rect;
   }
 
-  init() {
-    this.main.appendChild(this.create());
+  init(handler = null) {
+    this.main.appendChild(this.create(handler));
   }
 
-  create() {
+  create(handler) {
     const clone = this.template.content.cloneNode(true);
 
     clone.querySelectorAll("button").forEach((btn) => {
@@ -20,8 +20,10 @@ export default class ScreenGamemode {
       const video = document.createElement("video");
       video.src = swirlExplosionVideoSrc;
       video.load();
-
       this.videoAnimation(video, btn);
+
+      if (typeof handler === "function")
+        btn.addEventListener("click", handler.bind(this));
     });
     return clone;
   }
@@ -47,6 +49,14 @@ export default class ScreenGamemode {
       requestAnimationFrame(() => {
         video.play();
       });
+
+      setTimeout(() => {
+        video.classList.add("fade-out");
+
+        setTimeout(() => {
+          video.remove();
+        }, 1500);
+      }, 4500);
     });
   }
 

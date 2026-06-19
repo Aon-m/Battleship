@@ -54,4 +54,18 @@ export default class ScreenController {
       }, 1500);
     });
   }
+
+  changeScreenAnimation(screen1, screen2) {
+    // screen = section
+    screen1.classList.add("expand-and-collapse");
+    screen1.addEventListener(
+      "animationend",
+      () => {
+        screen1.remove();
+        document.body.appendChild(screen2);
+        screen2.classList.add("enter-screen");
+      },
+      { once: true },
+    );
+  }
 }
