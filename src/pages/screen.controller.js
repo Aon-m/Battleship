@@ -51,7 +51,7 @@ export default class ScreenController {
         setTimeout(() => {
           video.remove();
         }, 1500);
-      }, 2000);
+      }, 1500);
     });
   }
 }

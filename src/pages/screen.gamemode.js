@@ -17,16 +17,16 @@ export default class ScreenGamemode {
     clone.querySelectorAll("button").forEach((btn) => {
       this.btnAnimation(btn);
 
-      this.videoAnimation(btn);
+      const video = document.createElement("video");
+      video.src = swirlExplosionVideoSrc;
+      video.load();
+
+      this.videoAnimation(video, btn);
     });
     return clone;
   }
 
-  videoAnimation(btn) {
-    const video = document.createElement("video");
-    video.src = swirlExplosionVideoSrc;
-    video.load();
-
+  videoAnimation(video, btn) {
     btn.addEventListener("animationend", () => {
       const rect = this.rect;
 
