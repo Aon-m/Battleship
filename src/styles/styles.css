@@ -264,8 +264,9 @@ body {
   }
 }
 .expand {
-  animation: expand 500ms ease-in-out;
+  animation: expand 500ms ease-in-out forwards;
   transform-origin: top;
+  will-change: transform;
 }
 
 @keyframes expand {
@@ -277,6 +278,42 @@ body {
   }
   100% {
     transform: scaleY(1);
+  }
+}
+.expand-and-collapse {
+  animation: expand-and-collapse 500ms ease-in-out forwards;
+  transform-origin: top;
+  will-change: transform;
+}
+
+@keyframes expand-and-collapse {
+  0% {
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(1.3);
+  }
+  70% {
+    transform: scaleY(1.4);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+.enter-screen {
+  animation: enter-screen 700ms ease-out forwards;
+  will-change: transform;
+}
+
+@keyframes enter-screen {
+  0% {
+    transform: translateY(100vh);
+  }
+  80% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 .attribution {
@@ -338,7 +375,7 @@ body {
   background-color: var(--color-neutral-0);
 }
 .button--secondary {
-  background-color: var(--color-accent-2);
+  background-color: var(--color-primary);
 }
 .button--dropdown {
   display: flex;
@@ -545,7 +582,7 @@ body {
   height: auto;
 }
 .icon:hover {
-  opacity: 1;
+  transform: scale(1.2);
 }
 .icon:active {
   opacity: 0.8;
@@ -570,7 +607,7 @@ body {
 }
 .icon--bold {
   stroke: var(--color-primary);
-  stroke-width: 0.5px;
+  stroke-width: 4px;
 }
 .icon--secondary {
   color: var(--color-neutral-4);

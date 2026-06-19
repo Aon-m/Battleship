@@ -1,13 +1,16 @@
 import ScreenGamemode from "./screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
+import ScreenCharacterInfo from "./screen.character.js";
 
 export default class ScreenController {
   constructor() {
     this.gamemodeScreen = new ScreenGamemode();
+    this.characterInfoScreen = new ScreenCharacterInfo();
   }
 
   init() {
     this.gamemodeScreen.init();
+    // this.characterInfoScreen.init();
     this.playCursorAnimation();
   }
 
