@@ -66,43 +66,42 @@ export default class ScreenCharacterInfo {
       offscreenPreviewRight.src = state.offscreenRight;
     }
 
-   async function update(direction) {
+    async function update(direction) {
+      const animations = animate(direction);
+
+      await Promise.all(animations.map((animation) => animation.finished));
+
       const state = getPreviewState(currentIndex, direction, previews);
       currentIndex = state.index;
-
-      animate(direction);
-
-      setTimeout(() => {
-        render(state);
-      }, 500);
+      render(state);
     }
 
     const directions = {
-      next: () => {
+      next: () => [
         moveAnimation(
           offscreenPreviewLeft,
           previousPreview,
           "offscreenToPreview",
-        );
-        moveAnimation(previousPreview, currentPreview, "previewToCurrent");
-        moveAnimation(currentPreview, nextPreview, "currentToPreview");
-        moveAnimation(nextPreview, offscreenPreviewRight, "previewToOffscreen");
-      },
+        ),
+        moveAnimation(previousPreview, currentPreview, "previewToCurrent"),
+        moveAnimation(currentPreview, nextPreview, "currentToPreview"),
+        moveAnimation(nextPreview, offscreenPreviewRight, "previewToOffscreen"),
+      ],
 
-      prev: () => {
+      prev: () => [
         moveAnimation(
           previousPreview,
           offscreenPreviewLeft,
           "previewToOffscreen",
-        );
-        moveAnimation(currentPreview, previousPreview, "currentToPreview");
-        moveAnimation(nextPreview, currentPreview, "previewToCurrent");
-        moveAnimation(offscreenPreviewRight, nextPreview, "offscreenToPreview");
-      },
+        ),
+        moveAnimation(currentPreview, previousPreview, "currentToPreview"),
+        moveAnimation(nextPreview, currentPreview, "previewToCurrent"),
+        moveAnimation(offscreenPreviewRight, nextPreview, "offscreenToPreview"),
+      ],
     };
 
     function animate(direction) {
-      directions[direction]();
+      return directions[direction]();
     }
 
     // Initial render
@@ -144,9 +143,7 @@ function moveAnimation(fromEl, toEl, type) {
   const dx = toRect.left - fromRect.left;
   const dy = toRect.top - fromRect.top;
 
-  requestAnimationFrame(() => {
-    mappedAnimation(fromEl, dx, dy, type);
-  });
+  return mappedAnimation(fromEl, dx, dy, type);
 }
 
 const animationMap = {
@@ -163,7 +160,7 @@ function mappedAnimation(e, dx, dy, type, duration = 500) {
 }
 
 function offscreenToPreview(e, dx, dy, duration) {
-  e.animate(
+  return e.animate(
     [
       {
         transform: "translate(0px, 0px) scale(0)",
@@ -182,7 +179,7 @@ function offscreenToPreview(e, dx, dy, duration) {
 }
 
 function previewToCurrent(e, dx, dy, duration) {
-  e.animate(
+  return e.animate(
     [
       {
         transform: "translate(0px, 0px) scale(0.5)",
@@ -201,7 +198,7 @@ function previewToCurrent(e, dx, dy, duration) {
 }
 
 function currentToPreview(e, dx, dy, duration) {
-  e.animate(
+  return e.animate(
     [
       {
         transform: "translate(0px, 0px) scale(1)",
@@ -220,7 +217,7 @@ function currentToPreview(e, dx, dy, duration) {
 }
 
 function previewToOffscreen(e, dx, dy, duration) {
-  e.animate(
+  return e.animate(
     [
       {
         transform: "translate(0px, 0px) scale(0.5)",
