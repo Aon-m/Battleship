@@ -32,6 +32,7 @@ body {
 
 .character {
   height: 75%;
+  max-width: 5rem;
   padding-block-end: var(--size-small);
 
   &__previews {
@@ -39,8 +40,34 @@ body {
   }
 
   &--offscreen {
-    transform: scale(0.3);
+    transform: translateY(-50%) scale(0.2);
+  }
+
+  &--preview {
+    transform: scale(0.5);
+    z-index: 1;
+  }
+
+  &--default {
+    z-index: 3;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 500ms ease;
+
+    &:hover {
+      transform: scale(1.08);
+      transition: 200ms ease;
+    }
+  }
+}
+
+.carousel {
+  @include m.flex(row);
+
+  &__offscreen {
     position: absolute;
+    opacity: 0.1;
+    top: 50%;
 
     &--right {
       right: 0;
@@ -51,22 +78,13 @@ body {
     }
   }
 
-  &--preview {
-    transform: scale(0.5);
-    z-index: 1;
+  &__preview {
     opacity: 0.8;
   }
-  &--default {
-    z-index: 3;
-    cursor: pointer;
-    transform: scale(1);
-    transition: 500ms ease;
-    position: relative;
 
-    &:hover {
-      transform: scale(1.08);
-      transition: 200ms ease;
-    }
+  &__current {
+    z-index: 3;
+    opacity: 1;
   }
 }
 

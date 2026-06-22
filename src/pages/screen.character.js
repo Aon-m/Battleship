@@ -47,6 +47,17 @@ export default class ScreenCharacterInfo {
     const offscreenPreviewRight = container.querySelector(
       "#offscreen-preview-right",
     );
+    const slotoffscreenPreviewLeft = container.querySelector(
+      "#slot-offscreen-preview-left",
+    );
+    const slotpreviousPreview = container.querySelector(
+      "#slot-previous-preview",
+    );
+    const slotcurrentPreview = container.querySelector("#slot-current-preview");
+    const slotnextPreview = container.querySelector("#slot-next-preview");
+    const slotoffscreenPreviewRight = container.querySelector(
+      "#slot-offscreen-preview-right",
+    );
 
     const previews = [
       character1,
@@ -73,30 +84,47 @@ export default class ScreenCharacterInfo {
 
       const state = getPreviewState(currentIndex, direction, previews);
       currentIndex = state.index;
+
       render(state);
     }
 
     const directions = {
       next: () => [
         moveAnimation(
-          offscreenPreviewLeft,
-          previousPreview,
+          slotoffscreenPreviewLeft,
+          slotpreviousPreview,
           "offscreenToPreview",
         ),
-        moveAnimation(previousPreview, currentPreview, "previewToCurrent"),
-        moveAnimation(currentPreview, nextPreview, "currentToPreview"),
-        moveAnimation(nextPreview, offscreenPreviewRight, "previewToOffscreen"),
+        moveAnimation(
+          slotpreviousPreview,
+          slotcurrentPreview,
+          "previewToCurrent",
+        ),
+        moveAnimation(slotcurrentPreview, slotnextPreview, "currentToPreview"),
+        moveAnimation(
+          slotnextPreview,
+          slotoffscreenPreviewRight,
+          "previewToOffscreen",
+        ),
       ],
 
       prev: () => [
         moveAnimation(
-          previousPreview,
-          offscreenPreviewLeft,
+          slotpreviousPreview,
+          slotoffscreenPreviewLeft,
           "previewToOffscreen",
         ),
-        moveAnimation(currentPreview, previousPreview, "currentToPreview"),
-        moveAnimation(nextPreview, currentPreview, "previewToCurrent"),
-        moveAnimation(offscreenPreviewRight, nextPreview, "offscreenToPreview"),
+        moveAnimation(
+          slotcurrentPreview,
+          slotpreviousPreview,
+          "currentToPreview",
+        ),
+        moveAnimation(slotnextPreview, slotcurrentPreview, "previewToCurrent"),
+        moveAnimation(
+          slotoffscreenPreviewRight,
+          slotnextPreview,
+          "offscreenToPreview",
+        ),
       ],
     };
 
@@ -141,9 +169,8 @@ function moveAnimation(fromEl, toEl, type) {
   const toRect = toEl.getBoundingClientRect();
 
   const dx = toRect.left - fromRect.left;
-  const dy = toRect.top - fromRect.top;
 
-  return mappedAnimation(fromEl, dx, dy, type);
+  return mappedAnimation(fromEl, dx, type);
 }
 
 const animationMap = {
@@ -153,21 +180,21 @@ const animationMap = {
   previewToOffscreen,
 };
 
-function mappedAnimation(e, dx, dy, type, duration = 500) {
+function mappedAnimation(e, dx, type, duration = 500) {
   if (!animationMap[type]) return;
 
-  return animationMap[type](e, dx, dy, duration);
+  return animationMap[type](e, dx, duration);
 }
 
-function offscreenToPreview(e, dx, dy, duration) {
+function offscreenToPreview(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0)",
+        transform: "translateX(0px) scale(0)",
         opacity: 0,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0.5)`,
+        transform: `translateX(${dx}px) scale(0.5)`,
         opacity: 0.8,
       },
     ],
@@ -178,15 +205,15 @@ function offscreenToPreview(e, dx, dy, duration) {
   );
 }
 
-function previewToCurrent(e, dx, dy, duration) {
+function previewToCurrent(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0.5)",
+        transform: "translateX(0px) scale(0.5)",
         opacity: 0.8,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(1)`,
+        transform: `translateX(${dx}px) scale(1)`,
         opacity: 1,
       },
     ],
@@ -197,15 +224,15 @@ function previewToCurrent(e, dx, dy, duration) {
   );
 }
 
-function currentToPreview(e, dx, dy, duration) {
+function currentToPreview(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(1)",
+        transform: "translateX(0px) scale(1)",
         opacity: 1,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0.5)`,
+        transform: `translateX(${dx}px) scale(0.5)`,
         opacity: 0.8,
       },
     ],
@@ -216,15 +243,15 @@ function currentToPreview(e, dx, dy, duration) {
   );
 }
 
-function previewToOffscreen(e, dx, dy, duration) {
+function previewToOffscreen(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0.5)",
+        transform: "translateX(0px) scale(0.5)",
         opacity: 0.8,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0)`,
+        transform: `translateX(${dx}px) scale(0)`,
         opacity: 0,
       },
     ],
