@@ -205,9 +205,8 @@
 }
 
 .expand {
-  animation: expand 500ms ease-in-out forwards;
+  animation: expand 500ms ease-in-out;
   transform-origin: top;
-  will-change: transform;
 }
 
 @keyframes expand {
@@ -263,5 +262,66 @@
 
   100% {
     transform: translateY(0);
+  }
+}
+
+.offscreen-to-preview {
+  animation: offscreen-to-preview 700ms ease-out forwards;
+  will-change: transform;
+}
+
+@keyframes offscreen-to-preview {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+}
+
+.preview-to-current {
+  animation: preview-to-current 700ms ease-out forwards;
+  will-change: transform;
+}
+@keyframes preview-to-current {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.current-to-preview {
+  animation: current-to-preview 700ms ease-out forwards;
+  will-change: transform;
+}
+@keyframes current-to-preview {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+}
+
+.preview-to-offscreen {
+  animation: preview-to-offscreen 700ms ease-out forwards;
+  will-change: transform;
+}
+@keyframes preview-to-offscreen {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
   }
 }

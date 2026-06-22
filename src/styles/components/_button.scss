@@ -56,4 +56,15 @@
   &--dropdown {
     @include m.flex(row, center, flex-end);
   }
+
+  &--navigation {
+    &--left {
+      justify-self: flex-start;
+      margin-inline-end: auto;
+    }
+    &--right {
+      justify-self: flex-end;
+      margin-inline-start: auto;
+    }
+  }
 }

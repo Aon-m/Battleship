@@ -34,6 +34,23 @@ body {
   height: 75%;
   padding-block-end: var(--size-small);
 
+  &__previews {
+    position: relative;
+  }
+
+  &--offscreen {
+    transform: scale(0.3);
+    position: absolute;
+
+    &--right {
+      right: 0;
+    }
+
+    &--left {
+      left: 0;
+    }
+  }
+
   &--preview {
     transform: scale(0.5);
     z-index: 1;
@@ -77,7 +94,9 @@ body {
 body {
   background: url("../assets/background/tablet.jpg") center center / cover
     no-repeat;
-    cursor: url("../assets/cursor-aim.png") 16 16, crosshair;
+  cursor:
+    url("../assets/cursor-aim.png") 16 16,
+    crosshair;
 
   @media screen and (min-width: 768px) {
     background-image: url("../assets/background/desktop.jpg");

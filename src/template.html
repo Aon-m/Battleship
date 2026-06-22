@@ -60,17 +60,17 @@
                 </label>
                 <input
                   type="text"
-                  class="form__input form__input--text"
+                  class="form__input form__input--text text text--bold text--small"
                   id="character-name"
                 />
               </div>
 
               <div class="form__field">
                 <label for="character-image">Choose yer looks:</label>
-                <div class="form__images">
+                <div class="form__images character__previews">
                   <button
                     type="button"
-                    class="button icon icon--large icon--primary icon--bold fast-slow-hover"
+                    class="button button--navigation button--navigation--left icon icon--large icon--primary icon--bold fast-slow-hover"
                     id="back"
                   >
                     <svg
@@ -87,6 +87,12 @@
                       />
                     </svg>
                   </button>
+                  <img
+                    class="character character--offscreen character--offscreen--left"
+                    id="offscreen-preview-left"
+                    src="./assets/characters/character-6.png"
+                    alt=""
+                  />
                   <img
                     class="character character--preview"
                     id="previous-preview"
@@ -105,9 +111,15 @@
                     src="./assets/characters/character-2.png"
                     alt=""
                   />
+                  <img
+                    class="character character--offscreen character--offscreen--right"
+                    id="offscreen-preview-right"
+                    src="./assets/characters/character-3.png"
+                    alt=""
+                  />
                   <button
                     type="button"
-                    class="button icon icon--large icon--primary icon--bold fast-slow-hover"
+                    class="button button--navigation button--navigation--right icon icon--large icon--primary icon--bold fast-slow-hover"
                     id="forward"
                   >
                     <svg

@@ -1,6 +1,7 @@
 import ScreenGamemode from "./screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 import ScreenCharacterInfo from "./screen.character.js";
+import throttle from "../utils/throttle.js";
 
 export default class ScreenController {
   constructor() {
@@ -9,9 +10,17 @@ export default class ScreenController {
   }
 
   init() {
-    this.gamemodeScreen.init();
-    // this.characterInfoScreen.init();
-    this.playCursorAnimation();
+    // this.gamemodeScreen.init();
+    this.characterInfoScreen.init();
+
+    // cursor animation
+    const debouncedPlayCursorAnimation = throttle(
+      this.playCursorAnimation.bind(this),
+      500,
+    );
+    document.addEventListener("click", (e) => {
+      debouncedPlayCursorAnimation(e);
+    });
   }
 
   loadCursorAnimation() {
@@ -30,32 +39,30 @@ export default class ScreenController {
     return video;
   }
 
-  playCursorAnimation() {
-    document.addEventListener("click", (e) => {
-      if (e.target.closest("button")) return;
+  playCursorAnimation(e) {
+    if (e.target.closest("button")) return;
 
-      const video = this.loadCursorAnimation();
+    const video = this.loadCursorAnimation();
 
-      video.style.left = `${e.clientX + 10}px`;
-      video.style.top = `${e.clientY + 10}px`;
-      video.style.transform = "translate(-50%, -50%)";
+    video.style.left = `${e.clientX + 10}px`;
+    video.style.top = `${e.clientY + 10}px`;
+    video.style.transform = "translate(-50%, -50%)";
 
-      video.addEventListener("ended", () => {
-        video.remove();
-      });
-
-      document.body.appendChild(video);
-      video.play();
-
-      //   If ended listener fails
-      setTimeout(() => {
-        video.classList.add("fade-out");
-
-        setTimeout(() => {
-          video.remove();
-        }, 1500);
-      }, 1500);
+    video.addEventListener("ended", () => {
+      video.remove();
     });
+
+    document.body.appendChild(video);
+    video.play();
+
+    //   If ended listener fails
+    setTimeout(() => {
+      video.classList.add("fade-out");
+
+      setTimeout(() => {
+        video.remove();
+      }, 1500);
+    }, 1500);
   }
 
   changeScreenAnimation(screen1, screen2) {
