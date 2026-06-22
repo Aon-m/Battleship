@@ -10,6 +10,7 @@ export default class ScreenCharacterInfo {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
     this.template = document.querySelector("#screen-character-info");
+    this.step = 75;
   }
 
   init(handler = null) {
@@ -80,23 +81,25 @@ export default class ScreenCharacterInfo {
       next: () => [
         moveAnimation(
           offscreenPreviewLeft,
-          previousPreview,
           "offscreenToPreview",
+          "next",
+          this.step,
         ),
-        moveAnimation(previousPreview, currentPreview, "previewToCurrent"),
-        moveAnimation(currentPreview, nextPreview, "currentToPreview"),
-        moveAnimation(nextPreview, offscreenPreviewRight, "previewToOffscreen"),
+        moveAnimation(previousPreview, "previewToCurrent", "next", this.step),
+        moveAnimation(currentPreview, "currentToPreview", "next", this.step),
+        moveAnimation(nextPreview, "previewToOffscreen", "next", this.step),
       ],
 
       prev: () => [
+        moveAnimation(previousPreview, "previewToOffscreen", "prev", this.step),
+        moveAnimation(currentPreview, "currentToPreview", "prev", this.step),
+        moveAnimation(nextPreview, "previewToCurrent", "prev", this.step),
         moveAnimation(
-          previousPreview,
-          offscreenPreviewLeft,
-          "previewToOffscreen",
+          offscreenPreviewRight,
+          "offscreenToPreview",
+          "prev",
+          this.step,
         ),
-        moveAnimation(currentPreview, previousPreview, "currentToPreview"),
-        moveAnimation(nextPreview, currentPreview, "previewToCurrent"),
-        moveAnimation(offscreenPreviewRight, nextPreview, "offscreenToPreview"),
       ],
     };
 
@@ -136,14 +139,9 @@ function getPreviewState(index, direction, previews) {
   };
 }
 
-function moveAnimation(fromEl, toEl, type) {
-  const fromRect = fromEl.getBoundingClientRect();
-  const toRect = toEl.getBoundingClientRect();
-
-  const dx = toRect.left - fromRect.left;
-  const dy = toRect.top - fromRect.top;
-
-  return mappedAnimation(fromEl, dx, dy, type);
+function moveAnimation(fromEl, type, direction, step) {
+  const dx = direction === "prev" ? -step : step;
+  return mappedAnimation(fromEl, dx, type);
 }
 
 const animationMap = {
@@ -153,84 +151,80 @@ const animationMap = {
   previewToOffscreen,
 };
 
-function mappedAnimation(e, dx, dy, type, duration = 500) {
+function mappedAnimation(e, dx, type, duration = 500) {
   if (!animationMap[type]) return;
 
-  return animationMap[type](e, dx, dy, duration);
+  return animationMap[type](e, dx, duration);
 }
 
-function offscreenToPreview(e, dx, dy, duration) {
+function offscreenToPreview(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0)",
+        transform: "translateX(0px) scale(0)",
         opacity: 0,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0.5)`,
+        transform: `translateX(${dx}px) scale(0.5)`,
         opacity: 0.8,
       },
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
 
-function previewToCurrent(e, dx, dy, duration) {
+function previewToCurrent(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0.5)",
+        transform: "translateX(0px) scale(0.5)",
         opacity: 0.8,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(1)`,
+        transform: `translateX(${dx}px) scale(1)`,
         opacity: 1,
       },
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
 
-function currentToPreview(e, dx, dy, duration) {
+function currentToPreview(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(1)",
+        transform: "translateX(0px) scale(1)",
         opacity: 1,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0.5)`,
+        transform: `translateX(${dx}px) scale(0.5)`,
         opacity: 0.8,
       },
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
 
-function previewToOffscreen(e, dx, dy, duration) {
+function previewToOffscreen(e, dx, duration) {
   return e.animate(
     [
       {
-        transform: "translate(0px, 0px) scale(0.5)",
+        transform: "translateX(0px) scale(0.5)",
         opacity: 0.8,
       },
       {
-        transform: `translate(${dx}px, ${dy}px) scale(0)`,
+        transform: `translateX(${dx}px) scale(0)`,
         opacity: 0,
       },
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }

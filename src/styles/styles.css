@@ -442,6 +442,9 @@ body {
   align-items: center;
   justify-content: flex-end;
 }
+.button--navigation {
+  aspect-ratio: 1/1;
+}
 .button--navigation--left {
   justify-self: flex-start;
   margin-inline-end: auto;
@@ -1249,7 +1252,8 @@ body {
   position: relative;
 }
 .character--offscreen {
-  transform: scale(0.3);
+  transform: scale(0);
+  opacity: 0;
   position: absolute;
 }
 .character--offscreen--right {
