@@ -10,6 +10,7 @@ export default class ScreenCharacterInfo {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
     this.template = document.querySelector("#screen-character-info");
+    this.step = 75;
   }
 
   init(handler = null) {
@@ -91,39 +92,25 @@ export default class ScreenCharacterInfo {
     const directions = {
       next: () => [
         moveAnimation(
-          slotoffscreenPreviewLeft,
-          slotpreviousPreview,
+          offscreenPreviewLeft,
           "offscreenToPreview",
+          "next",
+          this.step,
         ),
-        moveAnimation(
-          slotpreviousPreview,
-          slotcurrentPreview,
-          "previewToCurrent",
-        ),
-        moveAnimation(slotcurrentPreview, slotnextPreview, "currentToPreview"),
-        moveAnimation(
-          slotnextPreview,
-          slotoffscreenPreviewRight,
-          "previewToOffscreen",
-        ),
+        moveAnimation(previousPreview, "previewToCurrent", "next", this.step),
+        moveAnimation(currentPreview, "currentToPreview", "next", this.step),
+        moveAnimation(nextPreview, "previewToOffscreen", "next", this.step),
       ],
 
       prev: () => [
+        moveAnimation(previousPreview, "previewToOffscreen", "prev", this.step),
+        moveAnimation(currentPreview, "currentToPreview", "prev", this.step),
+        moveAnimation(nextPreview, "previewToCurrent", "prev", this.step),
         moveAnimation(
-          slotpreviousPreview,
-          slotoffscreenPreviewLeft,
-          "previewToOffscreen",
-        ),
-        moveAnimation(
-          slotcurrentPreview,
-          slotpreviousPreview,
-          "currentToPreview",
-        ),
-        moveAnimation(slotnextPreview, slotcurrentPreview, "previewToCurrent"),
-        moveAnimation(
-          slotoffscreenPreviewRight,
-          slotnextPreview,
+          offscreenPreviewRight,
           "offscreenToPreview",
+          "prev",
+          this.step,
         ),
       ],
     };
@@ -164,12 +151,8 @@ function getPreviewState(index, direction, previews) {
   };
 }
 
-function moveAnimation(fromEl, toEl, type) {
-  const fromRect = fromEl.getBoundingClientRect();
-  const toRect = toEl.getBoundingClientRect();
-
-  const dx = toRect.left - fromRect.left;
-
+function moveAnimation(fromEl, type, direction, step) {
+  const dx = direction === "prev" ? -step : step;
   return mappedAnimation(fromEl, dx, type);
 }
 
@@ -200,7 +183,6 @@ function offscreenToPreview(e, dx, duration) {
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
@@ -219,7 +201,6 @@ function previewToCurrent(e, dx, duration) {
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
@@ -238,7 +219,6 @@ function currentToPreview(e, dx, duration) {
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }
@@ -257,7 +237,6 @@ function previewToOffscreen(e, dx, duration) {
     ],
     {
       duration,
-      fill: "forwards",
     },
   );
 }

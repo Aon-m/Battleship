@@ -58,6 +58,8 @@
   }
 
   &--navigation {
+    aspect-ratio: 1 / 1;
+
     &--left {
       justify-self: flex-start;
       margin-inline-end: auto;

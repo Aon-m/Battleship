@@ -442,6 +442,9 @@ body {
   align-items: center;
   justify-content: flex-end;
 }
+.button--navigation {
+  aspect-ratio: 1/1;
+}
 .button--navigation--left {
   justify-self: flex-start;
   margin-inline-end: auto;
@@ -861,6 +864,7 @@ body {
   border-radius: var(--size-sm);
   padding: var(--size-sm);
   gap: var(--size-sm);
+  cursor: default;
 }
 @media screen and (min-width: 60rem) {
   .form {
@@ -1250,7 +1254,15 @@ body {
   position: relative;
 }
 .character--offscreen {
-  transform: translateY(-50%) scale(0.2);
+  transform: scale(0);
+  opacity: 0;
+  position: absolute;
+}
+.character--offscreen--right {
+  right: 0;
+}
+.character--offscreen--left {
+  left: 0;
 }
 .character--preview {
   transform: scale(0.5);

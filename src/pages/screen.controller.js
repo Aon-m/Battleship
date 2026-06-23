@@ -10,8 +10,8 @@ export default class ScreenController {
   }
 
   init() {
-    // this.gamemodeScreen.init();
-    this.characterInfoScreen.init();
+    this.gamemodeScreen.init();
+    // this.characterInfoScreen.init();
 
     // cursor animation
     const debouncedPlayCursorAnimation = throttle(
@@ -41,6 +41,7 @@ export default class ScreenController {
 
   playCursorAnimation(e) {
     if (e.target.closest("button")) return;
+    if (e.target.closest("form")) return;
 
     const video = this.loadCursorAnimation();
 

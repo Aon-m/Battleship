@@ -18,6 +18,8 @@ export default defineConfig([
         crypto: "readonly",
         document: "readonly",
         requestAnimationFrame: "readonly",
+        ResizeObserver: "readonly",
+        getComputedStyle: "readonly",
       },
     },
   },
