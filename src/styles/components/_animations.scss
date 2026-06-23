@@ -224,7 +224,7 @@
 }
 
 .expand-and-collapse {
-  animation: expand-and-collapse 500ms ease-in-out forwards;
+  animation: expand-and-collapse 1500ms ease-in-out forwards;
   transform-origin: top;
   will-change: transform;
 }
@@ -234,7 +234,7 @@
     transform: scaleY(1);
   }
 
-  30% {
+  40% {
     transform: scaleY(1.3);
   }
 
