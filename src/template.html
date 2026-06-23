@@ -17,7 +17,7 @@
     </header>
     <main id="main-content" data-page="container">
       <template id="screen-gamemode">
-        <section class="container container--flex flex-column fade-in">
+        <section data-page="screen-gamemode" class="container container--flex flex-column fade-in">
           <h2
             class="container__header text text--primary text--medium text--bold floating"
             style="--delay: 0"
@@ -29,6 +29,7 @@
               <button
                 type="button"
                 class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
+                data-action="gamemode-single"
               >
                 Single-player
               </button>
@@ -37,6 +38,7 @@
               <button
                 type="button"
                 class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
+                data-action="gamemode-multi"
               >
                 Multi-player
               </button>
@@ -45,7 +47,7 @@
         </section>
       </template>
       <template id="screen-character-info">
-        <section class="container container--flex flex-column">
+        <section data-page="screen-character-info" class="container container--flex flex-column">
           <h2
             class="container__header text text--primary text--medium text--bold floating"
           >

@@ -4,7 +4,9 @@ export default class ScreenGamemode {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
     this.template = document.querySelector("#screen-gamemode");
-    this.rect;
+
+    this.clone = null;
+    this.rect = null;
   }
 
   init(handler = null) {
@@ -12,9 +14,11 @@ export default class ScreenGamemode {
   }
 
   create(handler) {
-    const clone = this.template.content.cloneNode(true);
+    const fragment = this.template.content.cloneNode(true);
 
-    clone.querySelectorAll("button").forEach((btn) => {
+    this.clone = fragment.firstElementChild;
+
+    this.clone.querySelectorAll("button").forEach((btn) => {
       this.btnAnimation(btn);
 
       const video = document.createElement("video");
@@ -23,10 +27,13 @@ export default class ScreenGamemode {
       this.videoAnimation(video, btn);
 
       if (typeof handler === "function")
-        btn.addEventListener("click", handler.bind(this));
+        btn.addEventListener("click", handler.bind(this, btn.dataset.action));
     });
-    return clone;
+  
+    return fragment;
   }
+
+  // move the this.videoAnimatino(video, btn) to the controller
 
   videoAnimation(video, btn) {
     btn.addEventListener("animationend", () => {

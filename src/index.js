@@ -1,5 +1,5 @@
 import "./styles/styles.css";
 
-import ScreenController from "./pages/screen.controller.js";
-const SG = new ScreenController();
-SG.init();
+import MainController from "./controller/main.controller.js";
+const controller = new MainController();
+controller.init();

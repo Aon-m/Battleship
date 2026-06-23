@@ -9,9 +9,8 @@ export default class ScreenController {
     this.characterInfoScreen = new ScreenCharacterInfo();
   }
 
-  init() {
-    this.gamemodeScreen.init();
-    // this.characterInfoScreen.init();
+  init(handler) {
+    this.gamemodeScreen.init(handler);
 
     // cursor animation
     const debouncedPlayCursorAnimation = throttle(
@@ -20,6 +19,19 @@ export default class ScreenController {
     );
     document.addEventListener("click", (e) => {
       debouncedPlayCursorAnimation(e);
+    });
+  }
+
+  bindClick(element, handler) {
+    element.addEventListener("click", handler);
+  }
+
+  bindStaticActions(handler) {
+    this.bindClick(this.openFilterBtn, () => handler("open-filter"));
+    this.bindClick(this.resetFiltersBtn, () => handler("reset-filters"));
+
+    this.dialogCloseBtn.forEach((btn) => {
+      this.bindClick(btn, () => handler("close-dialog", btn.dataset.dialog));
     });
   }
 
@@ -66,6 +78,10 @@ export default class ScreenController {
     }, 1500);
   }
 
+  loadCharacterInfoScreen(handler) {
+    this.characterInfoScreen.init(handler);
+  }
+
   changeScreenAnimation(screen1, screen2) {
     // screen = section
     screen1.classList.add("expand-and-collapse");
@@ -74,6 +90,7 @@ export default class ScreenController {
       () => {
         screen1.remove();
         document.body.appendChild(screen2);
+        screen2.classList.remove("hidden");
         screen2.classList.add("enter-screen");
       },
       { once: true },
