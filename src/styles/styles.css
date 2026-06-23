@@ -864,6 +864,7 @@ body {
   border-radius: var(--size-sm);
   padding: var(--size-sm);
   gap: var(--size-sm);
+  cursor: default;
 }
 @media screen and (min-width: 60rem) {
   .form {
