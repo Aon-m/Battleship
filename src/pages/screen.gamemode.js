@@ -1,5 +1,3 @@
-import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
-
 export default class ScreenGamemode {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
@@ -9,31 +7,17 @@ export default class ScreenGamemode {
     this.rect = null;
   }
 
-  init(handler = null) {
-    this.main.appendChild(this.create(handler));
+  init() {
+    this.main.appendChild(this.create());
   }
 
-  create(handler) {
+  create() {
     const fragment = this.template.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;
 
-    this.clone.querySelectorAll("button").forEach((btn) => {
-      this.btnAnimation(btn);
-
-      const video = document.createElement("video");
-      video.src = swirlExplosionVideoSrc;
-      video.load();
-      this.videoAnimation(video, btn);
-
-      if (typeof handler === "function")
-        btn.addEventListener("click", handler.bind(this, btn.dataset.action));
-    });
-  
     return fragment;
   }
-
-  // move the this.videoAnimatino(video, btn) to the controller
 
   videoAnimation(video, btn) {
     btn.addEventListener("animationend", () => {

@@ -2,6 +2,7 @@ import ScreenGamemode from "./screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 import ScreenCharacterInfo from "./screen.character.js";
 import throttle from "../utils/throttle.js";
+import bindClick from "../utils/bindClick.js";
 
 export default class ScreenController {
   constructor() {
@@ -22,17 +23,21 @@ export default class ScreenController {
     });
   }
 
-  bindClick(element, handler) {
-    element.addEventListener("click", handler);
-  }
-
   bindStaticActions(handler) {
-    this.bindClick(this.openFilterBtn, () => handler("open-filter"));
-    this.bindClick(this.resetFiltersBtn, () => handler("reset-filters"));
+    // Gamemode Screen
+    this.gamemodeScreen.clone.querySelectorAll("button").forEach((btn) => {
+      if (typeof handler !== "function") return;
 
-    this.dialogCloseBtn.forEach((btn) => {
-      this.bindClick(btn, () => handler("close-dialog", btn.dataset.dialog));
+      bindClick(btn, () => handler("btn-animation"));
+      bindClick(btn, () => handler("video-animation"));
+      bindClick(btn, () => handler(btn.dataset.action));
     });
+
+    // Character Info Screen
+    bindClick(this.characterInfoScreen.clone.querySelector("#back"), () => handler("move-back"));
+    bindClick(this.characterInfoScreen.clone.querySelector("#forward"), () =>
+      handler("move-forward"),
+    );
   }
 
   loadCursorAnimation() {
@@ -95,5 +100,16 @@ export default class ScreenController {
       },
       { once: true },
     );
+  }
+
+  videoAnimation(btn) {
+    const video = document.createElement("video");
+    video.src = swirlExplosionVideoSrc;
+    video.load();
+    this.gamemodeScreen.videoAnimation(video, btn);
+  }
+
+  btnAnimation(btn) {
+    this.gamemodeScreen.btnAnimation(btn);
   }
 }

@@ -6,29 +6,16 @@ export default class ScreenCharacterInfo {
     this.clone = null;
   }
 
-  init(handler = null) {
-    this.main.appendChild(this.create(handler));
+  init() {
+    this.main.appendChild(this.create());
   }
 
-  create(handler) {
+  create() {
     const fragment = this.template.content.cloneNode(true);
     // const mover = this.move(this.clone);
 
     this.clone = fragment.firstElementChild;
 
-    if (typeof handler === "function") {
-      this.bindClick(this.clone.querySelector("#back"), () =>
-        handler("move-back"),
-      );
-      this.bindClick(this.clone.querySelector("#forward"), () =>
-        handler("move-forward"),
-      );
-    }
-
     return fragment;
-  }
-
-  bindClick(element, handler) {
-    element.addEventListener("click", handler);
   }
 }
