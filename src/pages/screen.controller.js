@@ -1,7 +1,6 @@
 import ScreenGamemode from "./screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 import ScreenCharacterInfo from "./screen.character.js";
-import throttle from "../utils/throttle.js";
 import bindClick from "../utils/bindClick.js";
 
 export default class ScreenController {
@@ -12,32 +11,31 @@ export default class ScreenController {
 
   init(handler) {
     this.gamemodeScreen.init(handler);
-
-    // cursor animation
-    const debouncedPlayCursorAnimation = throttle(
-      this.playCursorAnimation.bind(this),
-      500,
-    );
-    document.addEventListener("click", (e) => {
-      debouncedPlayCursorAnimation(e);
-    });
   }
 
-  bindStaticActions(handler) {
+  bindGamemodeActions(handler) {
+    if (typeof handler !== "function") return;
+
+    // Cursor animation
+    bindClick(document, (e) => handler("cursor-animation", e));
+
     // Gamemode Screen
-    this.gamemodeScreen.clone.querySelectorAll("button").forEach((btn) => {
-      if (typeof handler !== "function") return;
+    this.gamemodeScreenContainer()
+      .querySelectorAll("button")
+      .forEach((btn) => {
+        bindClick(btn, () => handler("btn-animation", btn));
+        bindClick(btn, () => handler("video-animation", btn));
+        bindClick(btn, () => handler(btn.dataset.action, btn));
+      });
+  }
 
-      bindClick(btn, () => handler("btn-animation"));
-      bindClick(btn, () => handler("video-animation"));
-      bindClick(btn, () => handler(btn.dataset.action));
-    });
-
+  bindCharacterInfoActions(handler) {
     // Character Info Screen
-    bindClick(this.characterInfoScreen.clone.querySelector("#back"), () => handler("move-back"));
-    bindClick(this.characterInfoScreen.clone.querySelector("#forward"), () =>
-      handler("move-forward"),
-    );
+    this.characterInfoScreenContainer()
+      .querySelectorAll("button")
+      .forEach((btn) => {
+        bindClick(btn, () => handler(btn.dataset.action, btn));
+      });
   }
 
   loadCursorAnimation() {
@@ -111,5 +109,13 @@ export default class ScreenController {
 
   btnAnimation(btn) {
     this.gamemodeScreen.btnAnimation(btn);
+  }
+
+  gamemodeScreenContainer() {
+    return this.gamemodeScreen.clone;
+  }
+
+  characterInfoScreenContainer() {
+    return this.characterInfoScreen.clone;
   }
 }
