@@ -17,7 +17,10 @@
     </header>
     <main id="main-content" data-page="container">
       <template id="screen-gamemode">
-        <section data-page="screen-gamemode" class="container container--flex flex-column fade-in">
+        <section
+          data-page="screen-gamemode"
+          class="container container--flex flex-column fade-in"
+        >
           <h2
             class="container__header text text--primary text--medium text--bold floating"
             style="--delay: 0"
@@ -47,13 +50,16 @@
         </section>
       </template>
       <template id="screen-character-info">
-        <section data-page="screen-character-info" class="container container--flex flex-column">
+        <section
+          data-page="screen-character-info"
+          class="container container--flex flex-column"
+        >
           <h2
             class="container__header text text--primary text--medium text--bold floating"
           >
             Character
           </h2>
-          <form class="form">
+          <form class="form" id="character-form">
             <fieldset class="form__fieldset text--small">
               <legend class="form__legend sr-only">Enter name:</legend>
               <div class="form__field">
@@ -62,6 +68,7 @@
                 </label>
                 <input
                   type="text"
+                  name="character-name"
                   class="form__input form__input--text text text--bold text--small"
                   id="character-name"
                 />
@@ -69,6 +76,11 @@
 
               <div class="form__field">
                 <label for="character-image">Choose yer looks:</label>
+                <input
+                  type="hidden"
+                  name="character-image"
+                  id="character-image"
+                />
                 <div class="character__previews form__images">
                   <button
                     type="button"
@@ -92,57 +104,57 @@
                   </button>
                   <div class="carousel">
                     <div
-                    
-                    id="slot-offscreen-preview-left"
-                    class="carousel__slot carousel__offscreen carousel__offscreen--left">
-                    <img
-                    class="character character--offscreen character--offscreen--left"
-                    src="./assets/characters/character-6.png"
-                    id="offscreen-preview-left"
+                      id="slot-offscreen-preview-left"
+                      class="carousel__slot carousel__offscreen carousel__offscreen--left"
+                    >
+                      <img
+                        class="character character--offscreen character--offscreen--left"
+                        src="./assets/characters/character-6.png"
+                        id="offscreen-preview-left"
                         alt=""
                       />
                     </div>
                     <div
-                    
-                    id="slot-previous-preview"
-                    class="carousel__slot carousel__preview">
-                    <img
-                    class="character character--preview"
-                    src="./assets/characters/character-7.png"
-                    id="previous-preview"
+                      id="slot-previous-preview"
+                      class="carousel__slot carousel__preview"
+                    >
+                      <img
+                        class="character character--preview"
+                        src="./assets/characters/character-7.png"
+                        id="previous-preview"
                         alt=""
                       />
                     </div>
                     <div
-                    
-                    id="slot-current-preview"
-                    class="carousel__slot carousel__current">
-                    <img
-                    class="character character--default"
-                    src="./assets/characters/character-1.png"
-                    id="current-preview"
+                      id="slot-current-preview"
+                      class="carousel__slot carousel__current"
+                    >
+                      <img
+                        class="character character--default"
+                        src="./assets/characters/character-1.png"
+                        id="current-preview"
                         alt="character-image"
                       />
                     </div>
                     <div
-                    
-                    id="slot-next-preview"
-                    class="carousel__slot carousel__preview">
-                    <img
-                    class="character character--preview"
-                    src="./assets/characters/character-2.png"
-                    id="next-preview"
+                      id="slot-next-preview"
+                      class="carousel__slot carousel__preview"
+                    >
+                      <img
+                        class="character character--preview"
+                        src="./assets/characters/character-2.png"
+                        id="next-preview"
                         alt=""
                       />
                     </div>
                     <div
-                    
-                    id="slot-offscreen-preview-right"
-                    class="carousel__slot carousel__offscreen carousel__offscreen--right">
-                    <img
-                    class="character character--offscreen character--offscreen--right"
-                    src="./assets/characters/character-3.png"
-                    id="offscreen-preview-right"
+                      id="slot-offscreen-preview-right"
+                      class="carousel__slot carousel__offscreen carousel__offscreen--right"
+                    >
+                      <img
+                        class="character character--offscreen character--offscreen--right"
+                        src="./assets/characters/character-3.png"
+                        id="offscreen-preview-right"
                         alt=""
                       />
                     </div>

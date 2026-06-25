@@ -20,6 +20,7 @@ export default defineConfig([
         requestAnimationFrame: "readonly",
         ResizeObserver: "readonly",
         getComputedStyle: "readonly",
+        FormData: "readonly",
       },
     },
   },
