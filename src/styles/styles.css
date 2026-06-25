@@ -969,6 +969,44 @@ body {
   outline: 0.1rem solid var(--color-primary);
 }
 
+/* Credit: https://css-loaders.com/spinner/ */
+.spinner {
+  width: 50px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-neutral-0);
+  -webkit-mask: repeating-conic-gradient(rgba(0, 0, 0, 0) 0deg, #000 1deg 70deg, rgba(0, 0, 0, 0) 71deg 90deg), radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+          mask: repeating-conic-gradient(rgba(0, 0, 0, 0) 0deg, #000 1deg 70deg, rgba(0, 0, 0, 0) 71deg 90deg), radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+  -webkit-mask-composite: source-in, xor;
+          mask-composite: intersect;
+  animation: l5 1s infinite;
+}
+
+@keyframes l5 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+.loader {
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 3ch 0 0);
+  animation: l4 1s steps(4) infinite;
+}
+
+.loader:before {
+  content: "calibrating...";
+}
+
+@keyframes l4 {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
+}
 .container {
   padding-block: var(--size-md);
   position: relative;
@@ -1242,13 +1280,19 @@ header {
 }
 
 body {
-  background: var(--color-primary);
+  background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
+  cursor: url("../assets/cursor-aim.png") 16 16, crosshair;
+}
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url("../assets/background/desktop.jpg");
+  }
 }
 
 .character {
   height: 75%;
   max-width: 5rem;
-  padding-block-end: var(--size-small);
+  padding-block-end: var(--size-sm);
 }
 .character__previews {
   position: relative;
@@ -1323,12 +1367,17 @@ body {
   background: rgba(255, 255, 255, 0.295);
 }
 
-body {
-  background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
-  cursor: url("../assets/cursor-aim.png") 16 16, crosshair;
-}
-@media screen and (min-width: 768px) {
-  body {
-    background-image: url("../assets/background/desktop.jpg");
-  }
+.buffering-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  width: 100vw;
+  height: 100vh;
+  gap: var(--size-sm);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }

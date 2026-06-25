@@ -18,6 +18,7 @@
 @use "./components/media/picture";
 @use "./components/typography/text";
 @use "./components/form";
+@use "./components/loader";
 
 // Layout
 @use "./layouts/container";
@@ -27,13 +28,21 @@
 @use "./abstracts/utilities";
 
 body {
-  background: var(--color-primary);
+  background: url("../assets/background/tablet.jpg") center center / cover
+    no-repeat;
+  cursor:
+    url("../assets/cursor-aim.png") 16 16,
+    crosshair;
+
+  @media screen and (min-width: 768px) {
+    background-image: url("../assets/background/desktop.jpg");
+  }
 }
 
 .character {
   height: 75%;
   max-width: 5rem;
-  padding-block-end: var(--size-small);
+  padding-block-end: var(--size-sm);
 
   &__previews {
     position: relative;
@@ -119,14 +128,15 @@ body {
   }
 }
 
-body {
-  background: url("../assets/background/tablet.jpg") center center / cover
-    no-repeat;
-  cursor:
-    url("../assets/cursor-aim.png") 16 16,
-    crosshair;
+.buffering-screen {
+  @include m.flex(column);
+  background-color: var(--color-primary);
+  width: 100vw;
+  height: 100vh;
+  gap: var(--size-sm);
 
-  @media screen and (min-width: 768px) {
-    background-image: url("../assets/background/desktop.jpg");
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
