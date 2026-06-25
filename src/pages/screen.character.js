@@ -8,11 +8,12 @@ export default class ScreenCharacterInfo {
 
   init() {
     this.main.appendChild(this.create());
+
+    return this.clone();
   }
 
   create() {
     const fragment = this.template.content.cloneNode(true);
-    // const mover = this.move(this.clone);
 
     this.clone = fragment.firstElementChild;
 
