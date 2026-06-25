@@ -1,13 +1,15 @@
-export default class FormView {
-  static characterForm = document.querySelector("#character-form");
+export default class Form {
+  static form = null;
 
-  static init() {
-    this.characterForm.addEventListener("submit", (e) => e.preventDefault());
+  static init(form) {
+    this.form = form;
+    this.form.addEventListener("submit", (e) => e.preventDefault());
   }
 
   static getData() {
     this.setImage();
-    const data = new FormData(this.characterForm);
+    console.log(this.form);
+    const data = new FormData(this.form);
 
     return {
       name: data.get("character-name"),
@@ -21,6 +23,6 @@ export default class FormView {
   }
 
   static reset() {
-    this.characterForm.reset();
+    this.form.reset();
   }
 }

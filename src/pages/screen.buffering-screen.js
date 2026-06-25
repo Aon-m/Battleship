@@ -1,7 +1,7 @@
-export default class ScreenCharacterInfo {
+export default class ScreenBuffering {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
-    this.template = document.querySelector("#screen-character-info");
+    this.template = document.querySelector("#screen-buffering");
 
     this.clone = null;
   }

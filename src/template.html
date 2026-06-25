@@ -57,7 +57,7 @@
           <h2
             class="container__header text text--primary text--medium text--bold floating"
           >
-            Character
+            Character Customization
           </h2>
           <form class="form" id="character-form">
             <fieldset class="form__fieldset text--small">
@@ -127,7 +127,7 @@
                     </div>
                     <div
                       id="slot-current-preview"
-                      class="carousel__slot carousel__current"
+                      class="carousel__slot carousel__current fast-slow-hover"
                     >
                       <img
                         class="character character--default"
@@ -184,6 +184,7 @@
 
               <button
                 type="submit"
+                data-action="submit-character-info"
                 class="button--rectangle button button--secondary text text--small text--primary"
               >
                 Done?
@@ -209,7 +210,7 @@
       <template id="component-gameboard">
         <div class="board"><button class="board__square"></button></div>
       </template>
-      <template id="buffering-screen">
+      <template id="screen-buffering">
         <section class="buffering-screen">
           <div class="spinner" aria-hidden="true"></div>
           <p

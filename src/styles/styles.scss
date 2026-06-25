@@ -71,11 +71,11 @@ body {
     z-index: 3;
     cursor: pointer;
     transform: scale(1);
-    transition: 500ms ease;
+    transition: 1000ms ease;
 
     &:hover {
       transform: scale(1.08);
-      transition: 200ms ease;
+      transition: 500ms ease;
     }
   }
 }
@@ -98,7 +98,7 @@ body {
   }
 
   &__preview {
-    opacity: 0.8;
+    opacity: 0.7;
   }
 
   &__current {

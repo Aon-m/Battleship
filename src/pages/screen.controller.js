@@ -2,11 +2,13 @@ import ScreenGamemode from "./screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 import ScreenCharacterInfo from "./screen.character.js";
 import bindClick from "../utils/bindClick.js";
+import ScreenBuffering from "./screen.buffering-screen.js";
 
 export default class ScreenController {
   constructor() {
     this.gamemodeScreen = new ScreenGamemode();
     this.characterInfoScreen = new ScreenCharacterInfo();
+    this.bufferingScreen = new ScreenBuffering();
   }
 
   init() {
@@ -81,8 +83,8 @@ export default class ScreenController {
     }, 1500);
   }
 
-  loadCharacterInfoScreen(handler) {
-    this.characterInfoScreen.init(handler);
+  loadCharacterInfoScreen() {
+    this.characterInfoScreen.init();
   }
 
   changeScreenAnimation(screen1, screen2) {
@@ -151,5 +153,11 @@ export default class ScreenController {
 
   characterInfoScreenContainer() {
     return this.characterInfoScreen.clone;
+  }
+
+  loadBufferingScreen() {
+    this.bufferingScreen.init();
+
+    return this.bufferingScreen.clone;
   }
 }
