@@ -51,15 +51,6 @@ body {
   &--offscreen {
     transform: scale(0);
     opacity: 0;
-    position: absolute;
-
-    &--right {
-      right: 0;
-    }
-
-    &--left {
-      left: 0;
-    }
   }
 
   &--preview {
@@ -85,15 +76,15 @@ body {
 
   &__offscreen {
     position: absolute;
-    opacity: 0.1;
     top: 50%;
+    transform: translateY(-50%);
 
     &--right {
-      right: 0;
+      right: 1rem;
     }
 
     &--left {
-      left: 0;
+      left: 1rem;
     }
   }
 
