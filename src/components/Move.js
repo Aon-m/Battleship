@@ -6,6 +6,7 @@ import character5 from "../assets/characters/character-5.png";
 import character6 from "../assets/characters/character-6.png";
 import character7 from "../assets/characters/character-7.png";
 import MoveAnimation from "./MoveAnimation.js";
+import throttle from "../utils/throttle.js";
 
 export default class Move {
   constructor(
@@ -31,6 +32,9 @@ export default class Move {
     this.elements = this.bindElements();
 
     this.previews = previews;
+
+    this.next = throttle(this.next.bind(this), 500);
+    this.prev = throttle(this.prev.bind(this), 500);
   }
 
   init() {
