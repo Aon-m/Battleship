@@ -1,4 +1,4 @@
-import toNumber from "../utils/toNumber";
+import toNumber from "../utils/toNumber.js";
 
 export default class Ship {
   constructor(length) {

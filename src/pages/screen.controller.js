@@ -3,12 +3,15 @@ import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
 import ScreenCharacterInfo from "./screen.character.js";
 import bindClick from "../utils/bindClick.js";
 import ScreenBuffering from "./screen.buffering-screen.js";
+import ScreenPlaceShips from "./screen.placeships.js";
 
 export default class ScreenController {
   constructor() {
     this.gamemodeScreen = new ScreenGamemode();
     this.characterInfoScreen = new ScreenCharacterInfo();
     this.bufferingScreen = new ScreenBuffering();
+    this.placeShipsScreen = new ScreenPlaceShips();
+    this.isTransitioning = false;
   }
 
   init() {
@@ -89,14 +92,24 @@ export default class ScreenController {
 
   changeScreenAnimation(screen1, screen2) {
     // screen = section
+    if (this.isTransitioning) return;
+    this.isTransitioning = true;
+
     screen1.classList.add("expand-and-collapse");
+
     screen1.addEventListener(
       "animationend",
       () => {
         screen1.remove();
+        screen2.style.opacity = 1;
         document.body.appendChild(screen2);
         screen2.classList.remove("hidden");
         screen2.classList.add("enter-screen");
+        this.isTransitioning = false;
+
+        screen2.addEventListener("animationend", () => {
+          screen2.classList.remove("enter-screen");
+        });
       },
       { once: true },
     );
@@ -159,5 +172,11 @@ export default class ScreenController {
     this.bufferingScreen.init();
 
     return this.bufferingScreen.clone;
+  }
+
+  loadPlaceShipsScreen() {
+    this.placeShipsScreen.init();
+
+    return this.placeShipsScreen.clone;
   }
 }

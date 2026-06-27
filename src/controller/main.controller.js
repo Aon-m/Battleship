@@ -12,7 +12,7 @@ export default class MainController {
     this.currentScreen = null;
     this.currentMode = null;
 
-    this.debouncedPlayCursorAnimation = throttle(
+    this.throttledPlayCursorAnimation = throttle(
       this.view.playCursorAnimation.bind(this.view),
       500,
     );
@@ -29,7 +29,7 @@ export default class MainController {
   handler(action, target) {
     switch (action) {
       case "cursor-animation": {
-        this.debouncedPlayCursorAnimation(target);
+        this.throttledPlayCursorAnimation(target);
         break;
       }
       case "btn-animation":
@@ -51,6 +51,10 @@ export default class MainController {
         const data = Form.getData();
         this.createPlayer(data.name, data.image);
         this.loadBufferingScreen();
+
+        setTimeout(() => {
+          this.loadPlaceShipsScreen();
+        }, 5000);
         break;
       }
     }
@@ -75,6 +79,12 @@ export default class MainController {
 
   loadBufferingScreen() {
     const screen = this.view.loadBufferingScreen();
+    this.view.changeScreenAnimation(this.currentScreen, screen);
+    this.currentScreen = screen;
+  }
+
+  loadPlaceShipsScreen() {
+    const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
   }

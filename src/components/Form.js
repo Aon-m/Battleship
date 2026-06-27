@@ -8,7 +8,6 @@ export default class Form {
 
   static getData() {
     this.setImage();
-    console.log(this.form);
     const data = new FormData(this.form);
 
     return {
