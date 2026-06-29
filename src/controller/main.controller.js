@@ -87,6 +87,10 @@ export default class MainController {
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
+
+    const shipNames = Object.keys(this.players[0].ships);
+    this.view.loadShips(shipNames);
+    this.view.moveShips()
   }
 
   createPlayer(name, image) {

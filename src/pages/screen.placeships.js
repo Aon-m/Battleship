@@ -20,13 +20,14 @@ export default class ScreenPlaceShips {
 
     this.clone = fragment.firstElementChild;
 
-    const ships = this.clone.querySelector(".board__ships");
-    ships;
     const gameboard = this.clone.querySelector(".board");
 
     for (let i = 1; i <= 100; i++) {
       gameboard.appendChild(this.createBtn(i));
     }
+
+    const ships = this.clone.querySelector(".board__ships");
+    this.clone.appendChild(ships);
 
     return fragment;
   }
@@ -39,5 +40,28 @@ export default class ScreenPlaceShips {
     button.dataset.coordinate = numberToCoordinate(i);
 
     return button;
+  }
+
+  loadShips(shipNames) {
+    const container = this.clone.querySelector(".board__ships");
+
+    shipNames.forEach((shipName) => {
+      container.appendChild(this.#createShipDiv(shipName));
+    });
+  }
+
+  #createShipDiv(shipName) {
+    const ship = document.createElement("div");
+    ship.classList.add("board__ship__container");
+
+    const img = document.createElement("img");
+    img.src = new URL(`../assets/ships/ship-${shipName}.png`, import.meta.url);
+    img.classList.add("board__ship");
+    img.classList.add(`board__ship--${shipName}`);
+    img.alt = `${shipName}`;
+
+    ship.appendChild(img);
+
+    return ship;
   }
 }

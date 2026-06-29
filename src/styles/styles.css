@@ -1372,6 +1372,34 @@ body {
 .board__square--missed {
   background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
 }
+.board__ships {
+  background: var(--color-primary);
+  padding: var(--size-md) var(--size-lg);
+  border-radius: var(--size-md);
+  width: min(80vw, 50rem);
+  text-align: center;
+  margin-block-end: var(--size-sm);
+}
+.board__ship__container {
+  cursor: grab;
+  margin-inline-end: 0.5rem;
+  display: inline;
+}
+.board__ship--destroyer {
+  max-width: calc(var(--size-lg) * 1 + 5vw);
+}
+.board__ship--submarine {
+  max-width: calc(var(--size-lg) * 2 + 5vw);
+}
+.board__ship--cruiser {
+  max-width: calc(var(--size-lg) * 2 + 5vw);
+}
+.board__ship--battleship {
+  max-width: calc(var(--size-lg) * 3 + 5vw);
+}
+.board__ship--carrier {
+  max-width: calc(var(--size-lg) * 4 + 5vw);
+}
 
 .buffering-screen {
   display: flex;

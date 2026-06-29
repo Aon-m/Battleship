@@ -21,6 +21,8 @@ export default defineConfig([
         ResizeObserver: "readonly",
         getComputedStyle: "readonly",
         FormData: "readonly",
+        URL: "readonly",
+        require: "readonly",
       },
     },
   },

@@ -130,6 +130,43 @@ body {
         no-repeat;
     }
   }
+
+  &__ships {
+    background: var(--color-primary);
+    padding: var(--size-md) var(--size-lg);
+    border-radius: var(--size-md);
+    width: min(80vw, 50rem);
+    text-align: center;
+    margin-block-end: var(--size-sm);
+  }
+
+  &__ship {
+    &__container {
+      cursor: grab;
+      margin-inline-end: 0.5rem;
+      display: inline;
+    }
+
+    &--destroyer {
+      max-width: calc((var(--size-lg) * 1) + 5vw);
+    }
+
+    &--submarine {
+      max-width: calc((var(--size-lg) * 2) + 5vw);
+    }
+
+    &--cruiser {
+      max-width: calc((var(--size-lg) * 2) + 5vw);
+    }
+
+    &--battleship {
+      max-width: calc((var(--size-lg) * 3) + 5vw);
+    }
+
+    &--carrier {
+      max-width: calc((var(--size-lg) * 4) + 5vw);
+    }
+  }
 }
 
 .buffering-screen {

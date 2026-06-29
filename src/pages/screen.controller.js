@@ -61,6 +61,7 @@ export default class ScreenController {
 
   playCursorAnimation(e) {
     if (e.target.closest("button")) return;
+    if (e.target.closest(".container")) return;
     if (e.target.closest("form")) return;
 
     const video = this.loadCursorAnimation();
@@ -178,5 +179,22 @@ export default class ScreenController {
     this.placeShipsScreen.init();
 
     return this.placeShipsScreen.clone;
+  }
+
+  loadShips(shipNames) {
+    this.placeShipsScreen.loadShips(shipNames);
+  }
+
+  moveShip(domShip) {
+    // to be added
+    return domShip;
+  }
+
+  moveShips() {
+    this.placeShipsScreen.clone
+      .querySelectorAll(".board__ship__container")
+      .forEach((ship) => {
+        this.moveShip(ship);
+      });
   }
 }
