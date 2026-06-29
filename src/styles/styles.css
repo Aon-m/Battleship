@@ -1285,7 +1285,7 @@ header {
 
 body {
   background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
-  cursor: url("../assets/cursor-aim.png") 16 16, crosshair;
+  cursor: url("../assets/icons/cursor-aim.png") 16 16, crosshair;
 }
 @media screen and (min-width: 768px) {
   body {
@@ -1356,12 +1356,21 @@ body {
 .board__square {
   width: 100%;
   aspect-ratio: 1/1;
-  cursor: pointer;
   background: none;
   border: 1px solid var(--color-neutral-0);
 }
-.board__square:hover {
-  background: rgba(255, 255, 255, 0.295);
+.board__square:hover:not(.board__square--missed):not(.board__square--damaged) {
+  background: hsla(0, 0%, 100%, 0.295);
+  cursor: pointer;
+}
+.board__square--selected {
+  background: hsla(0, 0%, 100%, 0.5);
+}
+.board__square--damaged {
+  background: hsla(4, 100%, 67%, 0.5);
+}
+.board__square--missed {
+  background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
 }
 
 .buffering-screen {

@@ -98,7 +98,7 @@ export default class Move {
     const e = this.elements;
 
     const map = {
-      next: () => [
+      prev: () => [
         this.animator.moveAnimation(
           e.left,
           "offscreenToPreview",
@@ -124,7 +124,7 @@ export default class Move {
           this.step,
         ),
       ],
-      prev: () => [
+      next: () => [
         this.animator.moveAnimation(
           e.prev,
           "previewToOffscreen",
@@ -159,7 +159,7 @@ export default class Move {
     const length = previews.length;
 
     const nextIndex =
-      direction === "prev"
+      direction === "next"
         ? (index + 1) % length
         : (index - 1 + length) % length;
 

@@ -1,3 +1,5 @@
+import numberToCoordinate from "../utils/numberToCoordinate.js";
+
 export default class ScreenPlaceShips {
   constructor() {
     this.main = document.querySelector(`[data-page="container"]`);
@@ -22,18 +24,19 @@ export default class ScreenPlaceShips {
     ships;
     const gameboard = this.clone.querySelector(".board");
 
-    for (let i = 0; i < 10; i++) {
-      gameboard.appendChild(this.createBtn());
+    for (let i = 1; i <= 100; i++) {
+      gameboard.appendChild(this.createBtn(i));
     }
 
     return fragment;
   }
 
-  createBtn() {
+  createBtn(i) {
     const button = document.createElement("button");
 
     button.className = "board__square";
     button.type = "button";
+    button.dataset.coordinate = numberToCoordinate(i);
 
     return button;
   }
