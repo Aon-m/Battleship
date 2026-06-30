@@ -3,6 +3,7 @@ import throttle from "../utils/throttle.js";
 import Player from "../components/Player.js";
 import Form from "../components/Form.js";
 import Move from "../components/Move.js";
+import DragAndDrop from "../components/DragAndDrop.js";
 
 export default class MainController {
   constructor() {
@@ -90,7 +91,15 @@ export default class MainController {
 
     const shipNames = Object.keys(this.players[0].ships);
     this.view.loadShips(shipNames);
-    this.view.moveShips();
+
+    const ships = this.view.placeShipsScreenShips();
+    ships.forEach((e) => {
+      const dragAndDrop = new DragAndDrop(
+        e,
+        this.view.placeShipsScreenShipsContainers(),
+      );
+      dragAndDrop.init();
+    });
   }
 
   createPlayer(name, image) {

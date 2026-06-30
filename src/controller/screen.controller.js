@@ -185,16 +185,17 @@ export default class ScreenController {
     this.placeShipsScreen.loadShips(shipNames);
   }
 
-  moveShip(domShip) {
-    // to be added
-    return domShip;
+  placeShipsScreenContainer() {
+    return this.placeShipsScreen.clone;
   }
 
-  moveShips() {
-    this.placeShipsScreen.clone
-      .querySelectorAll(".board__ship__container")
-      .forEach((ship) => {
-        this.moveShip(ship);
-      });
+  placeShipsScreenShips() {
+    return this.placeShipsScreenContainer().querySelectorAll(
+      ".board__ship__container",
+    );
+  }
+
+  placeShipsScreenShipsContainers() {
+    return this.placeShipsScreenContainer().querySelectorAll(".drag-container");
   }
 }

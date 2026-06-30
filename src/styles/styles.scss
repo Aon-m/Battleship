@@ -105,7 +105,7 @@ body {
   aspect-ratio: 1 / 1;
   border: 1px solid var(--color-neutral-0);
   overflow: hidden;
-  max-width: 100rem;
+  max-width: 80rem;
 
   &__square {
     width: 100%;
@@ -146,6 +146,10 @@ body {
       cursor: grab;
       margin-inline-end: 0.5rem;
       display: inline;
+
+      &.dragging {
+        opacity: 0.5;
+      }
     }
 
     &--destroyer {
