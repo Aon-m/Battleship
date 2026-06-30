@@ -1,3 +1,3 @@
-export default function bindClick(element, handler) {
-  element.addEventListener("click", handler);
+export default function bindClick(element, handler, once = false) {
+  element.addEventListener("click", handler, { once });
 }

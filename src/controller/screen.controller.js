@@ -1,9 +1,9 @@
-import ScreenGamemode from "./screen.gamemode.js";
+import ScreenGamemode from "../pages/screen.gamemode.js";
 import swirlExplosionVideoSrc from "../assets/effects/swirl-explosion.mp4";
-import ScreenCharacterInfo from "./screen.character.js";
+import ScreenCharacterInfo from "../pages/screen.character.js";
 import bindClick from "../utils/bindClick.js";
-import ScreenBuffering from "./screen.buffering-screen.js";
-import ScreenPlaceShips from "./screen.placeships.js";
+import ScreenBuffering from "../pages/screen.buffering-screen.js";
+import ScreenPlaceShips from "../pages/screen.placeships.js";
 
 export default class ScreenController {
   constructor() {
@@ -30,7 +30,7 @@ export default class ScreenController {
       .forEach((btn) => {
         bindClick(btn, () => handler("btn-animation", btn));
         bindClick(btn, () => handler("video-animation", btn));
-        bindClick(btn, () => handler(btn.dataset.action, btn));
+        bindClick(btn, () => handler(btn.dataset.action, btn), true);
       });
   }
 

@@ -1,4 +1,4 @@
-import ScreenController from "../pages/screen.controller.js";
+import ScreenController from "./screen.controller.js";
 import throttle from "../utils/throttle.js";
 import Player from "../components/Player.js";
 import Form from "../components/Form.js";
@@ -90,7 +90,7 @@ export default class MainController {
 
     const shipNames = Object.keys(this.players[0].ships);
     this.view.loadShips(shipNames);
-    this.view.moveShips()
+    this.view.moveShips();
   }
 
   createPlayer(name, image) {
