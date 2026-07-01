@@ -12,7 +12,7 @@ describe("Gameboard", () => {
     test("Places ship horizontally", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
-      gameboard.placeShip(ship, "horizontal", "A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
 
       expect(gameboard.board[0][0]).toBe(ship);
       expect(gameboard.board[0][1]).toBe(ship);
@@ -23,7 +23,7 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "vertical", "A1");
+      gameboard.placeShip(ship, "vertical", "A0");
 
       expect(gameboard.board[0][0]).toBe(ship);
       expect(gameboard.board[1][0]).toBe(ship);
@@ -44,8 +44,8 @@ describe("Gameboard", () => {
       const ship1 = new Ship(3);
       const ship2 = new Ship(3);
 
-      const result1 = gameboard.placeShip(ship1, "horizontal", "A1");
-      const result2 = gameboard.placeShip(ship2, "horizontal", "A1");
+      const result1 = gameboard.placeShip(ship1, "horizontal", "A0");
+      const result2 = gameboard.placeShip(ship2, "horizontal", "A0");
 
       expect(result1).toBe(true);
       expect(result2).toBe(false);
@@ -58,8 +58,8 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
-      gameboard.receiveAttack("A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
+      gameboard.receiveAttack("A0");
 
       expect(ship.hits).toBe(1);
     });
@@ -69,7 +69,7 @@ describe("Gameboard", () => {
       const ship1 = new Ship(3);
       const ship2 = new Ship(3);
 
-      gameboard.placeShip(ship1, "horizontal", "A1");
+      gameboard.placeShip(ship1, "horizontal", "A0");
       gameboard.placeShip(ship2, "horizontal", "C1");
 
       gameboard.receiveAttack("C1");
@@ -81,7 +81,7 @@ describe("Gameboard", () => {
     test("Records a missed attack", () => {
       const gameboard = new GameBoard();
 
-      gameboard.receiveAttack("J10");
+      gameboard.receiveAttack("J9");
 
       expect(gameboard.missedShots).toEqual([[9, 9]]);
     });
@@ -90,8 +90,8 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
-      gameboard.receiveAttack("J10");
+      gameboard.placeShip(ship, "horizontal", "A0");
+      gameboard.receiveAttack("J9");
 
       expect(ship.hits).toBe(0);
     });
@@ -100,9 +100,9 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
 
-      gameboard.receiveAttack("A1");
+      gameboard.receiveAttack("A0");
       gameboard.receiveAttack("A2");
 
       expect(ship.hits).toBe(2);
@@ -112,10 +112,10 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
 
-      gameboard.receiveAttack("A1");
-      gameboard.receiveAttack("A1");
+      gameboard.receiveAttack("A0");
+      gameboard.receiveAttack("A0");
 
       expect(ship.hits).toBe(1);
     });
@@ -124,11 +124,11 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
 
+      gameboard.receiveAttack("A0");
       gameboard.receiveAttack("A1");
       gameboard.receiveAttack("A2");
-      gameboard.receiveAttack("A3");
 
       expect(ship.isSunk()).toBe(true);
     });
@@ -139,11 +139,11 @@ describe("Gameboard", () => {
       const gameboard = new GameBoard();
       const ship = new Ship(3);
 
-      gameboard.placeShip(ship, "horizontal", "A1");
+      gameboard.placeShip(ship, "horizontal", "A0");
 
+      gameboard.receiveAttack("A0");
       gameboard.receiveAttack("A1");
       gameboard.receiveAttack("A2");
-      gameboard.receiveAttack("A3");
 
       expect(gameboard.allShipsSunk()).toBe(true);
     });
