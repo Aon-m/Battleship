@@ -59,6 +59,10 @@ export default class MainController {
         }, 5000);
         break;
       }
+      case "change-ship-orientation": {
+        this.changeShipOrientation(target);
+        break;
+      }
     }
   }
 
@@ -90,9 +94,11 @@ export default class MainController {
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
-    let ships = Object.values(this.players[0].ships);
-    ships.map((ship) => this.extractShipNamesAndId(ship));
+    let ships = Object.values(this.players[0].ships).map((ship) =>
+      this.extractShipInfo(ship),
+    );
     this.view.loadShips(ships);
+    this.view.bindPlaceShipsActions(this.handler.bind(this));
 
     const domShips = this.view.placeShipsScreenShips();
     domShips.forEach((e) => {
@@ -104,8 +110,8 @@ export default class MainController {
     });
   }
 
-  extractShipNamesAndId(ship) {
-    return { name: ship.name, id: ship.ship.id };
+  extractShipInfo(ship) {
+    return { name: ship.name, id: ship.ship.id, length: ship.ship.length };
   }
 
   createPlayer(name, image) {
@@ -113,5 +119,33 @@ export default class MainController {
     this.players.push(player);
 
     return player;
+  }
+
+  changeShipOrientation(target) {
+    target.dataset.shipOrientation =
+      target.dataset.shipOrientation === "horizontal"
+        ? "vertical"
+        : "horizontal";
+    this.view.changeShipOrientation(target);
+  }
+
+  boardSquareOnHover(square, domShip) {
+    const shipId = domShip.dataset.shipId;
+    const shipOrientation = domShip.dataset.shipOrientation;
+    const coordinate = square.dataset.coordinate;
+
+    this.currentPlayer.gameboard.validateCoordinate(shipId, shipOrientation, coordinate);
+
+    // validate
+    // highlight
+  }
+
+  boardSquareOnDrop(square, domShip) {
+    const shipId = domShip.dataset.shipId;
+    const shipOrientation = domShip.dataset.shipOrientation;
+    const coordinate = square.dataset.coordinate;
+
+    this.currentPlayer.gameboard.placeShip(shipId, shipOrientation, coordinate);
+    this.view.updateBoard();
   }
 }

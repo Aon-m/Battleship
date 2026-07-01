@@ -43,6 +43,15 @@ export default class ScreenController {
       });
   }
 
+  bindPlaceShipsActions(handler) {
+    // Place Ships Screen
+    this.placeShipsScreenContainer()
+      .querySelectorAll("[data-action]")
+      .forEach((element) => {
+        bindClick(element, () => handler(element.dataset.action, element));
+      });
+  }
+
   loadCursorAnimation() {
     const video = document.createElement("video");
     video.src = swirlExplosionVideoSrc;
@@ -190,12 +199,14 @@ export default class ScreenController {
   }
 
   placeShipsScreenShips() {
-    return this.placeShipsScreenContainer().querySelectorAll(
-      ".board__ship__container",
-    );
+    return this.placeShipsScreenContainer().querySelectorAll(".board__ship");
   }
 
   placeShipsScreenShipsContainers() {
     return this.placeShipsScreenContainer().querySelectorAll(".drag-container");
+  }
+
+  changeShipOrientation(target) {
+    target.closest(".board__ship").classList.toggle("vertical");
   }
 }

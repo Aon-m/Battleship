@@ -48,6 +48,7 @@ body {
   --size-sm: clamp(1rem, calc(1.25rem + 0.5vw), 1.75rem);
   --size-md: clamp(1.5rem, calc(2rem + 0.5vw), 3rem);
   --size-lg: clamp(2.5rem, calc(3.25rem + 1vw), 4rem);
+  --size-square: clamp(2.5rem, calc(2rem + 1vw), 5rem);
   /* Font sizes */
   --fs-sm: clamp(1rem, calc(0.8rem + 0.7vw), 1.3rem);
   --fs-md: clamp(1.5rem, calc(1.3rem + 1vw), 2rem);
@@ -1348,17 +1349,15 @@ body {
 .board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  width: 80vw;
   aspect-ratio: 1/1;
   border: 1px solid var(--color-neutral-0);
   overflow: hidden;
-  max-width: 80rem;
 }
 .board__square {
-  width: 100%;
   aspect-ratio: 1/1;
   background: none;
   border: 1px solid var(--color-neutral-0);
+  width: var(--size-square);
 }
 .board__square:hover:not(.board__square--missed):not(.board__square--damaged) {
   background: hsla(0, 0%, 100%, 0.295);
@@ -1387,31 +1386,61 @@ body {
   padding: var(--size-md) var(--size-lg);
   border-radius: var(--size-md);
   width: min(80vw, 50rem);
-  text-align: center;
   margin-block-end: var(--size-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
-.board__ship__container {
+.board__ship {
   cursor: grab;
-  margin-inline-end: 0.5rem;
-  display: inline;
+  display: inline-grid;
+  grid-auto-flow: column;
+  vertical-align: middle;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-.board__ship__container.dragging {
+.board__ship.dragging {
   opacity: 0.5;
 }
+.board__ship.vertical {
+  grid-auto-flow: row;
+}
+.board__ship__square {
+  aspect-ratio: 1/1;
+  height: auto;
+  width: var(--size-square);
+}
 .board__ship--destroyer {
-  max-width: calc(var(--size-lg) * 1 + 5vw);
+  background-image: url("../assets/ships/ship-destroyer.png");
+}
+.board__ship--destroyer.vertical {
+  background-image: url("../assets/ships/ship-destroyer-vertical.png");
 }
 .board__ship--submarine {
-  max-width: calc(var(--size-lg) * 2 + 5vw);
+  background-image: url("../assets/ships/ship-submarine.png");
+}
+.board__ship--submarine.vertical {
+  background-image: url("../assets/ships/ship-submarine-vertical.png");
 }
 .board__ship--cruiser {
-  max-width: calc(var(--size-lg) * 2 + 5vw);
+  background-image: url("../assets/ships/ship-cruiser.png");
+}
+.board__ship--cruiser.vertical {
+  background-image: url("../assets/ships/ship-cruiser-vertical.png");
 }
 .board__ship--battleship {
-  max-width: calc(var(--size-lg) * 3 + 5vw);
+  background-image: url("../assets/ships/ship-battleship.png");
+}
+.board__ship--battleship.vertical {
+  background-image: url("../assets/ships/ship-battleship-vertical.png");
 }
 .board__ship--carrier {
-  max-width: calc(var(--size-lg) * 4 + 5vw);
+  background-image: url("../assets/ships/ship-carrier.png");
+}
+.board__ship--carrier.vertical {
+  background-image: url("../assets/ships/ship-carrier-vertical.png");
 }
 
 .buffering-screen {

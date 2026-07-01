@@ -40,6 +40,7 @@
   --size-sm: clamp(1rem, calc(1.25rem + 0.5vw), 1.75rem);
   --size-md: clamp(1.5rem, calc(2rem + 0.5vw), 3rem);
   --size-lg: clamp(2.5rem, calc(3.25rem + 1vw), 4rem);
+  --size-square: clamp(2.5rem, calc(2rem + 1vw), 5rem);
 
   /* Font sizes */
   --fs-sm: clamp(1rem, calc(0.8rem + 0.7vw), 1.3rem);

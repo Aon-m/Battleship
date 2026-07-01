@@ -46,22 +46,27 @@ export default class ScreenPlaceShips {
     const container = this.clone.querySelector(".board__ships");
 
     ships.forEach((ship) => {
-      container.appendChild(this.#createShipDiv(ship.name, ship.id));
+      container.appendChild(
+        this.#createShipDiv(ship.name, ship.id, ship.length),
+      );
     });
   }
 
-  #createShipDiv(shipName, shipId) {
+  #createShipDiv(shipName, shipId, shipLength) {
     const ship = document.createElement("div");
-    ship.classList.add("board__ship__container");
+    ship.classList.add("board__ship");
+    ship.classList.add(`board__ship--${shipName}`);
+
     ship.dataset.shipId = shipId;
+    ship.dataset.shipOrientation = "horizontal";
+    ship.dataset.action = "change-ship-orientation";
+    ship.dataset.shipLength = shipLength;
 
-    const img = document.createElement("img");
-    img.src = new URL(`../assets/ships/ship-${shipName}.png`, import.meta.url);
-    img.classList.add("board__ship");
-    img.classList.add(`board__ship--${shipName}`);
-    img.alt = `${shipName}`;
-
-    ship.appendChild(img);
+    for (let i = 0; i < Number(shipLength); i++) {
+      const square = document.createElement("div");
+      square.classList.add("board__ship__square");
+      ship.append(square);
+    }
 
     return ship;
   }
