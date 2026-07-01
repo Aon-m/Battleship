@@ -11,9 +11,9 @@ export default class GameBoard {
     return board;
   }
 
-  placeShip(ship, direction, coordinate) {
-    if (direction !== "horizontal" && direction !== "vertical") {
-      throw new Error("Invalid direction");
+  validateCoordinate(ship, orientation, coordinate) {
+    if (orientation !== "horizontal" && orientation !== "vertical") {
+      throw new Error("Invalid orientation");
     }
 
     const [row, col] = this.#getCoordinate(coordinate);
@@ -23,13 +23,19 @@ export default class GameBoard {
       let r = row;
       let c = col;
 
-      if (direction === "vertical") r += i;
-      else if (direction === "horizontal") c += i;
+      if (orientation === "vertical") r += i;
+      else if (orientation === "horizontal") c += i;
       else return false;
 
       //   Outa bounds
-      if (r < 0 || r >= this.board.length || c < 0 || c >= this.board[0].length)
+      if (
+        r < 0 ||
+        r >= this.board.length ||
+        c < 0 ||
+        c >= this.board[0].length
+      ) {
         return false;
+      }
 
       //   Collisions
       if (this.board[r][c] !== null) {
@@ -39,7 +45,14 @@ export default class GameBoard {
       coords.push([r, c]);
     }
 
-    // Place ship
+    return coords;
+  }
+
+  placeShip(ship, orientation, coordinate) {
+    const coords = this.validateCoordinate(ship, orientation, coordinate);
+
+    if (!coords) return false;
+
     for (const [r, c] of coords) {
       this.board[r][c] = ship;
     }
