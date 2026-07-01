@@ -1370,6 +1370,15 @@ body {
 .board__square--damaged {
   background: hsla(4, 100%, 67%, 0.5);
 }
+.board__square--error {
+  background: var(--color-error);
+}
+.board__square--success {
+  background: var(--color-success);
+}
+.board__square--warning {
+  background: var(--color-warning);
+}
 .board__square--missed {
   background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
 }

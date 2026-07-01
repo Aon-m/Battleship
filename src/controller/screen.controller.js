@@ -181,8 +181,8 @@ export default class ScreenController {
     return this.placeShipsScreen.clone;
   }
 
-  loadShips(shipNames) {
-    this.placeShipsScreen.loadShips(shipNames);
+  loadShips(ships = []) {
+    this.placeShipsScreen.loadShips(ships);
   }
 
   placeShipsScreenContainer() {

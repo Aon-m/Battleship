@@ -19,6 +19,7 @@ export default class MainController {
     );
 
     this.players = [];
+    this.currentPlayer = null;
   }
 
   init() {
@@ -50,7 +51,7 @@ export default class MainController {
         break;
       case "submit-character-info": {
         const data = Form.getData();
-        this.createPlayer(data.name, data.image);
+        this.currentPlayer = this.createPlayer(data.name, data.image);
         this.loadBufferingScreen();
 
         setTimeout(() => {
@@ -89,17 +90,22 @@ export default class MainController {
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
-    const shipNames = Object.keys(this.players[0].ships);
-    this.view.loadShips(shipNames);
+    let ships = Object.values(this.players[0].ships);
+    ships.map((ship) => this.extractShipNamesAndId(ship));
+    this.view.loadShips(ships);
 
-    const ships = this.view.placeShipsScreenShips();
-    ships.forEach((e) => {
+    const domShips = this.view.placeShipsScreenShips();
+    domShips.forEach((e) => {
       const dragAndDrop = new DragAndDrop(
         e,
         this.view.placeShipsScreenShipsContainers(),
       );
       dragAndDrop.init();
     });
+  }
+
+  extractShipNamesAndId(ship) {
+    return { name: ship.name, id: ship.ship.id };
   }
 
   createPlayer(name, image) {

@@ -42,17 +42,18 @@ export default class ScreenPlaceShips {
     return button;
   }
 
-  loadShips(shipNames) {
+  loadShips(ships) {
     const container = this.clone.querySelector(".board__ships");
 
-    shipNames.forEach((shipName) => {
-      container.appendChild(this.#createShipDiv(shipName));
+    ships.forEach((ship) => {
+      container.appendChild(this.#createShipDiv(ship.name, ship.id));
     });
   }
 
-  #createShipDiv(shipName) {
+  #createShipDiv(shipName, shipId) {
     const ship = document.createElement("div");
     ship.classList.add("board__ship__container");
+    ship.dataset.shipId = shipId;
 
     const img = document.createElement("img");
     img.src = new URL(`../assets/ships/ship-${shipName}.png`, import.meta.url);

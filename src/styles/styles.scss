@@ -126,6 +126,18 @@ body {
       background: hsla(4, 100%, 67%, 0.5);
     }
 
+    &--error {
+      background: var(--color-error);
+    }
+
+    &--success {
+      background: var(--color-success);
+    }
+
+    &--warning {
+      background: var(--color-warning);
+    }
+
     &--missed {
       background: url(../assets/icons/icon-x.png) center center / contain
         no-repeat;
