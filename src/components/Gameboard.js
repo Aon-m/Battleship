@@ -1,3 +1,4 @@
+import coordinateToPosition from "../utils/coordinateToPosition.js";
 export default class GameBoard {
   constructor(size = 10) {
     this.board = this.#createBoard(size);
@@ -16,7 +17,7 @@ export default class GameBoard {
       throw new Error("Invalid orientation");
     }
 
-    const [row, col] = this.#getCoordinate(coordinate);
+    const [row, col] = coordinateToPosition(coordinate);
     const coords = [];
 
     for (let i = 0; i < ship.length; i++) {
@@ -24,34 +25,44 @@ export default class GameBoard {
       let c = col;
 
       if (orientation === "vertical") r += i;
-      else if (orientation === "horizontal") c += i;
-      else return false;
+      else c += i;
 
-      //   Outa bounds
       if (
         r < 0 ||
         r >= this.board.length ||
         c < 0 ||
         c >= this.board[0].length
       ) {
-        return false;
+        return {
+          valid: false,
+          coords,
+        };
       }
 
-      //   Collisions
       if (this.board[r][c] !== null) {
-        return false;
+        return {
+          valid: false,
+          coords,
+        };
       }
 
       coords.push([r, c]);
     }
 
-    return coords;
+    return {
+      valid: true,
+      coords,
+    };
   }
 
   placeShip(ship, orientation, coordinate) {
-    const coords = this.validateCoordinate(ship, orientation, coordinate);
+    const { valid, coords } = this.validateCoordinate(
+      ship,
+      orientation,
+      coordinate,
+    );
 
-    if (!coords) return false;
+    if (!valid) return false;
 
     for (const [r, c] of coords) {
       this.board[r][c] = ship;
@@ -61,7 +72,7 @@ export default class GameBoard {
   }
 
   receiveAttack(coordinate) {
-    const [row, col] = this.#getCoordinate(coordinate);
+    const [row, col] = coordinateToPosition(coordinate);
 
     if (this.shots.some(([r, c]) => r === row && c === col)) return false;
 
@@ -93,23 +104,5 @@ export default class GameBoard {
     this.board = this.#createBoard(size);
     this.missedShots = [];
     this.shots = [];
-  }
-
-  #getCoordinate(coordinate) {
-    // coordinate = A1
-    if (typeof coordinate !== "string") {
-      throw new TypeError("Coordinate must be a string");
-    }
-
-    coordinate = coordinate.trim().toUpperCase();
-
-    if (!/^[A-J](10|[0-9])$/.test(coordinate)) {
-      throw new Error("Invalid coordinate");
-    }
-
-    const row = coordinate[0].charCodeAt(0) - 65;
-    const col = Number(coordinate.slice(1));
-
-    return [row, col];
   }
 }

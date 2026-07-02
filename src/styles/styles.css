@@ -39,10 +39,10 @@ body {
   --color-neutral-6: hsl(0, 0%, 25%);
   --color-neutral-7: hsl(0, 0%, 12.5%);
   --color-neutral-8: hsl(0, 0%, 0%);
-  --color-success: hsl(100, 100%, 67%);
-  --color-warning: hsl(50, 100%, 67%);
-  --color-error: hsl(4, 100%, 67%);
-  --color-info: hsl(200, 100%, 67%);
+  --color-success: hsla(100, 100%, 67%, 0.507);
+  --color-warning: hsla(50, 100%, 67%, 0.521);
+  --color-error: hsla(4, 100%, 67%, 0.502);
+  --color-info: hsla(200, 100%, 67%, 0.457);
   /* Spacing sizes */
   --size-xs: clamp(0.5rem, calc(0.35rem + 0.4vw), 1rem);
   --size-sm: clamp(1rem, calc(1.25rem + 0.5vw), 1.75rem);

@@ -4,7 +4,7 @@ import Player from "../components/Player.js";
 import Form from "../components/Form.js";
 import Move from "../components/Move.js";
 import DragAndDrop from "../components/DragAndDrop.js";
-
+import positionToCoordinate from "../utils/positionToCoordinate.js";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
@@ -20,6 +20,7 @@ export default class MainController {
 
     this.players = [];
     this.currentPlayer = null;
+    this.currentSquare = null;
   }
 
   init() {
@@ -105,6 +106,8 @@ export default class MainController {
       const dragAndDrop = new DragAndDrop(
         e,
         this.view.placeShipsScreenShipsContainers(),
+        this.boardSquareOnHover.bind(this),
+        this.boardSquareOnDrop.bind(this),
       );
       dragAndDrop.init();
     });
@@ -130,14 +133,43 @@ export default class MainController {
   }
 
   boardSquareOnHover(square, domShip) {
+    if (!square || !domShip) return;
+    if (this.currentSquare === square) return;
+    this.currentSquare = square;
+
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
+    const ship = this.findShip(shipId).ship;
 
-    this.currentPlayer.gameboard.validateCoordinate(shipId, shipOrientation, coordinate);
+    const result = this.currentPlayer.gameboard.validateCoordinate(
+      ship,
+      shipOrientation,
+      coordinate,
+    );
+    
+    console.log(result);
+    const coordinates = result.coords.map(([row, col]) =>
+      positionToCoordinate(row, col),
+    );
 
-    // validate
-    // highlight
+    this.view.highlightSquares(result.valid, coordinates);
+  }
+
+  findShip(shipId) {
+    for (const player of this.players) {
+      for (const shipData of Object.values(player.ships)) {
+        if (shipData.ship.id === shipId) {
+          return {
+            player,
+            shipData,
+            ship: shipData.ship,
+          };
+        }
+      }
+    }
+
+    return null;
   }
 
   boardSquareOnDrop(square, domShip) {
@@ -146,6 +178,6 @@ export default class MainController {
     const coordinate = square.dataset.coordinate;
 
     this.currentPlayer.gameboard.placeShip(shipId, shipOrientation, coordinate);
-    this.view.updateBoard();
+    // this.view.updateBoard();
   }
 }

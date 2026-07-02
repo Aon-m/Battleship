@@ -209,4 +209,33 @@ export default class ScreenController {
   changeShipOrientation(target) {
     target.closest(".board__ship").classList.toggle("vertical");
   }
+
+  highlightSquares(isValid, coords) {
+    // Clear previous highlights
+    this.placeShipsScreenContainer()
+      .querySelectorAll(".board__square--success, .board__square--error")
+      .forEach((square) => {
+        square.classList.remove(
+          "board__square--success",
+          "board__square--error",
+        );
+      });
+
+    // Add new highlights
+    console.log(coords);
+    coords.forEach((coord) => {
+      const square = this.findCoord(coord);
+      console.log(square);
+
+      square.classList.add(
+        isValid ? "board__square--success" : "board__square--error",
+      );
+    });
+  }
+
+  findCoord(coord) {
+    return this.placeShipsScreenContainer().querySelector(
+      `[data-coordinate= ${coord}]`,
+    );
+  }
 }
