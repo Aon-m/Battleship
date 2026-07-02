@@ -147,8 +147,7 @@ export default class MainController {
       shipOrientation,
       coordinate,
     );
-    
-    console.log(result);
+
     const coordinates = result.coords.map(([row, col]) =>
       positionToCoordinate(row, col),
     );
@@ -173,11 +172,24 @@ export default class MainController {
   }
 
   boardSquareOnDrop(square, domShip) {
+    console.log(square, domShip);
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
+    const ship = this.findShip(shipId).ship;
 
-    this.currentPlayer.gameboard.placeShip(shipId, shipOrientation, coordinate);
-    // this.view.updateBoard();
+    const result = this.currentPlayer.gameboard.placeShip(
+      ship,
+      shipOrientation,
+      coordinate,
+    );
+
+    if (!result) return;
+
+    const coordinates = result.coords.map(([row, col]) =>
+      positionToCoordinate(row, col),
+    );
+
+    this.view.updateBoard(coordinates);
   }
 }

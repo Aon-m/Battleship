@@ -222,14 +222,20 @@ export default class ScreenController {
       });
 
     // Add new highlights
-    console.log(coords);
     coords.forEach((coord) => {
       const square = this.findCoord(coord);
-      console.log(square);
 
       square.classList.add(
         isValid ? "board__square--success" : "board__square--error",
       );
+    });
+  }
+
+  updateBoard(coords) {
+    coords.forEach((coord) => {
+      const square = this.findCoord(coord);
+
+      square.classList.add("board__square--selected");
     });
   }
 

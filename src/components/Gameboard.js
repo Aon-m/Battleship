@@ -68,7 +68,7 @@ export default class GameBoard {
       this.board[r][c] = ship;
     }
 
-    return true;
+    return coords;
   }
 
   receiveAttack(coordinate) {
