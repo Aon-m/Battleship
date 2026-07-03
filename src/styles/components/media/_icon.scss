@@ -38,4 +38,14 @@
   &--secondary {
     color: var(--color-neutral-4);
   }
+
+  &--tertiary {
+    background-color: var(--color-primary);
+    color: var(--color-neutral-0);
+    
+    &.selected {
+      background-color: var(--color-neutral-0);
+      color: var(--color-primary);
+    }
+  }
 }

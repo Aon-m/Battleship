@@ -60,8 +60,8 @@ export default class MainController {
         }, 5000);
         break;
       }
-      case "change-ship-orientation": {
-        this.changeShipOrientation(target);
+      case "change-all-ships-orientation": {
+        this.changeAllShipOrientation(target);
         break;
       }
       case "remove-highlights": {
@@ -126,6 +126,17 @@ export default class MainController {
     this.players.push(player);
 
     return player;
+  }
+
+  changeAllShipOrientation(btn) {
+    btn.classList.add("selected");
+
+    this.view
+      .placeShipsScreenShips()
+      .querySelectorAll(":not(.board__ship--onboard)")
+      .forEach((ship) => {
+        this.changeShipOrientation(ship);
+      });
   }
 
   changeShipOrientation(target) {

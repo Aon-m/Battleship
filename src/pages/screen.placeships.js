@@ -59,7 +59,6 @@ export default class ScreenPlaceShips {
 
     ship.dataset.shipId = shipId;
     ship.dataset.shipOrientation = "horizontal";
-    ship.dataset.action = "change-ship-orientation";
     ship.dataset.shipLength = shipLength;
 
     for (let i = 0; i < Number(shipLength); i++) {

@@ -687,6 +687,14 @@ body {
 .icon--secondary {
   color: var(--color-neutral-4);
 }
+.icon--tertiary {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-0);
+}
+.icon--tertiary.selected {
+  background-color: var(--color-neutral-0);
+  color: var(--color-primary);
+}
 
 .indicator {
   width: 1rem;

@@ -254,6 +254,7 @@ export default class ScreenController {
       delete domShip.dataset[key];
     });
     domShip.style.cursor = "default";
+    domShip.classList.add("board__ship--onboard");
 
     // Board placement
     domShip.style.position = "absolute";
