@@ -4,6 +4,7 @@ import ScreenCharacterInfo from "../pages/screen.character.js";
 import bindClick from "../utils/bindClick.js";
 import ScreenBuffering from "../pages/screen.buffering-screen.js";
 import ScreenPlaceShips from "../pages/screen.placeships.js";
+import coordinateToPosition from "../utils/coordinateToPosition.js";
 
 export default class ScreenController {
   constructor() {
@@ -50,6 +51,10 @@ export default class ScreenController {
       .forEach((element) => {
         bindClick(element, () => handler(element.dataset.action, element));
       });
+
+    document.addEventListener("dragover", (e) =>
+      handler("remove-highlights", e),
+    );
   }
 
   loadCursorAnimation() {
@@ -211,16 +216,6 @@ export default class ScreenController {
   }
 
   highlightSquares(isValid, coords) {
-    // Clear previous highlights
-    this.placeShipsScreenContainer()
-      .querySelectorAll(".board__square--success, .board__square--error")
-      .forEach((square) => {
-        square.classList.remove(
-          "board__square--success",
-          "board__square--error",
-        );
-      });
-
     // Add new highlights
     coords.forEach((coord) => {
       const square = this.findCoord(coord);
@@ -231,12 +226,41 @@ export default class ScreenController {
     });
   }
 
-  updateBoard(coords) {
+  removeHighlights() {
+    this.placeShipsScreenContainer()
+      .querySelectorAll(".board__square--success, .board__square--error")
+      .forEach((square) => {
+        square.classList.remove(
+          "board__square--success",
+          "board__square--error",
+        );
+      });
+  }
+
+  updateBoard(coords, domShip) {
     coords.forEach((coord) => {
       const square = this.findCoord(coord);
 
+      square.classList.remove("board__square--success", "board__square--error");
       square.classList.add("board__square--selected");
     });
+
+    const [row, col] = coordinateToPosition(coords[0]);
+
+    // domShip cleaning
+    domShip.classList.remove("dragging");
+    domShip.draggable = false;
+    Object.keys(domShip.dataset).forEach((key) => {
+      delete domShip.dataset[key];
+    });
+    domShip.style.cursor = "default";
+
+    // Board placement
+    domShip.style.position = "absolute";
+    domShip.style.left = `calc(var(--size-square) * ${col})`;
+    domShip.style.top = `calc(var(--size-square) * ${row})`;
+
+    document.querySelector(".board").appendChild(domShip);
   }
 
   findCoord(coord) {

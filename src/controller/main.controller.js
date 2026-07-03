@@ -64,6 +64,10 @@ export default class MainController {
         this.changeShipOrientation(target);
         break;
       }
+      case "remove-highlights": {
+        this.removeHighlightsonExit(target);
+        break;
+      }
     }
   }
 
@@ -152,7 +156,18 @@ export default class MainController {
       positionToCoordinate(row, col),
     );
 
+    this.view.removeHighlights();
     this.view.highlightSquares(result.valid, coordinates);
+  }
+
+  removeHighlightsonExit(e) {
+    const board = document
+      .elementFromPoint(e.clientX, e.clientY)
+      ?.closest(".board");
+
+    if (!board) {
+      this.view.removeHighlights();
+    }
   }
 
   findShip(shipId) {
@@ -172,7 +187,6 @@ export default class MainController {
   }
 
   boardSquareOnDrop(square, domShip) {
-    console.log(square, domShip);
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
@@ -184,12 +198,15 @@ export default class MainController {
       coordinate,
     );
 
-    if (!result) return;
+    if (!result) {
+      this.view.removeHightlights();
+      return;
+    }
 
-    const coordinates = result.coords.map(([row, col]) =>
+    const coordinates = result.map(([row, col]) =>
       positionToCoordinate(row, col),
     );
 
-    this.view.updateBoard(coordinates);
+    this.view.updateBoard(coordinates, domShip);
   }
 }

@@ -59,6 +59,7 @@ export default class DragAndDrop {
   }
 
   #drop(e) {
+    if (this.activeElement !== this.element) return;
     e.preventDefault();
 
     const square = document
