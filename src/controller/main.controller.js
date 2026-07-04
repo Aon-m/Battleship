@@ -5,6 +5,7 @@ import Form from "../components/Form.js";
 import Move from "../components/Move.js";
 import DragAndDrop from "../components/DragAndDrop.js";
 import positionToCoordinate from "../utils/positionToCoordinate.js";
+import Computer from "../components/Computer.js";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
@@ -85,9 +86,14 @@ export default class MainController {
     const screen2 = this.loadCharacterInfoScreen();
     Form.init(screen2.querySelector("form"));
 
-    this.currentMode = "single";
     this.view.changeScreenAnimation(this.currentScreen, screen2);
     this.currentScreen = screen2;
+
+    this.currentMode = "single";
+
+    const computer = new Computer();
+    computer.init();
+    this.players.push(computer);
   }
 
   loadCharacterInfoScreen() {
@@ -133,6 +139,7 @@ export default class MainController {
 
   resetPlaceShipsScreen() {
     this.players.forEach((player) => {
+      if (player.type === "ai") return;
       player.resetGameboard();
     });
 
