@@ -157,7 +157,6 @@ body {
   }
 
   &__ship {
-    cursor: grab;
     display: inline-grid;
     grid-auto-flow: column;
     vertical-align: middle;
@@ -166,8 +165,12 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 
-    &.dragging {
-      opacity: 0.5;
+    &--notDeployed {
+      cursor: grab;
+
+      &.dragging {
+        opacity: 0.5;
+      }
     }
 
     &.vertical {

@@ -33,6 +33,7 @@ export default class DragAndDrop {
   }
 
   #dragStart() {
+    if (!this.element.classList.contains("draggable")) return;
     this.activeElement = this.element;
     this.element.classList.add("dragging");
   }

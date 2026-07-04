@@ -131,12 +131,9 @@ export default class MainController {
   changeAllShipOrientation(btn) {
     btn.classList.add("selected");
 
-    this.view
-      .placeShipsScreenShips()
-      .querySelectorAll(":not(.board__ship--onboard)")
-      .forEach((ship) => {
-        this.changeShipOrientation(ship);
-      });
+    document.querySelectorAll(".board__ship--notDeployed").forEach((ship) => {
+      this.changeShipOrientation(ship);
+    });
   }
 
   changeShipOrientation(target) {
@@ -210,7 +207,7 @@ export default class MainController {
     );
 
     if (!result) {
-      this.view.removeHightlights();
+      this.view.removeHighlights();
       return;
     }
 

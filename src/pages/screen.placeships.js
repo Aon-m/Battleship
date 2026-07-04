@@ -56,6 +56,8 @@ export default class ScreenPlaceShips {
     const ship = document.createElement("div");
     ship.classList.add("board__ship");
     ship.classList.add(`board__ship--${shipName}`);
+    ship.classList.add(`board__ship--notDeployed`);
+    ship.classList.add(`draggable`);
 
     ship.dataset.shipId = shipId;
     ship.dataset.shipOrientation = "horizontal";

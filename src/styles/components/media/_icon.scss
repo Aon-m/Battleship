@@ -20,7 +20,7 @@
     width: clamp(0.8rem, calc(0.5rem + 0.5vw), 1.2rem);
   }
   &--large {
-    width: clamp(2.5rem, calc(2.5rem + 0.8vw), 5rem);
+    width: clamp(2.5rem, calc(2rem + 0.8vw), 5rem);
   }
   &--larger {
     width: clamp(10rem, calc(10rem + 1vw), 15rem);

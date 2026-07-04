@@ -204,7 +204,9 @@ export default class ScreenController {
   }
 
   placeShipsScreenShips() {
-    return this.placeShipsScreenContainer().querySelectorAll(".board__ship");
+    return this.placeShipsScreenContainer().querySelectorAll(
+      ".board__ship--notDeployed",
+    );
   }
 
   placeShipsScreenShipsContainers() {
@@ -248,13 +250,15 @@ export default class ScreenController {
     const [row, col] = coordinateToPosition(coords[0]);
 
     // domShip cleaning
-    domShip.classList.remove("dragging");
+    domShip.classList.remove(
+      "dragging",
+      "board__ship--notDeployed",
+      "draggable",
+    );
     domShip.draggable = false;
-    Object.keys(domShip.dataset).forEach((key) => {
-      delete domShip.dataset[key];
-    });
-    domShip.style.cursor = "default";
-    domShip.classList.add("board__ship--onboard");
+    delete domShip.dataset.action;
+    const cleanShip = domShip.cloneNode(true);
+    domShip.replaceWith(cleanShip);
 
     // Board placement
     domShip.style.position = "absolute";

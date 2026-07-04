@@ -27,7 +27,7 @@
   }
 
   &__header {
-    @include m.flex(column);
+    @include m.flex(row, space-between);
     width: 100%;
     gap: var(--size-sm);
   }
