@@ -1,4 +1,5 @@
 import numberToCoordinate from "../utils/numberToCoordinate.js";
+import DialogReady from "./dialog.ready.js";
 
 export default class ScreenPlaceShips {
   constructor() {
@@ -6,6 +7,7 @@ export default class ScreenPlaceShips {
     this.template = document.querySelector("#screen-placeships");
 
     this.clone = null;
+    this.dialog = null;
   }
 
   init() {
@@ -28,6 +30,7 @@ export default class ScreenPlaceShips {
 
     const ships = this.clone.querySelector(".board__ships");
     this.clone.appendChild(ships);
+    this.dialog = this.createDialog().init();
 
     return fragment;
   }
@@ -50,6 +53,19 @@ export default class ScreenPlaceShips {
         this.#createShipDiv(ship.name, ship.id, ship.length),
       );
     });
+  }
+
+  createDialog() {
+    const dialog = new DialogReady(this.clone);
+    return dialog;
+  }
+
+  showDialog() {
+    this.dialog.showModal();
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
   #createShipDiv(shipName, shipId, shipLength) {

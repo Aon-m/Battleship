@@ -5,41 +5,33 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border: none;
-  width: 100vw;
-  height: 100vh;
+  width: min(80vw, 40rem);
   position: fixed;
   overflow: hidden;
   border-radius: var(--size-sm);
   z-index: 99;
 
   &__content {
-    @include m.flex(column, flex-start);
+    @include m.flex(column);
     width: 100%;
     height: 100%;
-    padding: var(--size-md);
-    padding-block-start: calc(var(--size-lg) + 2rem);
+    padding: var(--size-sm) var(--size-lg);
     gap: var(--size-md);
-    background: var(--color-neutral-0);
+    background: var(--color-primary);
   }
 
-  &__button {
-    margin-block-start: auto;
+  &__buttons {
+    @include m.flex(row);
+    gap: var(--size-sm);
+  }
+
+  &__header {
+    text-align: center;
+    width: 100%;
   }
 }
 
-@media screen and (min-width: 40rem) {
-  .dialog {
-    transform: translate(-50%, -50%);
-    width: fit-content;
-    height: fit-content;
-
-    &__content {
-      padding-block-start: var(--size-sm);
-      max-width: 45ch;
-    }
-  }
-  .dialog::backdrop {
-    background: var(--color-neutral-5);
-    opacity: 0.5;
-  }
+.dialog::backdrop {
+  background: var(--color-neutral-6);
+  opacity: 0.5;
 }

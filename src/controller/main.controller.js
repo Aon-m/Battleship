@@ -68,10 +68,16 @@ export default class MainController {
         this.removeHighlightsonExit(target);
         break;
       }
-      case "reset-gameboard": {
+      case "reset-gameboard":
         this.resetPlaceShipsScreen();
         break;
-      }
+
+      case "back-to-gamebaord":
+        this.view.closeReadyDialog();
+        break;
+
+      case "start-game":
+        break;
     }
   }
 
@@ -236,5 +242,9 @@ export default class MainController {
     );
 
     this.view.updateBoard(coordinates, domShip);
+
+    if (!document.querySelector(".board__ship--notDeployed")) {
+      this.view.showReadyDialog();
+    }
   }
 }

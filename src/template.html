@@ -230,7 +230,11 @@
               </button>
             </div>
           </div>
-          <button type="button" data-action="reset-gameboard" class="button button--rectangle button--primary text text--small text--bold">
+          <button
+            type="button"
+            data-action="reset-gameboard"
+            class="button button--rectangle button--primary text text--small text--bold"
+          >
             Reset Gameboard
           </button>
         </section>
@@ -244,13 +248,30 @@
           ></p>
         </section>
       </template>
-      <template id="screen-ready">
+      <template id="dialog-ready">
         <dialog class="dialog">
           <div class="dialog__content">
-            <button type="button" data-action="start-game">Start Game</button>
-            <button type="button" data-action="back-to-gameboard">
-              Back to Gameboard
-            </button>
+            <h3
+              class="dialog__header text text--medium text--bold text--primary"
+            >
+              Ready?
+            </h3>
+            <div class="dialog__buttons flex-row">
+              <button
+                class="button button--rectangle button--primary text text--small text--bold"
+                type="button"
+                data-action="start-game"
+              >
+                Start
+              </button>
+              <button
+                class="button button--rectangle button--primary text text--small text--bold"
+                type="button"
+                data-action="back-to-gameboard"
+              >
+                Back
+              </button>
+            </div>
           </div>
         </dialog>
       </template>

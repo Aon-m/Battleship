@@ -280,4 +280,14 @@ export default class ScreenController {
       `[data-coordinate= ${coord}]`,
     );
   }
+
+  showReadyDialog() {
+    this.placeShipsScreen.showDialog();
+  }
+
+  closeReadyDialog() {
+    this.placeShipsScreen.closeDialog();
+  }
+
+  obserr
 }
