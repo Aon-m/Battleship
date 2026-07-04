@@ -73,8 +73,16 @@ export default class MainController {
         this.resetPlaceShipsScreen();
         break;
 
-      case "back-to-gamebaord":
-        this.view.closeReadyDialog();
+      case "close-dialog":
+        this.closeDialog(target);
+        break;
+
+      case "gamemode-multi":
+        this.multiPlayer();
+        break;
+
+      case "next-player":
+        this.switchToCharacterInfoScreen();
         break;
 
       case "start-game":
@@ -83,17 +91,27 @@ export default class MainController {
   }
 
   singlePlayer() {
-    const screen2 = this.loadCharacterInfoScreen();
-    Form.init(screen2.querySelector("form"));
-
-    this.view.changeScreenAnimation(this.currentScreen, screen2);
-    this.currentScreen = screen2;
+    this.switchToCharacterInfoScreen();
 
     this.currentMode = "single";
 
     const computer = new Computer();
     computer.init();
     this.players.push(computer);
+  }
+
+  multiPlayer() {
+    this.switchToCharacterInfoScreen();
+
+    this.currentMode = "multi";
+  }
+
+  switchToCharacterInfoScreen() {
+    const screen = this.loadCharacterInfoScreen();
+    Form.init(screen.querySelector("form"));
+
+    this.view.changeScreenAnimation(this.currentScreen, screen);
+    this.currentScreen = screen;
   }
 
   loadCharacterInfoScreen() {
@@ -138,10 +156,7 @@ export default class MainController {
   }
 
   resetPlaceShipsScreen() {
-    this.players.forEach((player) => {
-      if (player.type === "ai") return;
-      player.resetGameboard();
-    });
+    this.currentPlayer.resetGameboard();
 
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenNoAnimation(this.currentScreen, screen);
@@ -250,8 +265,31 @@ export default class MainController {
 
     this.view.updateBoard(coordinates, domShip);
 
-    if (!document.querySelector(".board__ship--notDeployed")) {
+    if (document.querySelector(".board__ship--notDeployed")) return;
+
+    if (this.currentMode === "single") {
       this.view.showReadyDialog();
+      return;
+    }
+
+    if (this.players.length >= 2) {
+      this.view.showReadyDialog();
+      console.log(this.players);
+      return;
+    }
+
+    this.view.showNextPlayerDialog();
+  }
+
+  closeDialog(target) {
+    const dialog = target.closest(".dialog").dataset.dialog;
+
+    if (dialog === "nextPlayer") {
+      this.view.closeNextPlayerDialog();
+    } else if (dialog === "ready") {
+      this.view.closeReadyDialog();
+    } else {
+      return;
     }
   }
 }

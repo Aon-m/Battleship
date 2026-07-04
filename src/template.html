@@ -249,7 +249,7 @@
         </section>
       </template>
       <template id="dialog-ready">
-        <dialog class="dialog">
+        <dialog class="dialog" data-dialog="ready">
           <div class="dialog__content">
             <h3
               class="dialog__header text text--medium text--bold text--primary"
@@ -267,7 +267,34 @@
               <button
                 class="button button--rectangle button--primary text text--small text--bold"
                 type="button"
-                data-action="back-to-gameboard"
+                data-action="close-dialog"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        </dialog>
+      </template>
+      <template id="dialog-nextPlayer">
+        <dialog class="dialog" data-dialog="nextPlayer">
+          <div class="dialog__content">
+            <h3
+              class="dialog__header text text--medium text--bold text--primary"
+            >
+              Ready?
+            </h3>
+            <div class="dialog__buttons flex-row">
+              <button
+                class="button button--rectangle button--primary text text--small text--bold"
+                type="button"
+                data-action="next-player"
+              >
+                Next
+              </button>
+              <button
+                class="button button--rectangle button--primary text text--small text--bold"
+                type="button"
+                data-action="close-dialog"
               >
                 Back
               </button>

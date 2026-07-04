@@ -282,12 +282,19 @@ export default class ScreenController {
   }
 
   showReadyDialog() {
-    this.placeShipsScreen.showDialog();
+    this.placeShipsScreen.showReadyDialog();
   }
 
   closeReadyDialog() {
-    this.placeShipsScreen.closeDialog();
+    this.placeShipsScreen.closeReadyDialog();
   }
 
-  obserr
+  showNextPlayerDialog() {
+    this.placeShipsScreen.showNextPlayerDialog();
+  }
+
+  closeNextPlayerDialog() {
+    this.placeShipsScreen.closeNextPlayerDialog();
+  }
+
 }

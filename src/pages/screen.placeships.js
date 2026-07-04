@@ -1,5 +1,6 @@
 import numberToCoordinate from "../utils/numberToCoordinate.js";
 import DialogReady from "./dialog.ready.js";
+import DialogNextPlayer from "./dialog.nextPlayer.js";
 
 export default class ScreenPlaceShips {
   constructor() {
@@ -7,7 +8,8 @@ export default class ScreenPlaceShips {
     this.template = document.querySelector("#screen-placeships");
 
     this.clone = null;
-    this.dialog = null;
+    this.readyDialog = null;
+    this.nextPlayerDialog = null;
   }
 
   init() {
@@ -30,7 +32,8 @@ export default class ScreenPlaceShips {
 
     const ships = this.clone.querySelector(".board__ships");
     this.clone.appendChild(ships);
-    this.dialog = this.createDialog().init();
+    this.readyDialog = this.createReadyDialog().init();
+    this.nextPlayerDialog = this.createNextPlayerDialog().init();
 
     return fragment;
   }
@@ -55,17 +58,30 @@ export default class ScreenPlaceShips {
     });
   }
 
-  createDialog() {
+  createReadyDialog() {
     const dialog = new DialogReady(this.clone);
     return dialog;
   }
 
-  showDialog() {
-    this.dialog.showModal();
+  createNextPlayerDialog() {
+    const dialog = new DialogNextPlayer(this.clone);
+    return dialog;
   }
 
-  closeDialog() {
-    this.dialog.close();
+  showReadyDialog() {
+    this.readyDialog.showModal();
+  }
+
+  closeReadyDialog() {
+    this.readyDialog.close();
+  }
+
+  showNextPlayerDialog() {
+    this.nextPlayerDialog.showModal();
+  }
+
+  closeNextPlayerDialog() {
+    this.nextPlayerDialog.close();
   }
 
   #createShipDiv(shipName, shipId, shipLength) {
