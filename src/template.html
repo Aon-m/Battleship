@@ -214,6 +214,7 @@
                 type="button"
                 class="button"
                 data-action="change-all-ships-orientation"
+                title="change ship orientation"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -229,6 +230,9 @@
               </button>
             </div>
           </div>
+          <button type="button" data-action="reset-gameboard" class="button button--rectangle button--primary text text--small text--bold">
+            Reset Gameboard
+          </button>
         </section>
       </template>
       <template id="screen-buffering">
@@ -239,6 +243,16 @@
             aria-label="loading"
           ></p>
         </section>
+      </template>
+      <template id="screen-ready">
+        <dialog class="dialog">
+          <div class="dialog__content">
+            <button type="button" data-action="start-game">Start Game</button>
+            <button type="button" data-action="back-to-gameboard">
+              Back to Gameboard
+            </button>
+          </div>
+        </dialog>
       </template>
     </main>
   </body>

@@ -130,6 +130,13 @@ export default class ScreenController {
     );
   }
 
+  changeScreenNoAnimation(screen1, screen2) {
+    document.body.appendChild(screen2);
+    screen1.remove();
+    screen2.style.opacity = 1;
+    screen2.classList.remove("hidden");
+  }
+
   videoAnimation(btn) {
     const video = document.createElement("video");
     video.src = swirlExplosionVideoSrc;
@@ -261,11 +268,11 @@ export default class ScreenController {
     domShip.replaceWith(cleanShip);
 
     // Board placement
-    domShip.style.position = "absolute";
-    domShip.style.left = `calc(var(--size-square) * ${col})`;
-    domShip.style.top = `calc(var(--size-square) * ${row})`;
+    cleanShip.style.position = "absolute";
+    cleanShip.style.left = `calc(var(--size-square) * ${col})`;
+    cleanShip.style.top = `calc(var(--size-square) * ${row})`;
 
-    document.querySelector(".board").appendChild(domShip);
+    document.querySelector(".board").appendChild(cleanShip);
   }
 
   findCoord(coord) {

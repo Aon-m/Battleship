@@ -68,6 +68,10 @@ export default class MainController {
         this.removeHighlightsonExit(target);
         break;
       }
+      case "reset-gameboard": {
+        this.resetPlaceShipsScreen();
+        break;
+      }
     }
   }
 
@@ -99,6 +103,10 @@ export default class MainController {
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
+    this.placeShipsScreenFunctionality();
+  }
+
+  placeShipsScreenFunctionality() {
     let ships = Object.values(this.players[0].ships).map((ship) =>
       this.extractShipInfo(ship),
     );
@@ -115,6 +123,18 @@ export default class MainController {
       );
       dragAndDrop.init();
     });
+  }
+
+  resetPlaceShipsScreen() {
+    this.players.forEach((player) => {
+      player.resetGameboard();
+    });
+
+    const screen = this.view.loadPlaceShipsScreen();
+    this.view.changeScreenNoAnimation(this.currentScreen, screen);
+    this.currentScreen = screen;
+
+    this.placeShipsScreenFunctionality();
   }
 
   extractShipInfo(ship) {

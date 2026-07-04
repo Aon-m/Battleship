@@ -7,6 +7,7 @@ export default class Player {
     this.type = type;
     this.avatar = avatar;
     this.gameboard = new GameBoard(size);
+    this.size = size;
 
     this.ships = {
       carrier: this.createShip("carrier", 5),
@@ -25,5 +26,9 @@ export default class Player {
       placed: false,
       position: null,
     };
+  }
+
+  resetGameboard() {
+    this.gameboard = new GameBoard(this.size);
   }
 }
