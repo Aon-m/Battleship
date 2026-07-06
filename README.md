@@ -8,3 +8,4 @@
 ## To do
 
 - Add code comments
+- Make every non accessible method a private one
