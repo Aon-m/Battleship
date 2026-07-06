@@ -230,13 +230,22 @@
               </button>
             </div>
           </div>
-          <button
-            type="button"
-            data-action="reset-gameboard"
-            class="button button--rectangle button--primary text text--small text--bold"
-          >
-            Reset Gameboard
-          </button>
+          <div class="container__buttons">
+            <button
+              type="button"
+              data-action="reset-gameboard"
+              class="button button--rectangle button--primary text text--small text--bold"
+            >
+              Reset Gameboard
+            </button>
+            <button
+              type="button"
+              data-action="open-dialog"
+              class="button button--rectangle button--primary text text--small text--bold hidden"
+            >
+              Ready?
+            </button>
+          </div>
         </section>
       </template>
       <template id="screen-buffering">

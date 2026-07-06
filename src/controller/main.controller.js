@@ -85,6 +85,10 @@ export default class MainController {
         this.switchToCharacterInfoScreen();
         break;
 
+      case "open-dialog":
+        this.openDialog();
+        break;
+
       case "start-game":
         break;
     }
@@ -267,6 +271,10 @@ export default class MainController {
 
     if (document.querySelector(".board__ship--notDeployed")) return;
 
+    this.openDialog();
+  }
+
+  openDialog() {
     if (this.currentMode === "single") {
       this.view.showReadyDialog();
       return;
@@ -274,7 +282,6 @@ export default class MainController {
 
     if (this.players.length >= 2) {
       this.view.showReadyDialog();
-      console.log(this.players);
       return;
     }
 
@@ -291,5 +298,7 @@ export default class MainController {
     } else {
       return;
     }
+
+    this.view.showOpenDialogBtn()
   }
 }

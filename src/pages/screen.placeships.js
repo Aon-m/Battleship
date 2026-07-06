@@ -84,6 +84,18 @@ export default class ScreenPlaceShips {
     this.nextPlayerDialog.close();
   }
 
+  showOpenDialogBtn() {
+    document
+      .querySelector(`[data-action= "open-dialog"]`)
+      .classList.remove("hidden");
+  }
+
+  hideOpenDialogBtn() {
+    document
+      .querySelector(`[data-action= "open-dialog"]`)
+      .classList.remove("hidden");
+  }
+
   #createShipDiv(shipName, shipId, shipLength) {
     const ship = document.createElement("div");
     ship.classList.add("board__ship");

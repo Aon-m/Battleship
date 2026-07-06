@@ -297,4 +297,11 @@ export default class ScreenController {
     this.placeShipsScreen.closeNextPlayerDialog();
   }
 
+  showOpenDialogBtn() {
+    this.placeShipsScreen.showOpenDialogBtn();
+  }
+
+  hideOpenDialogBtn(){
+    this.placeShipsScreen.hideOpenDialogBtn()
+  }
 }
