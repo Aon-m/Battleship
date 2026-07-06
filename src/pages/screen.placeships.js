@@ -44,6 +44,7 @@ export default class ScreenPlaceShips {
     button.className = "board__square";
     button.type = "button";
     button.dataset.coordinate = numberToCoordinate(i);
+    button.dataset.hasShip = "false";
 
     return button;
   }

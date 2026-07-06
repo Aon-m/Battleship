@@ -12,6 +12,7 @@ export default class ScreenController {
     this.characterInfoScreen = new ScreenCharacterInfo();
     this.bufferingScreen = new ScreenBuffering();
     this.placeShipsScreen = new ScreenPlaceShips();
+    this.gameboardScreen = null;
     this.isTransitioning = false;
   }
 
@@ -252,6 +253,7 @@ export default class ScreenController {
 
       square.classList.remove("board__square--success", "board__square--error");
       square.classList.add("board__square--selected");
+      square.dataset.hasShip = "true";
     });
 
     const [row, col] = coordinateToPosition(coords[0]);
@@ -301,7 +303,25 @@ export default class ScreenController {
     this.placeShipsScreen.showOpenDialogBtn();
   }
 
-  hideOpenDialogBtn(){
-    this.placeShipsScreen.hideOpenDialogBtn()
+  hideOpenDialogBtn() {
+    this.placeShipsScreen.hideOpenDialogBtn();
+  }
+
+  renderAttack(playerId, square) {
+    if (square.dataset?.hasShip === "true") {
+      square.classList.add("board__square--damaged");
+    } else {
+      square.classList.add("board__square--missed");
+    }
+  }
+
+  showWonDialog(playerName) {
+    this.gameboardScreen.showWonDialog(playerName);
+  }
+
+  loadGameBoardScreen() {
+    this.gameboardScreen.init();
+
+    return this.gameboardScreen.clone;
   }
 }

@@ -6,6 +6,8 @@ import Move from "../components/Move.js";
 import DragAndDrop from "../components/DragAndDrop.js";
 import positionToCoordinate from "../utils/positionToCoordinate.js";
 import Computer from "../components/Computer.js";
+import TurnSystem from "../components/TurnSystem.js";
+import WinCheck from "../components/WinCheck.js";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
@@ -22,6 +24,10 @@ export default class MainController {
     this.players = [];
     this.currentPlayer = null;
     this.currentSquare = null;
+
+    this.gameHasStarted = false;
+    this.winCheck = null;
+    this.turnSystem = null;
   }
 
   init() {
@@ -90,6 +96,15 @@ export default class MainController {
         break;
 
       case "start-game":
+        this.startGame();
+        break;
+
+      case "end-game":
+        this.endGame();
+        break;
+
+      case "attack-square":
+        this.attackSystem(target);
         break;
     }
   }
@@ -299,6 +314,58 @@ export default class MainController {
       return;
     }
 
-    this.view.showOpenDialogBtn()
+    this.view.showOpenDialogBtn();
+  }
+
+  startGame() {
+    this.gameHasStarted = true;
+    this.loadGameboards();
+    this.turnSystem = new TurnSystem(this.players);
+    this.winCheck = new WinCheck();
+  }
+
+  #attackSquare(square) {
+    if (!this.gameHasStarted) return;
+    const coordinate = square.dataset.coordinate;
+
+    const result = this.currentPlayer.gameboard.receiveAttack(coordinate);
+
+    if (!result) return false;
+
+    this.view.renderAttack(this.currentPlayer.id, square);
+  }
+
+  attackSystem(square) {
+    this.currentPlayer = this.turnSystem.getCurrentPlayer();
+
+    const result = this.#attackSquare(square);
+    if (!result) return false;
+
+    const won = this.winCheck.checkCurrentPlayer(this.currentPlayer);
+
+    if (!won) {
+      this.currentPlayer = this.turnSystem.nextTurn();
+      return;
+    }
+
+    this.endGame();
+  }
+
+  resetGame() {
+    this.turnSystem = null;
+    this.winCheck = null;
+    this.currentPlayer = null;
+    this.gameHasStarted = false;
+  }
+
+  endGame() {
+    this.resetGame();
+    this.view.showWonDialog(this.currentPlayer.name);
+  }
+
+  loadGameBoards() {
+    // Load Gameboards
+    // Give all squares data-action = attack
+    // Give all squares data-player = playerId
   }
 }
