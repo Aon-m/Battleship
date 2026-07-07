@@ -2,8 +2,8 @@ import GameBoard from "./Gameboard.js";
 import Ship from "./Ship.js";
 
 export default class Player {
-  constructor(name = "Nameless", type = "Human", avatar = "", size = 10) {
-    this.name = name;
+  constructor(name, type = "Human", avatar = "", size = 10) {
+    this.name = this.validName(name, "Nameless");
     this.type = type;
     this.avatar = avatar;
     this.gameboard = new GameBoard(size);
@@ -31,5 +31,12 @@ export default class Player {
 
   resetGameboard() {
     this.gameboard = new GameBoard(this.size);
+  }
+
+  validName(name, fallback) {
+    if (name.trim() === "") return fallback;
+    if (!name) return fallback;
+
+    return name;
   }
 }

@@ -1053,7 +1053,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 15rem;
+  gap: var(--size-sm);
   width: min(90vw, 25rem);
 }
 .container__cards {
@@ -1384,6 +1384,9 @@ body {
 .board__square--missed {
   background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
 }
+.board__square[data-has-ship=true] {
+  background: var(--color-success);
+}
 .board__ships {
   background: var(--color-primary);
   padding: var(--size-md) var(--size-lg);
@@ -1462,4 +1465,38 @@ body {
   top: 0;
   left: 0;
   z-index: 999;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-sm);
+}
+.player__avatar {
+  max-width: calc(2 * var(--size-lg));
+  border: 1px solid var(--color-neutral-0);
+  border-radius: var(--size-sm);
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+  order: -1;
+}
+.player__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-md);
+}
+@media screen and (min-width: 30rem) {
+  .player__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
 }

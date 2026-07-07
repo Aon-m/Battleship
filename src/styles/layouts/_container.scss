@@ -37,7 +37,7 @@
 
   &__text-content {
     @include m.flex(column);
-    min-height: 15rem;
+    gap: var(--size-sm);
     width: min(90vw, 25rem);
   }
 

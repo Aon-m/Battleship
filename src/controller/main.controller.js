@@ -96,11 +96,19 @@ export default class MainController {
         break;
 
       case "start-game":
-        this.startGame();
+        this.loadBufferingScreen();
+
+        setTimeout(() => {
+          this.startGame();
+        }, 5000);
         break;
 
       case "end-game":
         this.endGame();
+        break;
+
+      case "back-to-menu":
+        this.resetAll();
         break;
 
       case "attack-square":
@@ -262,6 +270,9 @@ export default class MainController {
   }
 
   boardSquareOnDrop(square, domShip) {
+    if (!square) return;
+    if (square.dataset.hasShip === "true") return;
+
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
@@ -318,8 +329,11 @@ export default class MainController {
   }
 
   startGame() {
+    const screen = this.loadGameBoards();
+    this.view.changeScreenAnimation(this.currentScreen, screen);
+    this.currentScreen = screen;
+
     this.gameHasStarted = true;
-    this.loadGameboards();
     this.turnSystem = new TurnSystem(this.players);
     this.winCheck = new WinCheck();
   }
@@ -359,13 +373,54 @@ export default class MainController {
   }
 
   endGame() {
+    this.gameHasStarted = false;
+    this.view.updateWinner(this.currentPlayer.name);
+    this.view.showWonDialog();
+  }
+
+  resetAll() {
     this.resetGame();
-    this.view.showWonDialog(this.currentPlayer.name);
+
+    this.move = null;
+    this.currentScreen = null;
+    this.currentMode = null;
+    this.players = [];
+    this.currentSquare = null;
+
+    this.init();
   }
 
   loadGameBoards() {
-    // Load Gameboards
-    // Give all squares data-action = attack
-    // Give all squares data-player = playerId
+    const info = [];
+
+    this.players.forEach((player) => {
+      info.push(this.cleanInfo(player));
+    });
+
+   return this.view.loadGameBoardScreen(info);
+  }
+
+  cleanInfo(player) {
+    return {
+      name: player.name,
+      id: player.id,
+      type: player.type,
+      avatar: player.avatar,
+      gameboard: this.cleanGameboard(player.gameboard.board),
+    };
+  }
+
+  cleanGameboard(board) {
+    const coordinates = {};
+
+    board.forEach((row, rowIndex) => {
+      row.forEach((square, colIndex) => {
+        const coordinate = positionToCoordinate(rowIndex, colIndex);
+
+        coordinates[coordinate] = square ? square.id : null;
+      });
+    });
+
+    return coordinates;
   }
 }

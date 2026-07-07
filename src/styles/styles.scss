@@ -141,6 +141,10 @@ body {
       background: url(../assets/icons/icon-x.png) center center / contain
         no-repeat;
     }
+
+    &[data-has-ship="true"] {
+      background: var(--color-success);
+    }
   }
 
   &__ships {
@@ -237,4 +241,28 @@ body {
   top: 0;
   left: 0;
   z-index: 999;
+}
+
+.player {
+  @include m.flex(column);
+  gap: var(--size-sm);
+
+  &__avatar {
+    max-width: calc(2 * var(--size-lg));
+    border: 1px solid var(--color-neutral-0);
+    border-radius: var(--size-sm);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: top;
+    order: -1;
+  }
+
+  &__info {
+    @include m.flex(column);
+    gap: var(--size-md);
+
+    @media screen and (min-width: 30rem) {
+      @include m.flex(row);
+    }
+  }
 }

@@ -311,6 +311,49 @@
           </div>
         </dialog>
       </template>
+      <template id="dialog-won">
+        <dialog class="dialog" data-dialog="won">
+          <div class="dialog__content">
+            <p
+              class="dialog__header text text--medium text--bold text--primary"
+            >
+              The Winner is: <span id="winning-player-name"></span>
+            </p>
+            <div class="dialog__buttons flex-row">
+              <button
+                class="button button--rectangle button--primary text text--small text--bold"
+                type="button"
+                data-action="back-to-menu"
+              >
+                Back to Menu
+              </button>
+            </div>
+          </div>
+        </dialog>
+      </template>
+      <template id="component-player">
+        <div class="player container">
+          <div class="player__info">
+            <h3 class="player__name text text--bold text--small text--primary"></h3>
+            <img alt="" class="player__avatar" />
+          </div>
+          <div class="player__gameboard board"></div>
+        </div>
+      </template>
+      <template id="screen-gameboard">
+        <section
+          data-page="screen-gamemode"
+          class="container container--grid flex-column fade-in"
+        >
+          <h2
+            class="container__header text text--primary text--medium text--bold floating"
+            style="--delay: 0"
+          >
+            Gameboard
+          </h2>
+          <div class="container__subcontainer" id="players"></div>
+        </section>
+      </template>
     </main>
   </body>
 </html>

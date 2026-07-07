@@ -5,6 +5,7 @@ import bindClick from "../utils/bindClick.js";
 import ScreenBuffering from "../pages/screen.buffering-screen.js";
 import ScreenPlaceShips from "../pages/screen.placeships.js";
 import coordinateToPosition from "../utils/coordinateToPosition.js";
+import ScreenGameboard from "../pages/screen.gameboard.js";
 
 export default class ScreenController {
   constructor() {
@@ -12,7 +13,7 @@ export default class ScreenController {
     this.characterInfoScreen = new ScreenCharacterInfo();
     this.bufferingScreen = new ScreenBuffering();
     this.placeShipsScreen = new ScreenPlaceShips();
-    this.gameboardScreen = null;
+    this.gameboardScreen = new ScreenGameboard();
     this.isTransitioning = false;
   }
 
@@ -315,12 +316,16 @@ export default class ScreenController {
     }
   }
 
-  showWonDialog(playerName) {
-    this.gameboardScreen.showWonDialog(playerName);
+  updateWinner(playerName) {
+    this.gameboardScreen.updateWinner(playerName);
   }
 
-  loadGameBoardScreen() {
-    this.gameboardScreen.init();
+  showWonDialog() {
+    this.gameboardScreen.showWonDialog();
+  }
+
+  loadGameBoardScreen(info) {
+    this.gameboardScreen.init(info);
 
     return this.gameboardScreen.clone;
   }
