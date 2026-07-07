@@ -59,6 +59,15 @@ export default class ScreenController {
     );
   }
 
+  bindGameboardActions(handler) {
+    // Gameboard Screen
+    this.gameboardScreen.clone
+      .querySelectorAll("[data-action]")
+      .forEach((element) => {
+        bindClick(element, () => handler(element.dataset.action, element));
+      });
+  }
+
   loadCursorAnimation() {
     const video = document.createElement("video");
     video.src = swirlExplosionVideoSrc;
@@ -328,5 +337,11 @@ export default class ScreenController {
     this.gameboardScreen.init(info);
 
     return this.gameboardScreen.clone;
+  }
+
+  getSquare(coordinate, id) {
+    return this.gameboardScreen.clone.querySelector(
+      `[data-coordinate = ${coordinate}][data-player = ${id}]`,
+    );
   }
 }

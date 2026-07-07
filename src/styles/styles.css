@@ -1384,9 +1384,6 @@ body {
 .board__square--missed {
   background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
 }
-.board__square[data-has-ship=true] {
-  background: var(--color-success);
-}
 .board__ships {
   background: var(--color-primary);
   padding: var(--size-md) var(--size-lg);

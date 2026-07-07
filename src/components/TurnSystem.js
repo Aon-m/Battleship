@@ -4,6 +4,10 @@ export default class TurnSystem {
     this.currentTurn = 0;
   }
 
+  announce() {
+    alert(this.getCurrentPlayer().name + "'s turn");
+  }
+
   getCurrentPlayer() {
     return this.players[this.currentTurn];
   }

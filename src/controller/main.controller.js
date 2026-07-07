@@ -333,9 +333,17 @@ export default class MainController {
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
+    if (this.currentMode === "single") this.players.reverse();
+
     this.gameHasStarted = true;
     this.turnSystem = new TurnSystem(this.players);
     this.winCheck = new WinCheck();
+
+    this.currentPlayer = this.turnSystem.getCurrentPlayer();
+
+    setTimeout(() => {
+      this.isComputer();
+    }, 5000);
   }
 
   #attackSquare(square) {
@@ -350,7 +358,9 @@ export default class MainController {
   }
 
   attackSystem(square) {
-    this.currentPlayer = this.turnSystem.getCurrentPlayer();
+    if (!square) return;
+    if (square.dataset.player === this.currentPlayer.id)
+      return alert("Wrong board");
 
     const result = this.#attackSquare(square);
     if (!result) return false;
@@ -359,10 +369,21 @@ export default class MainController {
 
     if (!won) {
       this.currentPlayer = this.turnSystem.nextTurn();
+      this.isComputer();
       return;
     }
 
     this.endGame();
+  }
+
+  isComputer() {
+    if (this.currentPlayer.type !== "ai") return;
+
+    const coordiniate = this.currentPlayer.attack();
+    const square = this.view.getSquare(coordiniate);
+    console.log(coordiniate, square);
+
+    this.attackSystem(square);
   }
 
   resetGame() {
@@ -397,7 +418,9 @@ export default class MainController {
       info.push(this.cleanInfo(player));
     });
 
-   return this.view.loadGameBoardScreen(info);
+    const screen = this.view.loadGameBoardScreen(info);
+    this.view.bindGameboardActions(this.handler.bind(this));
+    return screen;
   }
 
   cleanInfo(player) {

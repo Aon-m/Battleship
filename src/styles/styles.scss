@@ -141,10 +141,6 @@ body {
       background: url(../assets/icons/icon-x.png) center center / contain
         no-repeat;
     }
-
-    &[data-has-ship="true"] {
-      background: var(--color-success);
-    }
   }
 
   &__ships {

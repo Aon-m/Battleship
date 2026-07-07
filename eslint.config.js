@@ -23,6 +23,7 @@ export default defineConfig([
         FormData: "readonly",
         URL: "readonly",
         require: "readonly",
+        alert: "readonly",
       },
     },
   },
