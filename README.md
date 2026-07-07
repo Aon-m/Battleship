@@ -9,3 +9,6 @@
 
 - Add code comments
 - Make every non accessible method a private one
+- Allow randomized ship placements
+- Allow moving placed ships
+- Load ship images with the baord
