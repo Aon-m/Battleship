@@ -33,10 +33,10 @@ export default class MainController {
   init() {
     this.currentScreen = this.view.init();
 
-    this.view.bindGamemodeActions(this.handler.bind(this));
+    this.view.bindGamemodeActions(this.#handler.bind(this));
   }
 
-  handler(action, target) {
+  #handler(action, target) {
     switch (action) {
       case "cursor-animation": {
         this.throttledPlayCursorAnimation(target);
@@ -55,70 +55,70 @@ export default class MainController {
         this.move.next();
         break;
       case "gamemode-single":
-        this.singlePlayer();
+        this.#singlePlayer();
         break;
       case "submit-character-info": {
         const data = Form.getData();
-        this.currentPlayer = this.createPlayer(data.name, data.image);
-        this.loadBufferingScreen();
+        this.currentPlayer = this.#createPlayer(data.name, data.image);
+        this.#loadBufferingScreen();
 
         setTimeout(() => {
-          this.loadPlaceShipsScreen();
+          this.#loadPlaceShipsScreen();
         }, 5000);
         break;
       }
       case "change-all-ships-orientation": {
-        this.changeAllShipOrientation(target);
+        this.#changeAllShipOrientation(target);
         break;
       }
       case "remove-highlights": {
-        this.removeHighlightsonExit(target);
+        this.#removeHighlightsonExit(target);
         break;
       }
       case "reset-gameboard":
-        this.resetPlaceShipsScreen();
+        this.#resetPlaceShipsScreen();
         break;
 
       case "close-dialog":
-        this.closeDialog(target);
+        this.#closeDialog(target);
         break;
 
       case "gamemode-multi":
-        this.multiPlayer();
+        this.#multiPlayer();
         break;
 
       case "next-player":
-        this.switchToCharacterInfoScreen();
+        this.#switchToCharacterInfoScreen();
         break;
 
       case "open-dialog":
-        this.openDialog();
+        this.#openDialog();
         break;
 
       case "start-game":
-        this.loadBufferingScreen();
+        this.#loadBufferingScreen();
 
         setTimeout(() => {
-          this.startGame();
+          this.#startGame();
         }, 5000);
         break;
 
       case "end-game":
-        this.endGame();
+        this.#endGame();
         break;
 
       case "back-to-menu":
-        this.resetAll();
+        this.#resetAll();
         break;
 
       case "attack-square":
-        this.attackSystem(target);
+        this.#attackSystem(target);
         break;
     }
   }
 
-  singlePlayer() {
-    this.switchToCharacterInfoScreen();
+  #singlePlayer() {
+    this.#switchToCharacterInfoScreen();
 
     this.currentMode = "single";
 
@@ -127,91 +127,91 @@ export default class MainController {
     this.players.push(computer);
   }
 
-  multiPlayer() {
-    this.switchToCharacterInfoScreen();
+  #multiPlayer() {
+    this.#switchToCharacterInfoScreen();
 
     this.currentMode = "multi";
   }
 
-  switchToCharacterInfoScreen() {
-    const screen = this.loadCharacterInfoScreen();
+  #switchToCharacterInfoScreen() {
+    const screen = this.#loadCharacterInfoScreen();
     Form.init(screen.querySelector("form"));
 
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
   }
 
-  loadCharacterInfoScreen() {
+  #loadCharacterInfoScreen() {
     this.view.loadCharacterInfoScreen();
-    this.view.bindCharacterInfoActions(this.handler.bind(this));
+    this.view.bindCharacterInfoActions(this.#handler.bind(this));
     this.move = new Move(this.view.characterInfoScreenContainer());
 
     return this.view.characterInfoScreenContainer();
   }
 
-  loadBufferingScreen() {
+  #loadBufferingScreen() {
     const screen = this.view.loadBufferingScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
   }
 
-  loadPlaceShipsScreen() {
+  #loadPlaceShipsScreen() {
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
-    this.placeShipsScreenFunctionality();
+    this.#placeShipsScreenFunctionality();
   }
 
-  placeShipsScreenFunctionality() {
+  #placeShipsScreenFunctionality() {
     let ships = Object.values(this.players[0].ships).map((ship) =>
-      this.extractShipInfo(ship),
+      this.#extractShipInfo(ship),
     );
     this.view.loadShips(ships);
-    this.view.bindPlaceShipsActions(this.handler.bind(this));
+    this.view.bindPlaceShipsActions(this.#handler.bind(this));
 
     const domShips = this.view.placeShipsScreenShips();
     domShips.forEach((e) => {
       const dragAndDrop = new DragAndDrop(
         e,
         this.view.placeShipsScreenShipsContainers(),
-        this.boardSquareOnHover.bind(this),
-        this.boardSquareOnDrop.bind(this),
+        this.#boardSquareOnHover.bind(this),
+        this.#boardSquareOnDrop.bind(this),
       );
       dragAndDrop.init();
     });
   }
 
-  resetPlaceShipsScreen() {
+  #resetPlaceShipsScreen() {
     this.currentPlayer.resetGameboard();
 
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenNoAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
-    this.placeShipsScreenFunctionality();
+    this.#placeShipsScreenFunctionality();
   }
 
-  extractShipInfo(ship) {
+  #extractShipInfo(ship) {
     return { name: ship.name, id: ship.ship.id, length: ship.ship.length };
   }
 
-  createPlayer(name, image) {
+  #createPlayer(name, image) {
     const player = new Player(name, "human", image);
     this.players.push(player);
 
     return player;
   }
 
-  changeAllShipOrientation(btn) {
+  #changeAllShipOrientation(btn) {
     btn.classList.add("selected");
 
     document.querySelectorAll(".board__ship--notDeployed").forEach((ship) => {
-      this.changeShipOrientation(ship);
+      this.#changeShipOrientation(ship);
     });
   }
 
-  changeShipOrientation(target) {
+  #changeShipOrientation(target) {
     target.dataset.shipOrientation =
       target.dataset.shipOrientation === "horizontal"
         ? "vertical"
@@ -219,7 +219,7 @@ export default class MainController {
     this.view.changeShipOrientation(target);
   }
 
-  boardSquareOnHover(square, domShip) {
+  #boardSquareOnHover(square, domShip) {
     if (!square || !domShip) return;
     if (this.currentSquare === square) return;
     this.currentSquare = square;
@@ -227,7 +227,7 @@ export default class MainController {
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
-    const ship = this.findShip(shipId).ship;
+    const ship = this.#findShip(shipId).ship;
 
     const result = this.currentPlayer.gameboard.validateCoordinate(
       ship,
@@ -243,7 +243,7 @@ export default class MainController {
     this.view.highlightSquares(result.valid, coordinates);
   }
 
-  removeHighlightsonExit(e) {
+  #removeHighlightsonExit(e) {
     const board = document
       .elementFromPoint(e.clientX, e.clientY)
       ?.closest(".board");
@@ -253,7 +253,7 @@ export default class MainController {
     }
   }
 
-  findShip(shipId) {
+  #findShip(shipId) {
     for (const player of this.players) {
       for (const shipData of Object.values(player.ships)) {
         if (shipData.ship.id === shipId) {
@@ -269,14 +269,14 @@ export default class MainController {
     return null;
   }
 
-  boardSquareOnDrop(square, domShip) {
+  #boardSquareOnDrop(square, domShip) {
     if (!square) return;
     if (square.dataset.hasShip === "true") return;
 
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
-    const ship = this.findShip(shipId).ship;
+    const ship = this.#findShip(shipId).ship;
 
     const result = this.currentPlayer.gameboard.placeShip(
       ship,
@@ -297,10 +297,10 @@ export default class MainController {
 
     if (document.querySelector(".board__ship--notDeployed")) return;
 
-    this.openDialog();
+    this.#openDialog();
   }
 
-  openDialog() {
+  #openDialog() {
     if (this.currentMode === "single") {
       this.view.showReadyDialog();
       return;
@@ -314,7 +314,7 @@ export default class MainController {
     this.view.showNextPlayerDialog();
   }
 
-  closeDialog(target) {
+  #closeDialog(target) {
     const dialog = target.closest(".dialog").dataset.dialog;
 
     if (dialog === "nextPlayer") {
@@ -328,8 +328,8 @@ export default class MainController {
     this.view.showOpenDialogBtn();
   }
 
-  startGame() {
-    const screen = this.loadGameBoards();
+  #startGame() {
+    const screen = this.#loadGameBoards();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
 
@@ -339,33 +339,33 @@ export default class MainController {
     this.turnSystem = new TurnSystem(this.players);
     this.winCheck = new WinCheck();
 
-    this.turnInit();
+    this.#turnInit();
 
     setTimeout(() => {
-      this.isComputer();
+      this.#isComputer();
     }, 5000);
   }
 
-  turnInit() {
+  #turnInit() {
     this.view.enableBoard(
-      this.cleanGameboard(this.currentPlayer?.gameboard.board),
+      this.#cleanGameboard(this.currentPlayer?.gameboard.board),
       this.currentPlayer?.id,
     );
     this.currentPlayer = this.turnSystem.getCurrentPlayer();
     this.currentPlayer.allowedFires = 1;
 
     this.view.disableBoard(
-      this.cleanGameboard(this.currentPlayer.gameboard.board),
+      this.#cleanGameboard(this.currentPlayer.gameboard.board),
       this.currentPlayer.id,
     );
   }
 
-  changeTurn() {
+  #changeTurn() {
     this.turnSystem.nextTurn();
-    this.turnInit();
+    this.#turnInit();
   }
 
-  findPlayer(playerId) {
+  #findPlayer(playerId) {
     for (const player of this.players) {
       if (player.id === playerId) return player;
     }
@@ -375,7 +375,7 @@ export default class MainController {
 
   #attackSquare(square) {
     const coordinate = square.dataset.coordinate;
-    const attackedPlayer = this.findPlayer(square.dataset.player);
+    const attackedPlayer = this.#findPlayer(square.dataset.player);
     if (!attackedPlayer) return false;
 
     const result = attackedPlayer.gameboard.receiveAttack(coordinate);
@@ -384,7 +384,7 @@ export default class MainController {
     return { hit: result, attackedPlayer };
   }
 
-  attackSystem(square) {
+  #attackSystem(square) {
     if (
       !this.gameHasStarted ||
       !square ||
@@ -404,33 +404,33 @@ export default class MainController {
     if (!won) {
       if (hit) {
         this.currentPlayer.allowedFires = 1;
-        this.isComputer();
+        this.#isComputer();
         return;
       }
 
       setTimeout(() => {
-        this.changeTurn();
-        this.isComputer();
+        this.#changeTurn();
+        this.#isComputer();
       }, 3000);
       return;
     }
 
-    this.endGame();
+    this.#endGame();
   }
 
-  isComputer() {
+  #isComputer() {
     if (this.currentPlayer.type !== "ai") return;
 
     const coordiniate = this.currentPlayer.attack();
     const square = this.view.getSquare(
       coordiniate,
-      this.getRandomId(this.currentPlayer),
+      this.#getRandomId(this.currentPlayer),
     );
 
-    this.attackSystem(square);
+    this.#attackSystem(square);
   }
 
-  getRandomId(excludedPlayer) {
+  #getRandomId(excludedPlayer) {
     const availablePlayers = this.players.filter(
       (player) => player.id !== excludedPlayer.id,
     );
@@ -439,21 +439,21 @@ export default class MainController {
     return availablePlayers[randomIndex].id;
   }
 
-  resetGame() {
+  #resetGame() {
     this.turnSystem = null;
     this.winCheck = null;
     this.currentPlayer = null;
     this.gameHasStarted = false;
   }
 
-  endGame() {
+  #endGame() {
     this.gameHasStarted = false;
     this.view.updateWinner(this.currentPlayer.name);
     this.view.showWonDialog();
   }
 
-  resetAll() {
-    this.resetGame();
+  #resetAll() {
+    this.#resetGame();
 
     this.move = null;
     this.currentScreen.remove();
@@ -465,29 +465,29 @@ export default class MainController {
     this.init();
   }
 
-  loadGameBoards() {
+  #loadGameBoards() {
     const info = [];
 
     this.players.forEach((player) => {
-      info.push(this.cleanInfo(player));
+      info.push(this.#cleanInfo(player));
     });
 
     const screen = this.view.loadGameBoardScreen(info);
-    this.view.bindGameboardActions(this.handler.bind(this));
+    this.view.bindGameboardActions(this.#handler.bind(this));
     return screen;
   }
 
-  cleanInfo(player) {
+  #cleanInfo(player) {
     return {
       name: player.name,
       id: player.id,
       type: player.type,
       avatar: player.avatar,
-      gameboard: this.cleanGameboard(player.gameboard.board),
+      gameboard: this.#cleanGameboard(player.gameboard.board),
     };
   }
 
-  cleanGameboard(board) {
+  #cleanGameboard(board) {
     const coordinates = {};
 
     board.forEach((row, rowIndex) => {
