@@ -449,6 +449,7 @@ export default class MainController {
     this.resetGame();
 
     this.move = null;
+    this.currentScreen.remove();
     this.currentScreen = null;
     this.currentMode = null;
     this.players = [];

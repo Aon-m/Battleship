@@ -25,6 +25,14 @@ export default class DialogWon {
     return this.clone.querySelector("#winning-player-name");
   }
 
+  showModal() {
+    this.clone.showModal();
+  }
+
+  close() {
+    this.clone.close();
+  }
+
   preventEscape() {
     this.clone.addEventListener("cancel", (e) => {
       e.preventDefault();

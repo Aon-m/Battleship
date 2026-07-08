@@ -23,7 +23,8 @@ export default class ScreenGameboard {
 
     this.clone = fragment.firstElementChild;
 
-    this.wonDialog = this.createWonDialog().init();
+    this.wonDialog = new DialogWon(this.clone);
+    this.wonDialog.init();
 
     info.forEach((player) => {
       this.clone
@@ -72,16 +73,12 @@ export default class ScreenGameboard {
     return square;
   }
 
-  createWonDialog() {
-    const dialog = new DialogWon(this.clone);
-    return dialog;
-  }
-
   showWonDialog() {
     this.wonDialog.showModal();
   }
 
   updateWinner(name) {
+    console.log(this.wonDialog);
     this.wonDialog.getWinner().textContent = name;
   }
 
