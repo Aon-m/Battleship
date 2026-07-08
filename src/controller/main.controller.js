@@ -378,10 +378,10 @@ export default class MainController {
     const attackedPlayer = this.findPlayer(square.dataset.player);
     if (!attackedPlayer) return false;
 
-    attackedPlayer.gameboard.receiveAttack(coordinate);
+    const result = attackedPlayer.gameboard.receiveAttack(coordinate);
     this.view.renderAttack(attackedPlayer.id, square);
 
-    return attackedPlayer;
+    return { hit: result, attackedPlayer };
   }
 
   attackSystem(square) {
@@ -396,11 +396,18 @@ export default class MainController {
 
     this.currentPlayer.allowedFires = 0;
 
-    const attackedPlayer = this.#attackSquare(square);
+    const { hit, attackedPlayer } = this.#attackSquare(square);
     if (!attackedPlayer) return;
 
     const won = this.winCheck.checkCurrentPlayer(attackedPlayer);
+
     if (!won) {
+      if (hit) {
+        this.currentPlayer.allowedFires = 1;
+        this.isComputer();
+        return;
+      }
+
       setTimeout(() => {
         this.changeTurn();
         this.isComputer();
