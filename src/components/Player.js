@@ -9,6 +9,7 @@ export default class Player {
     this.gameboard = new GameBoard(size);
     this.size = size;
     this.id = crypto.randomUUID();
+    this.allowedFires = 0;
 
     this.ships = {
       carrier: this.createShip("carrier", 5),

@@ -339,37 +339,72 @@ export default class MainController {
     this.turnSystem = new TurnSystem(this.players);
     this.winCheck = new WinCheck();
 
-    this.currentPlayer = this.turnSystem.getCurrentPlayer();
+    this.turnInit();
 
     setTimeout(() => {
       this.isComputer();
     }, 5000);
   }
 
+  turnInit() {
+    this.view.enableBoard(
+      this.cleanGameboard(this.currentPlayer?.gameboard.board),
+      this.currentPlayer?.id,
+    );
+    this.currentPlayer = this.turnSystem.getCurrentPlayer();
+    this.currentPlayer.allowedFires = 1;
+
+    this.view.disableBoard(
+      this.cleanGameboard(this.currentPlayer.gameboard.board),
+      this.currentPlayer.id,
+    );
+  }
+
+  changeTurn() {
+    this.turnSystem.nextTurn();
+    this.turnInit();
+  }
+
+  findPlayer(playerId) {
+    for (const player of this.players) {
+      if (player.id === playerId) return player;
+    }
+
+    return null;
+  }
+
   #attackSquare(square) {
-    if (!this.gameHasStarted) return;
     const coordinate = square.dataset.coordinate;
+    const attackedPlayer = this.findPlayer(square.dataset.player);
+    if (!attackedPlayer) return false;
 
-    const result = this.currentPlayer.gameboard.receiveAttack(coordinate);
+    attackedPlayer.gameboard.receiveAttack(coordinate);
+    this.view.renderAttack(attackedPlayer.id, square);
 
-    if (!result) return false;
-
-    this.view.renderAttack(this.currentPlayer.id, square);
+    return attackedPlayer;
   }
 
   attackSystem(square) {
-    if (!square) return;
-    if (square.dataset.player === this.currentPlayer.id)
-      return alert("Wrong board");
+    if (
+      !this.gameHasStarted ||
+      !square ||
+      this.currentPlayer.allowedFires === 0 ||
+      square.classList.contains("board__square--disabled") ||
+      square.dataset.player === this.currentPlayer.id
+    )
+      return;
 
-    const result = this.#attackSquare(square);
-    if (!result) return false;
+    this.currentPlayer.allowedFires = 0;
 
-    const won = this.winCheck.checkCurrentPlayer(this.currentPlayer);
+    const attackedPlayer = this.#attackSquare(square);
+    if (!attackedPlayer) return;
 
+    const won = this.winCheck.checkCurrentPlayer(attackedPlayer);
     if (!won) {
-      this.currentPlayer = this.turnSystem.nextTurn();
-      this.isComputer();
+      setTimeout(() => {
+        this.changeTurn();
+        this.isComputer();
+      }, 3000);
       return;
     }
 
@@ -380,10 +415,21 @@ export default class MainController {
     if (this.currentPlayer.type !== "ai") return;
 
     const coordiniate = this.currentPlayer.attack();
-    const square = this.view.getSquare(coordiniate);
-    console.log(coordiniate, square);
+    const square = this.view.getSquare(
+      coordiniate,
+      this.getRandomId(this.currentPlayer),
+    );
 
     this.attackSystem(square);
+  }
+
+  getRandomId(excludedPlayer) {
+    const availablePlayers = this.players.filter(
+      (player) => player.id !== excludedPlayer.id,
+    );
+
+    const randomIndex = Math.floor(Math.random() * availablePlayers.length);
+    return availablePlayers[randomIndex].id;
   }
 
   resetGame() {

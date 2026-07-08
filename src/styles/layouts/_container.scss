@@ -18,12 +18,9 @@
 
   &--grid {
     display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      clamp(20rem, calc(20rem + 1vw), 25rem)
-    );
+    grid-template-columns: repeat(2, calc(10 * var(--size-square)));
     justify-content: center;
-    gap: var(--size-sm);
+    gap: var(--size-lg);
   }
 
   &__header {
@@ -66,11 +63,8 @@
     transform: translate(-50%, -50%);
   }
 
-  &__sub-container {
-    opacity: 1;
-    position: relative;
-    transition: opacity 0.6s ease;
-    margin-block-end: var(--size-md);
+  &__subcontainer {
+    width: 100%;
   }
 }
 
@@ -86,10 +80,6 @@
 
 @media screen and (min-width: 60rem) {
   .container {
-    &__sub-container {
-      min-width: 65%;
-    }
-
     &__text-content {
       width: clamp(23rem, calc(20rem + 5vw), 40rem);
       align-items: flex-start;

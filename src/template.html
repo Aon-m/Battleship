@@ -334,7 +334,9 @@
       <template id="component-player">
         <div class="player container">
           <div class="player__info">
-            <h3 class="player__name text text--bold text--small text--primary"></h3>
+            <h3
+              class="player__name text text--bold text--small text--primary"
+            ></h3>
             <img alt="" class="player__avatar" />
           </div>
           <div class="player__gameboard board"></div>
@@ -343,7 +345,7 @@
       <template id="screen-gameboard">
         <section
           data-page="screen-gamemode"
-          class="container container--grid flex-column fade-in"
+          class="container container--flex flex-column fade-in"
         >
           <h2
             class="container__header text text--primary text--medium text--bold floating"
@@ -351,7 +353,10 @@
           >
             Gameboard
           </h2>
-          <div class="container__subcontainer" id="players"></div>
+          <div
+            class="container__subcontainer container--grid"
+            id="players"
+          ></div>
         </section>
       </template>
     </main>

@@ -341,7 +341,18 @@ export default class ScreenController {
 
   getSquare(coordinate, id) {
     return this.gameboardScreen.clone.querySelector(
-      `[data-coordinate = ${coordinate}][data-player = ${id}]`,
+      `[data-coordinate = "${coordinate}"][data-player = "${id}"]`,
+    );
+  }
+
+  disableBoard(gameboard, id) {
+    Object.keys(gameboard).forEach((square) =>
+      this.getSquare(square, id).classList.add("board__square--disabled"),
+    );
+  }
+  enableBoard(gameboard, id) {
+    Object.keys(gameboard).forEach((square) =>
+      this.getSquare(square, id).classList.remove("board__square--disabled"),
     );
   }
 }
