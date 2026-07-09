@@ -11,13 +11,7 @@ export default class Player {
     this.id = crypto.randomUUID();
     this.allowedFires = 0;
 
-    this.ships = {
-      carrier: this.#createShip("carrier", 5),
-      battleship: this.#createShip("battleship", 4),
-      cruiser: this.#createShip("cruiser", 3),
-      submarine: this.#createShip("submarine", 3),
-      destroyer: this.#createShip("destroyer", 2),
-    };
+    this.ships = {};
   }
 
   // Utilities
@@ -70,6 +64,38 @@ export default class Player {
   resetGameboard() {
     this.gameboard = new GameBoard(this.size);
   }
+  init() {
+    this.#createShips();
+  }
+  reset() {
+    this.#createShips();
+  }
+  findShip(shipId) {
+    for (const shipData of Object.values(this.ships)) {
+      if (shipData.ship.id === shipId) {
+        return {
+          shipData,
+          ship: shipData.ship,
+        };
+      }
+    }
+
+    return null;
+  }
+  placeShip(shipId, orientation, coordinate) {
+    const data = this.findShip(shipId);
+    if (!data || data.placed === true) return false;
+    const ship = data.ship;
+
+    const result = this.gameboard.placeShip(ship, orientation, coordinate);
+
+    if (!result) return false;
+
+    ship.placed = true;
+    ship.position = coordinate;
+
+    return result;
+  }
 
   // Creation related methods
   #createShip(name, length, orientation = "horizontal") {
@@ -78,7 +104,7 @@ export default class Player {
       name,
       orientation,
       placed: false,
-      position: null,
+      coordinate: null,
     };
   }
   #validName(name, fallback) {
@@ -86,5 +112,14 @@ export default class Player {
     if (!name) return fallback;
 
     return name;
+  }
+  #createShips() {
+    this.ships = {
+      carrier: this.#createShip("carrier", 5),
+      battleship: this.#createShip("battleship", 4),
+      cruiser: this.#createShip("cruiser", 3),
+      submarine: this.#createShip("submarine", 3),
+      destroyer: this.#createShip("destroyer", 2),
+    };
   }
 }

@@ -130,7 +130,10 @@ export default class MainController {
     this.currentMode = "single";
 
     const computer = new Computer();
+
+    computer.init();
     computer.fillGameboard();
+
     this.players.push(computer);
   }
   #multiPlayer() {
@@ -171,7 +174,7 @@ export default class MainController {
     this.#placeShipsScreenFunctionality();
   }
   #placeShipsScreenFunctionality() {
-    let ships = Object.values(this.players[0].ships).map((ship) =>
+    let ships = Object.values(this.currentPlayer.ships).map((ship) =>
       this.#extractShipInfo(ship),
     );
     this.view.loadShips(ships);
@@ -221,7 +224,7 @@ export default class MainController {
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
-    const ship = this.#findShip(shipId).ship;
+    const ship = this.currentPlayer.findShip(shipId).ship;
 
     const result = this.currentPlayer.gameboard.validateCoordinate(
       ship,
@@ -252,10 +255,9 @@ export default class MainController {
     const shipId = domShip.dataset.shipId;
     const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
-    const ship = this.#findShip(shipId).ship;
 
-    const result = this.currentPlayer.gameboard.placeShip(
-      ship,
+    const result = this.currentPlayer.placeShip(
+      shipId,
       shipOrientation,
       coordinate,
     );
@@ -282,24 +284,10 @@ export default class MainController {
   }
   #createPlayer(name, image) {
     const player = new Player(name, "human", image);
+    player.init();
     this.players.push(player);
 
     return player;
-  }
-  #findShip(shipId) {
-    for (const player of this.players) {
-      for (const shipData of Object.values(player.ships)) {
-        if (shipData.ship.id === shipId) {
-          return {
-            player,
-            shipData,
-            ship: shipData.ship,
-          };
-        }
-      }
-    }
-
-    return null;
   }
   #findPlayer(playerId) {
     for (const player of this.players) {
