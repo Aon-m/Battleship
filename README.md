@@ -8,12 +8,12 @@
 ## To do
 
 <!-- Game flow -->
-- Allow randomized ship placements
-- Allow moving placed ships
 - Load ship images with the board
+- Allow randomized ship placements
 - Allowing ship previews
 
 <!-- User experience -->
 - Make accessible
 - Add animation
 - Add sound effects
+- Mobile Support
