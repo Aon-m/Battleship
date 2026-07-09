@@ -17,10 +17,11 @@ export default class DragAndDrop {
   }
 
   init() {
-    this.dragElement();
+    this.#dragElement();
   }
 
-  dragElement() {
+  // Drag events
+  #dragElement() {
     this.element.draggable = true;
 
     this.element.addEventListener("dragstart", this.boundDragStart);
@@ -31,19 +32,16 @@ export default class DragAndDrop {
       container.addEventListener("drop", this.boundDrop);
     });
   }
-
   #dragStart() {
     if (!this.element.classList.contains("draggable")) return;
     this.activeElement = this.element;
     this.element.classList.add("dragging");
   }
-
   #dragEnd() {
     this.activeElement = null;
     this.element.classList.remove("dragging");
     this.onHover(null);
   }
-
   #dragOver(e) {
     if (this.activeElement !== this.element) return;
     e.preventDefault();
@@ -58,7 +56,6 @@ export default class DragAndDrop {
 
     this.onHover(square, this.element, e);
   }
-
   #drop(e) {
     if (this.activeElement !== this.element) return;
     e.preventDefault();

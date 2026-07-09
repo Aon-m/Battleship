@@ -7,10 +7,6 @@
 
 ## To do
 
-<!-- Code related -->
-- Add code comments
-- Make every non accessible method a private one
-
 <!-- Game flow -->
 - Allow randomized ship placements
 - Allow moving placed ships

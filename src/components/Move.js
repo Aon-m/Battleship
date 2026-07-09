@@ -29,7 +29,7 @@ export default class Move {
     this.currentIndex = 0;
     this.step = step;
 
-    this.elements = this.bindElements();
+    this.elements = this.#bindElements();
 
     this.previews = previews;
 
@@ -37,34 +37,34 @@ export default class Move {
     this.prev = throttle(this.prev.bind(this), 500);
   }
 
+  // External methods
   init() {
-    this.render(this.getInitialState());
+    this.#render(this.#getInitialState());
   }
-
   next() {
-    return this.update("next");
+    return this.#update("next");
   }
-
   prev() {
-    return this.update("prev");
+    return this.#update("prev");
   }
 
-  async update(direction) {
-    const animations = this.getAnimations(direction);
+  // Internal Logic
+  // Dom manipulation
+  async #update(direction) {
+    const animations = this.#getAnimations(direction);
 
     await Promise.all(animations.map((a) => a.finished));
 
-    const state = this.getPreviewState(
+    const state = this.#getPreviewState(
       this.currentIndex,
       direction,
       this.previews,
     );
     this.currentIndex = state.index;
 
-    this.render(state);
+    this.#render(state);
   }
-
-  render(state) {
+  #render(state) {
     const e = this.elements;
 
     e.left.src = state.offscreenLeft;
@@ -73,18 +73,7 @@ export default class Move {
     e.next.src = state.next;
     e.right.src = state.offscreenRight;
   }
-
-  getInitialState() {
-    return {
-      offscreenLeft: this.previews[this.previews.length - 2],
-      previous: this.previews[this.previews.length - 1],
-      current: this.previews[0],
-      next: this.previews[1],
-      offscreenRight: this.previews[2],
-    };
-  }
-
-  bindElements() {
+  #bindElements() {
     return {
       left: this.container.querySelector("#offscreen-preview-left"),
       prev: this.container.querySelector("#previous-preview"),
@@ -94,7 +83,17 @@ export default class Move {
     };
   }
 
-  getAnimations(direction) {
+  // Get methods
+  #getInitialState() {
+    return {
+      offscreenLeft: this.previews[this.previews.length - 2],
+      previous: this.previews[this.previews.length - 1],
+      current: this.previews[0],
+      next: this.previews[1],
+      offscreenRight: this.previews[2],
+    };
+  }
+  #getAnimations(direction) {
     const e = this.elements;
 
     const map = {
@@ -154,8 +153,7 @@ export default class Move {
 
     return map[direction]();
   }
-
-  getPreviewState(index, direction, previews) {
+  #getPreviewState(index, direction, previews) {
     const length = previews.length;
 
     const nextIndex =

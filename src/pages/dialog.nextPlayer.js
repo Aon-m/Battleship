@@ -7,12 +7,13 @@ export default class DialogReady {
   }
 
   init() {
-    this.container.appendChild(this.create());
+    this.container.appendChild(this.#create());
 
     return this.clone;
   }
 
-  create() {
+  // Creation related methods
+  #create() {
     const fragment = this.template.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;

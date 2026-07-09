@@ -8,20 +8,20 @@ export default class Ship {
     this.sunk = false;
   }
 
+  // Utilities
   hit() {
     this.hits++;
   }
-
   isSunk() {
     return this.hits >= this.length;
   }
 
+  // Internal logic
   #set(field, value, fallback) {
     value = toNumber(value);
 
     return this.#isValid(field, value) ? value : fallback;
   }
-
   #isValid(key, value) {
     switch (key) {
       case "length":

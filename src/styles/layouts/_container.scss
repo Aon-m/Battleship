@@ -28,39 +28,10 @@
     width: 100%;
     gap: var(--size-sm);
   }
-  &__image {
-    @include m.flex(column);
-  }
-
-  &__text-content {
-    @include m.flex(column);
-    gap: var(--size-sm);
-    width: min(90vw, 25rem);
-  }
-
-  &__cards {
-    @include m.flex(column);
-    gap: var(--size-md);
-  }
 
   &__buttons {
     @include m.flex(column);
     gap: var(--size-sm);
-  }
-
-  &__indicators {
-    @include m.flex(row);
-    gap: var(--size-xs);
-    margin-block-start: auto;
-  }
-
-  &__navigation {
-    @include m.flex(row, center, space-between);
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 
   &__subcontainer {

@@ -69,62 +69,6 @@
   }
 }
 
-.rotate-forward {
-  animation: rotateForward 400ms ease forwards;
-  will-change: transform;
-}
-
-.rotate-backward {
-  animation: rotateBackward 200ms ease forwards;
-  will-change: transform;
-}
-
-@keyframes rotateForward {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(180deg);
-  }
-}
-
-@keyframes rotateBackward {
-  from {
-    transform: rotate(180deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.open-div {
-  animation: open-up 400ms ease forwards;
-  will-change: max-height;
-}
-
-.close-div {
-  animation: close-down 200ms ease forwards;
-  will-change: max-height;
-}
-
-@keyframes open-up {
-  from {
-    max-height: 0;
-  }
-  to {
-    max-height: 20rem;
-  }
-}
-
-@keyframes close-down {
-  from {
-    max-height: 20rem;
-  }
-  to {
-    max-height: 0;
-  }
-}
-
 .floating-hover {
   transition: transform 1000ms ease;
 
@@ -269,6 +213,7 @@
   }
 }
 
+// Move animation
 .offscreen-to-preview {
   animation: offscreen-to-preview 700ms ease-out forwards;
   will-change: transform;
@@ -289,6 +234,7 @@
   animation: preview-to-current 700ms ease-out forwards;
   will-change: transform;
 }
+
 @keyframes preview-to-current {
   0% {
     transform: scale(0.5);
@@ -304,6 +250,7 @@
   animation: current-to-preview 700ms ease-out forwards;
   will-change: transform;
 }
+
 @keyframes current-to-preview {
   0% {
     transform: scale(1);
@@ -319,6 +266,7 @@
   animation: preview-to-offscreen 700ms ease-out forwards;
   will-change: transform;
 }
+
 @keyframes preview-to-offscreen {
   0% {
     transform: scale(0.5);

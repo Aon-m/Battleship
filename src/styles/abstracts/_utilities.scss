@@ -1,21 +1,8 @@
 @use "../abstracts/mixins" as m;
 
-.mobile-hidden {
-  display: none;
-
-  @media screen and (min-width: 40rem) {
-    display: initial;
-  }
-}
-
 .hidden {
   display: none;
 }
-
-.invisible {
-  visibility: hidden;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -28,6 +15,7 @@
   border: 0;
 }
 
+// Flex
 .flex-mobile-row {
   flex-direction: row;
 
@@ -35,7 +23,6 @@
     flex-direction: column;
   }
 }
-
 .flex-mobile-column {
   flex-direction: column;
 
@@ -43,7 +30,6 @@
     flex-direction: row;
   }
 }
-
 .flex-row {
   flex-direction: row;
 }
@@ -53,24 +39,6 @@
 
 .wide {
   width: 100%;
-}
-
-.order {
-  &-first {
-    order: 1;
-  }
-  &-last {
-    order: -1;
-  }
-  &-mobile-first {
-    order: -1;
-  }
-
-  &-desktop-last {
-    @media (min-width: 60rem) {
-      order: 1;
-    }
-  }
 }
 
 .skip-link {

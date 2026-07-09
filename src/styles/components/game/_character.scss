@@ -1,0 +1,31 @@
+.character {
+  height: 75%;
+  max-width: 5rem;
+  padding-block-end: var(--size-sm);
+
+  &__previews {
+    position: relative;
+  }
+
+  &--offscreen {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  &--preview {
+    transform: scale(0.5);
+    z-index: 1;
+  }
+
+  &--default {
+    z-index: 3;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 1000ms ease;
+
+    &:hover {
+      transform: scale(1.08);
+      transition: 500ms ease;
+    }
+  }
+}

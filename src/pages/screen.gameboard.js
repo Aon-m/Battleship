@@ -13,12 +13,25 @@ export default class ScreenGameboard {
   }
 
   init(info = []) {
-    this.main.appendChild(this.create(info));
+    this.main.appendChild(this.#create(info));
 
     return this.clone;
   }
 
-  create(info) {
+  // Utilities
+  showWonDialog() {
+    this.wonDialog.showModal();
+  }
+  updateWinner(name) {
+    console.log(this.wonDialog);
+    this.wonDialog.getWinner().textContent = name;
+  }
+  closeWonDialog() {
+    this.wonDialog.close();
+  }
+
+  // Creation related methods
+  #create(info) {
     const fragment = this.mainTemplate.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;
@@ -29,13 +42,12 @@ export default class ScreenGameboard {
     info.forEach((player) => {
       this.clone
         .querySelector("#players")
-        .appendChild(this.createPlayer(player));
+        .appendChild(this.#createPlayer(player));
     });
 
     return fragment;
   }
-
-  createPlayer(info = {}) {
+  #createPlayer(info = {}) {
     const fragment = this.playerTemplate.content.cloneNode(true);
 
     const clone = fragment.querySelector(".player");
@@ -43,7 +55,7 @@ export default class ScreenGameboard {
 
     playerInfo.querySelector(".player__name").textContent = info.name;
     playerInfo.querySelector(".player__avatar").src = info.avatar;
-    this.createGameboard(
+    this.#createGameboard(
       info.gameboard,
       clone.querySelector(".player__gameboard"),
       info.id,
@@ -51,14 +63,12 @@ export default class ScreenGameboard {
 
     return fragment;
   }
-
-  createGameboard(gameboard, container, id) {
+  #createGameboard(gameboard, container, id) {
     for (const [key, value] of Object.entries(gameboard)) {
-      container.appendChild(this.createSquare(key, value, id));
+      container.appendChild(this.#createSquare(key, value, id));
     }
   }
-
-  createSquare(coordinate, hasShip, id) {
+  #createSquare(coordinate, hasShip, id) {
     const square = document.createElement("button");
 
     square.className = "board__square";
@@ -71,18 +81,5 @@ export default class ScreenGameboard {
     if (hasShip) square.dataset.hasShip = "true";
 
     return square;
-  }
-
-  showWonDialog() {
-    this.wonDialog.showModal();
-  }
-
-  updateWinner(name) {
-    console.log(this.wonDialog);
-    this.wonDialog.getWinner().textContent = name;
-  }
-
-  closeWonDialog() {
-    this.wonDialog.close();
   }
 }

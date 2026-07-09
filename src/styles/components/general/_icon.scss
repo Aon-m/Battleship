@@ -4,13 +4,8 @@
   &:hover {
     transform: scale(1.2);
   }
-
   &:active {
     opacity: 0.8;
-  }
-
-  &__path {
-    stroke-width: 3;
   }
 
   &--small {
@@ -22,30 +17,22 @@
   &--large {
     width: clamp(2.5rem, calc(2rem + 0.8vw), 5rem);
   }
-  &--larger {
-    width: clamp(10rem, calc(10rem + 1vw), 15rem);
-  }
 
   &--primary {
     color: var(--color-primary);
+  }
+  &--secondary {
+    background-color: var(--color-primary);
+    color: var(--color-neutral-0);
+
+    &.selected {
+      background-color: var(--color-neutral-0);
+      color: var(--color-primary);
+    }
   }
 
   &--bold {
     stroke: var(--color-primary);
     stroke-width: 4px;
-  }
-
-  &--secondary {
-    color: var(--color-neutral-4);
-  }
-
-  &--tertiary {
-    background-color: var(--color-primary);
-    color: var(--color-neutral-0);
-    
-    &.selected {
-      background-color: var(--color-neutral-0);
-      color: var(--color-primary);
-    }
   }
 }

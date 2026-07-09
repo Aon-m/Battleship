@@ -10,355 +10,354 @@
     <title>Battleship</title>
   </head>
   <body class="expand">
+    <!-- Skip Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
     <header>
       <img class="icon icon--large" src="./assets/favicon.png" alt="" />
       <h1 class="text text--primary text--large text--xbold">BattleShip</h1>
     </header>
-    <main id="main-content" data-page="container">
-      <template id="screen-gamemode">
-        <section
-          data-page="screen-gamemode"
-          class="container container--flex flex-column fade-in"
-        >
-          <h2
-            class="container__header text text--primary text--medium text--bold floating"
-            style="--delay: 0"
-          >
-            Select GameMode
-          </h2>
-          <div class="container__buttons">
-            <div class="floating wide" style="--delay: 1">
-              <button
-                type="button"
-                class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
-                data-action="gamemode-single"
-              >
-                Single-player
-              </button>
-            </div>
-            <div class="floating wide" style="--delay: 2">
-              <button
-                type="button"
-                class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
-                data-action="gamemode-multi"
-              >
-                Multi-player
-              </button>
-            </div>
-          </div>
-        </section>
-      </template>
-      <template id="screen-character-info">
-        <section
-          data-page="screen-character-info"
-          class="container container--flex flex-column"
-        >
-          <h2
-            class="container__header text text--primary text--medium text--bold floating"
-          >
-            Character Customization
-          </h2>
-          <form class="form" id="character-form">
-            <fieldset class="form__fieldset text--small">
-              <legend class="form__legend sr-only">Enter name:</legend>
-              <div class="form__field">
-                <label class="form__label" for="character-name"
-                  >What's yer name Captain?
-                </label>
-                <input
-                  type="text"
-                  name="character-name"
-                  class="form__input form__input--text text text--bold text--small"
-                  id="character-name"
-                />
-              </div>
 
-              <div class="form__field">
-                <label for="character-image">Choose yer looks:</label>
-                <input
-                  type="hidden"
-                  name="character-image"
-                  id="character-image"
-                />
-                <div class="character__previews form__images">
-                  <button
-                    type="button"
-                    class="button button--navigation button--navigation--left icon icon--large icon--primary icon--bold fast-slow-hover"
-                    id="back"
-                    data-action="move-back"
-                  >
-                    <svg
-                      class="card__icon"
-                      width="15"
-                      height="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 0L1 12l12 12"
-                        stroke="currentColor"
-                        fill="none"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <div class="carousel">
-                    <div
-                      id="slot-offscreen-preview-left"
-                      class="carousel__slot carousel__offscreen carousel__offscreen--left"
-                    >
-                      <img
-                        class="character character--offscreen character--offscreen--left"
-                        src="./assets/characters/character-6.png"
-                        id="offscreen-preview-left"
-                        alt=""
-                      />
-                    </div>
-                    <div
-                      id="slot-previous-preview"
-                      class="carousel__slot carousel__preview"
-                    >
-                      <img
-                        class="character character--preview"
-                        src="./assets/characters/character-7.png"
-                        id="previous-preview"
-                        alt=""
-                      />
-                    </div>
-                    <div
-                      id="slot-current-preview"
-                      class="carousel__slot carousel__current fast-slow-hover"
-                    >
-                      <img
-                        class="character character--default"
-                        src="./assets/characters/character-1.png"
-                        id="current-preview"
-                        alt="character-image"
-                      />
-                    </div>
-                    <div
-                      id="slot-next-preview"
-                      class="carousel__slot carousel__preview"
-                    >
-                      <img
-                        class="character character--preview"
-                        src="./assets/characters/character-2.png"
-                        id="next-preview"
-                        alt=""
-                      />
-                    </div>
-                    <div
-                      id="slot-offscreen-preview-right"
-                      class="carousel__slot carousel__offscreen carousel__offscreen--right"
-                    >
-                      <img
-                        class="character character--offscreen character--offscreen--right"
-                        src="./assets/characters/character-3.png"
-                        id="offscreen-preview-right"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    class="button button--navigation button--navigation--right icon icon--large icon--primary icon--bold fast-slow-hover"
-                    id="forward"
-                    data-action="move-forward"
-                  >
-                    <svg
-                      class="card__icon"
-                      width="14"
-                      height="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 0l12 12L1 24"
-                        stroke="currentColor"
-                        fill="none"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+    <!-- Main content -->
+    <main id="main-content" data-page="container"></main>
 
-              <button
-                type="submit"
-                data-action="submit-character-info"
-                class="button--rectangle button button--secondary text text--small text--primary"
-              >
-                Done?
-              </button>
-            </fieldset>
-          </form>
-          <div class="flex-row">
-            <div class="gameboard"></div>
-            <div class="gameboard__ships"></div>
-          </div>
-        </section>
-      </template>
-      <template id="screen-placeships">
-        <section class="container container--flex flex-column board__container">
-          <h2
-            class="container__header text text--primary text--medium text--bold floating"
-          >
-            Place Ships
-          </h2>
-          <div class="board drag-container"></div>
-          <div class="board__ships container">
-            <div class="container__header">
-              <h3 class="text text--medium text--bold text--primary">
-                Deployable Ships:
-              </h3>
-              <button
-                type="button"
-                class="button"
-                data-action="change-all-ships-orientation"
-                title="change ship orientation"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                  class="icon icon--large icon--tertiary"
-                  aria-label="change the orientation of all ships"
-                >
-                  <path
-                    d="M440-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T80-440q0-150 105-255t255-105h6l-62-62 56-58 160 160-160 160-56-58 62-62h-6q-117 0-198.5 81.5T160-440q0 117 81.5 198.5T440-160q35 0 69-8.5t65-25.5l58 58q-43 28-92 42T440-80Zm240-120L440-440l240-240 240 240-240 240Zm0-114 126-126-126-126-126 126 126 126Zm0-126Z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="container__buttons">
+    <!-- Screen templates -->
+    <template id="screen-gamemode">
+      <section
+        data-page="screen-gamemode"
+        class="container container--flex flex-column fade-in"
+      >
+        <h2
+          class="container__header text text--primary text--medium text--bold floating"
+          style="--delay: 0"
+        >
+          Select GameMode
+        </h2>
+        <div class="container__buttons">
+          <div class="floating wide" style="--delay: 1">
             <button
               type="button"
-              data-action="reset-gameboard"
-              class="button button--rectangle button--primary text text--small text--bold"
+              class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
+              data-action="gamemode-single"
             >
-              Reset Gameboard
+              Single-player
             </button>
+          </div>
+          <div class="floating wide" style="--delay: 2">
             <button
               type="button"
-              data-action="open-dialog"
-              class="button button--rectangle button--primary text text--small text--bold hidden"
+              class="button button--rectangle button--wide button--primary text text--bold text--small floating-hover"
+              data-action="gamemode-multi"
             >
-              Ready?
+              Multi-player
             </button>
           </div>
-        </section>
-      </template>
-      <template id="screen-buffering">
-        <section class="buffering-screen">
-          <div class="spinner" aria-hidden="true"></div>
-          <p
-            class="loader text text--primary text--medium text--bold"
-            aria-label="loading"
-          ></p>
-        </section>
-      </template>
-      <template id="dialog-ready">
-        <dialog class="dialog" data-dialog="ready">
-          <div class="dialog__content">
-            <h3
-              class="dialog__header text text--medium text--bold text--primary"
-            >
-              Ready?
-            </h3>
-            <div class="dialog__buttons flex-row">
-              <button
-                class="button button--rectangle button--primary text text--small text--bold"
-                type="button"
-                data-action="start-game"
-              >
-                Start
-              </button>
-              <button
-                class="button button--rectangle button--primary text text--small text--bold"
-                type="button"
-                data-action="close-dialog"
-              >
-                Back
-              </button>
-            </div>
-          </div>
-        </dialog>
-      </template>
-      <template id="dialog-nextPlayer">
-        <dialog class="dialog" data-dialog="nextPlayer">
-          <div class="dialog__content">
-            <h3
-              class="dialog__header text text--medium text--bold text--primary"
-            >
-              Ready?
-            </h3>
-            <div class="dialog__buttons flex-row">
-              <button
-                class="button button--rectangle button--primary text text--small text--bold"
-                type="button"
-                data-action="next-player"
-              >
-                Next
-              </button>
-              <button
-                class="button button--rectangle button--primary text text--small text--bold"
-                type="button"
-                data-action="close-dialog"
-              >
-                Back
-              </button>
-            </div>
-          </div>
-        </dialog>
-      </template>
-      <template id="dialog-won">
-        <dialog class="dialog" data-dialog="won">
-          <div class="dialog__content">
-            <p
-              class="dialog__header text text--medium text--bold text--primary"
-            >
-              The Winner is: <span id="winning-player-name"></span>
-            </p>
-            <div class="dialog__buttons flex-row">
-              <button
-                class="button button--rectangle button--primary text text--small text--bold"
-                type="button"
-                data-action="back-to-menu"
-              >
-                Back to Menu
-              </button>
-            </div>
-          </div>
-        </dialog>
-      </template>
-      <template id="component-player">
-        <div class="player container">
-          <div class="player__info">
-            <h3
-              class="player__name text text--bold text--small text--primary"
-            ></h3>
-            <img alt="" class="player__avatar" />
-          </div>
-          <div class="player__gameboard board"></div>
         </div>
-      </template>
-      <template id="screen-gameboard">
-        <section
-          data-page="screen-gamemode"
-          class="container container--flex flex-column fade-in"
+      </section>
+    </template>
+    <template id="screen-character-info">
+      <section
+        data-page="screen-character-info"
+        class="container container--flex flex-column"
+      >
+        <h2
+          class="container__header text text--primary text--medium text--bold floating"
         >
-          <h2
-            class="container__header text text--primary text--medium text--bold floating"
-            style="--delay: 0"
+          Character Customization
+        </h2>
+        <form class="form" id="character-form">
+          <fieldset class="form__fieldset text--small">
+            <legend class="form__legend sr-only">Enter name:</legend>
+            <div class="form__field">
+              <label class="form__label" for="character-name"
+                >What's yer name Captain?
+              </label>
+              <input
+                type="text"
+                name="character-name"
+                class="form__input form__input--text text text--bold text--small"
+                id="character-name"
+              />
+            </div>
+
+            <div class="form__field">
+              <label for="character-image">Choose yer looks:</label>
+              <input
+                type="hidden"
+                name="character-image"
+                id="character-image"
+              />
+              <div class="character__previews form__images">
+                <button
+                  type="button"
+                  class="button button--navigation button--navigation--left icon icon--large icon--primary icon--bold fast-slow-hover"
+                  id="back"
+                  data-action="move-back"
+                >
+                  <svg
+                    width="15"
+                    height="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 0L1 12l12 12"
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <div class="carousel">
+                  <div
+                    id="slot-offscreen-preview-left"
+                    class="carousel__slot carousel__offscreen carousel__offscreen--left"
+                  >
+                    <img
+                      class="character character--offscreen character--offscreen--left"
+                      src="./assets/characters/character-6.png"
+                      id="offscreen-preview-left"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    id="slot-previous-preview"
+                    class="carousel__slot carousel__preview"
+                  >
+                    <img
+                      class="character character--preview"
+                      src="./assets/characters/character-7.png"
+                      id="previous-preview"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    id="slot-current-preview"
+                    class="carousel__slot carousel__current fast-slow-hover"
+                  >
+                    <img
+                      class="character character--default"
+                      src="./assets/characters/character-1.png"
+                      id="current-preview"
+                      alt="character-image"
+                    />
+                  </div>
+                  <div
+                    id="slot-next-preview"
+                    class="carousel__slot carousel__preview"
+                  >
+                    <img
+                      class="character character--preview"
+                      src="./assets/characters/character-2.png"
+                      id="next-preview"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    id="slot-offscreen-preview-right"
+                    class="carousel__slot carousel__offscreen carousel__offscreen--right"
+                  >
+                    <img
+                      class="character character--offscreen character--offscreen--right"
+                      src="./assets/characters/character-3.png"
+                      id="offscreen-preview-right"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="button button--navigation button--navigation--right icon icon--large icon--primary icon--bold fast-slow-hover"
+                  id="forward"
+                  data-action="move-forward"
+                >
+                  <svg
+                    width="14"
+                    height="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 0l12 12L1 24"
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              data-action="submit-character-info"
+              class="button--rectangle button button--secondary text text--small text--primary"
+            >
+              Done?
+            </button>
+          </fieldset>
+        </form>
+        <div class="flex-row">
+          <div class="gameboard"></div>
+          <div class="gameboard__ships"></div>
+        </div>
+      </section>
+    </template>
+    <template id="screen-placeships">
+      <section class="container container--flex flex-column board__container">
+        <h2
+          class="container__header text text--primary text--medium text--bold floating"
+        >
+          Place Ships
+        </h2>
+        <div class="board drag-container"></div>
+        <div class="board__ships container">
+          <div class="container__header">
+            <h3 class="text text--medium text--bold text--primary">
+              Deployable Ships:
+            </h3>
+            <button
+              type="button"
+              class="button"
+              data-action="change-all-ships-orientation"
+              title="change ship orientation"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                fill="currentColor"
+                class="icon icon--large icon--secondary"
+                aria-label="change the orientation of all ships"
+              >
+                <path
+                  d="M440-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T80-440q0-150 105-255t255-105h6l-62-62 56-58 160 160-160 160-56-58 62-62h-6q-117 0-198.5 81.5T160-440q0 117 81.5 198.5T440-160q35 0 69-8.5t65-25.5l58 58q-43 28-92 42T440-80Zm240-120L440-440l240-240 240 240-240 240Zm0-114 126-126-126-126-126 126 126 126Zm0-126Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="container__buttons">
+          <button
+            type="button"
+            data-action="reset-gameboard"
+            class="button button--rectangle button--primary text text--small text--bold"
           >
-            Gameboard
-          </h2>
-          <div
-            class="container__subcontainer container--grid"
-            id="players"
-          ></div>
-        </section>
-      </template>
-    </main>
+            Reset Gameboard
+          </button>
+          <button
+            type="button"
+            data-action="open-dialog"
+            class="button button--rectangle button--primary text text--small text--bold hidden"
+          >
+            Ready?
+          </button>
+        </div>
+      </section>
+    </template>
+    <template id="screen-buffering">
+      <section class="buffering-screen">
+        <div class="spinner" aria-hidden="true"></div>
+        <p
+          class="loader text text--primary text--medium text--bold"
+          aria-label="loading"
+        ></p>
+      </section>
+    </template>
+    <template id="screen-gameboard">
+      <section
+        data-page="screen-gamemode"
+        class="container container--flex flex-column fade-in"
+      >
+        <h2
+          class="container__header text text--primary text--medium text--bold floating"
+          style="--delay: 0"
+        >
+          Gameboard
+        </h2>
+        <div class="container__subcontainer container--grid" id="players"></div>
+      </section>
+    </template>
+
+    <!-- Dialog templates -->
+    <template id="dialog-ready">
+      <dialog class="dialog" data-dialog="ready">
+        <div class="dialog__content">
+          <h3 class="dialog__header text text--medium text--bold text--primary">
+            Ready?
+          </h3>
+          <div class="dialog__buttons flex-row">
+            <button
+              class="button button--rectangle button--primary text text--small text--bold"
+              type="button"
+              data-action="start-game"
+            >
+              Start
+            </button>
+            <button
+              class="button button--rectangle button--primary text text--small text--bold"
+              type="button"
+              data-action="close-dialog"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </template>
+    <template id="dialog-nextPlayer">
+      <dialog class="dialog" data-dialog="nextPlayer">
+        <div class="dialog__content">
+          <h3 class="dialog__header text text--medium text--bold text--primary">
+            Ready?
+          </h3>
+          <div class="dialog__buttons flex-row">
+            <button
+              class="button button--rectangle button--primary text text--small text--bold"
+              type="button"
+              data-action="next-player"
+            >
+              Next
+            </button>
+            <button
+              class="button button--rectangle button--primary text text--small text--bold"
+              type="button"
+              data-action="close-dialog"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </template>
+    <template id="dialog-won">
+      <dialog class="dialog" data-dialog="won">
+        <div class="dialog__content">
+          <p class="dialog__header text text--medium text--bold text--primary">
+            The Winner is: <span id="winning-player-name"></span>
+          </p>
+          <div class="dialog__buttons flex-row">
+            <button
+              class="button button--rectangle button--primary text text--small text--bold"
+              type="button"
+              data-action="back-to-menu"
+            >
+              Back to Menu
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </template>
+
+    <!-- Other templates -->
+    <template id="component-player">
+      <div class="player container">
+        <div class="player__info">
+          <h3
+            class="player__name text text--bold text--small text--primary"
+          ></h3>
+          <img alt="" class="player__avatar" />
+        </div>
+        <div class="player__gameboard board"></div>
+      </div>
+    </template>
   </body>
 </html>

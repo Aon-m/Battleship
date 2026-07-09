@@ -7,33 +7,32 @@ export default class DialogWon {
   }
 
   init() {
-    this.container.appendChild(this.create());
-    this.preventEscape();
+    this.container.appendChild(this.#create());
+    this.#preventEscape();
 
     return this.clone;
   }
 
-  create() {
+  // Utilities
+  getWinner() {
+    return this.clone.querySelector("#winning-player-name");
+  }
+  showModal() {
+    this.clone.showModal();
+  }
+  close() {
+    this.clone.close();
+  }
+
+  // Creation related methods
+  #create() {
     const fragment = this.template.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;
 
     return fragment;
   }
-
-  getWinner() {
-    return this.clone.querySelector("#winning-player-name");
-  }
-
-  showModal() {
-    this.clone.showModal();
-  }
-
-  close() {
-    this.clone.close();
-  }
-
-  preventEscape() {
+  #preventEscape() {
     this.clone.addEventListener("cancel", (e) => {
       e.preventDefault();
     });

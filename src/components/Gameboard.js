@@ -6,12 +6,7 @@ export default class GameBoard {
     this.shots = [];
   }
 
-  #createBoard(size) {
-    const board = Array.from({ length: size }, () => Array(size).fill(null));
-
-    return board;
-  }
-
+  // Utilities
   validateCoordinate(ship, orientation, coordinate) {
     if (orientation !== "horizontal" && orientation !== "vertical") {
       throw new Error("Invalid orientation");
@@ -54,7 +49,6 @@ export default class GameBoard {
       coords,
     };
   }
-
   placeShip(ship, orientation, coordinate) {
     const { valid, coords } = this.validateCoordinate(
       ship,
@@ -70,7 +64,6 @@ export default class GameBoard {
 
     return coords;
   }
-
   receiveAttack(coordinate) {
     const [row, col] = coordinateToPosition(coordinate);
 
@@ -87,7 +80,6 @@ export default class GameBoard {
     this.missedShots.push([row, col]);
     return false;
   }
-
   allShipsSunk() {
     const ships = new Set();
 
@@ -99,10 +91,16 @@ export default class GameBoard {
 
     return [...ships].every((ship) => ship.isSunk());
   }
-
   reset(size = 10) {
     this.board = this.#createBoard(size);
     this.missedShots = [];
     this.shots = [];
+  }
+
+  // Creation related methods
+  #createBoard(size) {
+    const board = Array.from({ length: size }, () => Array(size).fill(null));
+
+    return board;
   }
 }

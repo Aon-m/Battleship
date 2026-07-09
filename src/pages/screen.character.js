@@ -7,13 +7,14 @@ export default class ScreenCharacterInfo {
   }
 
   init() {
-    this.main.appendChild(this.create());
+    this.main.appendChild(this.#create());
     this.clone.classList.add("hidden");
 
     return this.clone;
   }
 
-  create() {
+  // Creation related methods
+  #create() {
     const fragment = this.template.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;

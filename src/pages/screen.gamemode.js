@@ -8,12 +8,13 @@ export default class ScreenGamemode {
   }
 
   init() {
-    this.main.appendChild(this.create());
+    this.main.appendChild(this.#create());
 
     return this.clone;
   }
 
-  create() {
+  // Creation related methods
+  #create() {
     const fragment = this.template.content.cloneNode(true);
 
     this.clone = fragment.firstElementChild;

@@ -1,13 +1,11 @@
 export default class MoveAnimation {
-  constructor() {}
-
+  // Animation delegation
   moveAnimation(fromEl, type, direction, step) {
     const dx = direction === "prev" ? -step : step;
 
-    return this.mappedAnimation(fromEl, dx, type);
+    return this.#mappedAnimation(fromEl, dx, type);
   }
-
-  mappedAnimation(e, dx, type, duration = 500) {
+  #mappedAnimation(e, dx, type, duration = 500) {
     const map = {
       offscreenToPreview: this.#offscreenToPreview,
       previewToCurrent: this.#previewToCurrent,
@@ -21,6 +19,7 @@ export default class MoveAnimation {
     return fn.call(this, e, dx, duration);
   }
 
+  // Animations
   #offscreenToPreview(e, dx, duration) {
     return e.animate(
       [
@@ -38,7 +37,6 @@ export default class MoveAnimation {
       },
     );
   }
-
   #previewToCurrent(e, dx, duration) {
     return e.animate(
       [
@@ -56,7 +54,6 @@ export default class MoveAnimation {
       },
     );
   }
-
   #currentToPreview(e, dx, duration) {
     return e.animate(
       [
@@ -74,7 +71,6 @@ export default class MoveAnimation {
       },
     );
   }
-
   #previewToOffscreen(e, dx, duration) {
     return e.animate(
       [

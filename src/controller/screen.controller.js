@@ -21,6 +21,7 @@ export default class ScreenController {
     return this.gamemodeScreen.init();
   }
 
+  // Event Listeners
   bindGamemodeActions(handler) {
     if (typeof handler !== "function") return;
 
@@ -36,7 +37,6 @@ export default class ScreenController {
         bindClick(btn, () => handler(btn.dataset.action, btn), true);
       });
   }
-
   bindCharacterInfoActions(handler) {
     // Character Info Screen
     this.characterInfoScreenContainer()
@@ -45,7 +45,6 @@ export default class ScreenController {
         bindClick(btn, () => handler(btn.dataset.action, btn));
       });
   }
-
   bindPlaceShipsActions(handler) {
     // Place Ships Screen
     this.placeShipsScreenContainer()
@@ -58,7 +57,6 @@ export default class ScreenController {
       handler("remove-highlights", e),
     );
   }
-
   bindGameboardActions(handler) {
     // Gameboard Screen
     this.gameboardScreen.clone
@@ -68,6 +66,7 @@ export default class ScreenController {
       });
   }
 
+  // Animations
   loadCursorAnimation() {
     const video = document.createElement("video");
     video.src = swirlExplosionVideoSrc;
@@ -83,7 +82,6 @@ export default class ScreenController {
 
     return video;
   }
-
   playCursorAnimation(e) {
     if (e.target.closest("button")) return;
     if (e.target.closest(".container")) return;
@@ -111,43 +109,6 @@ export default class ScreenController {
       }, 1500);
     }, 1500);
   }
-
-  loadCharacterInfoScreen() {
-    this.characterInfoScreen.init();
-  }
-
-  changeScreenAnimation(screen1, screen2) {
-    // screen = section
-    if (this.isTransitioning) return;
-    this.isTransitioning = true;
-
-    screen1.classList.add("expand-and-collapse");
-
-    screen1.addEventListener(
-      "animationend",
-      () => {
-        screen1.remove();
-        screen2.style.opacity = 1;
-        document.body.appendChild(screen2);
-        screen2.classList.remove("hidden");
-        screen2.classList.add("enter-screen");
-        this.isTransitioning = false;
-
-        screen2.addEventListener("animationend", () => {
-          screen2.classList.remove("enter-screen");
-        });
-      },
-      { once: true },
-    );
-  }
-
-  changeScreenNoAnimation(screen1, screen2) {
-    document.body.appendChild(screen2);
-    screen1.remove();
-    screen2.style.opacity = 1;
-    screen2.classList.remove("hidden");
-  }
-
   videoAnimation(btn) {
     const video = document.createElement("video");
     video.src = swirlExplosionVideoSrc;
@@ -183,7 +144,6 @@ export default class ScreenController {
       }, 4500);
     });
   }
-
   btnAnimation(btn) {
     btn.addEventListener("click", () => {
       btn.classList.remove("floating-hover");
@@ -193,48 +153,91 @@ export default class ScreenController {
     });
   }
 
-  gamemodeScreenContainer() {
-    return this.gamemodeScreen.clone;
+  // Screen transitions
+  changeScreenAnimation(screen1, screen2) {
+    // screen = section
+    if (this.isTransitioning) return;
+    this.isTransitioning = true;
+
+    screen1.classList.add("expand-and-collapse");
+
+    screen1.addEventListener(
+      "animationend",
+      () => {
+        screen1.remove();
+        screen2.style.opacity = 1;
+        document.body.appendChild(screen2);
+        screen2.classList.remove("hidden");
+        screen2.classList.add("enter-screen");
+        this.isTransitioning = false;
+
+        screen2.addEventListener("animationend", () => {
+          screen2.classList.remove("enter-screen");
+        });
+      },
+      { once: true },
+    );
+  }
+  changeScreenNoAnimation(screen1, screen2) {
+    document.body.appendChild(screen2);
+    screen1.remove();
+    screen2.style.opacity = 1;
+    screen2.classList.remove("hidden");
   }
 
-  characterInfoScreenContainer() {
-    return this.characterInfoScreen.clone;
+  // Display Screen
+  loadCharacterInfoScreen() {
+    this.characterInfoScreen.init();
   }
-
   loadBufferingScreen() {
     this.bufferingScreen.init();
 
     return this.bufferingScreen.clone;
   }
-
   loadPlaceShipsScreen() {
     this.placeShipsScreen.init();
 
     return this.placeShipsScreen.clone;
   }
 
-  loadShips(ships = []) {
-    this.placeShipsScreen.loadShips(ships);
+  // Dom Access
+  gamemodeScreenContainer() {
+    return this.gamemodeScreen.clone;
   }
-
+  characterInfoScreenContainer() {
+    return this.characterInfoScreen.clone;
+  }
   placeShipsScreenContainer() {
     return this.placeShipsScreen.clone;
   }
-
   placeShipsScreenShips() {
     return this.placeShipsScreenContainer().querySelectorAll(
       ".board__ship--notDeployed",
     );
   }
-
   placeShipsScreenShipsContainers() {
     return this.placeShipsScreenContainer().querySelectorAll(".drag-container");
   }
+  loadGameBoardScreen(info) {
+    this.gameboardScreen.init(info);
 
+    return this.gameboardScreen.clone;
+  }
+  findCoord(coord) {
+    return this.placeShipsScreenContainer().querySelector(
+      `[data-coordinate= ${coord}]`,
+    );
+  }
+  getSquare(coordinate, id) {
+    return this.gameboardScreen.clone.querySelector(
+      `[data-coordinate = "${coordinate}"][data-player = "${id}"]`,
+    );
+  }
+
+  // Dom manipulation
   changeShipOrientation(target) {
     target.closest(".board__ship").classList.toggle("vertical");
   }
-
   highlightSquares(isValid, coords) {
     // Add new highlights
     coords.forEach((coord) => {
@@ -245,7 +248,6 @@ export default class ScreenController {
       );
     });
   }
-
   removeHighlights() {
     this.placeShipsScreenContainer()
       .querySelectorAll(".board__square--success, .board__square--error")
@@ -256,7 +258,6 @@ export default class ScreenController {
         );
       });
   }
-
   updateBoard(coords, domShip) {
     coords.forEach((coord) => {
       const square = this.findCoord(coord);
@@ -286,37 +287,6 @@ export default class ScreenController {
 
     document.querySelector(".board").appendChild(cleanShip);
   }
-
-  findCoord(coord) {
-    return this.placeShipsScreenContainer().querySelector(
-      `[data-coordinate= ${coord}]`,
-    );
-  }
-
-  showReadyDialog() {
-    this.placeShipsScreen.showReadyDialog();
-  }
-
-  closeReadyDialog() {
-    this.placeShipsScreen.closeReadyDialog();
-  }
-
-  showNextPlayerDialog() {
-    this.placeShipsScreen.showNextPlayerDialog();
-  }
-
-  closeNextPlayerDialog() {
-    this.placeShipsScreen.closeNextPlayerDialog();
-  }
-
-  showOpenDialogBtn() {
-    this.placeShipsScreen.showOpenDialogBtn();
-  }
-
-  hideOpenDialogBtn() {
-    this.placeShipsScreen.hideOpenDialogBtn();
-  }
-
   renderAttack(playerId, square) {
     if (square.dataset?.hasShip === "true") {
       square.classList.add("board__square--damaged");
@@ -324,27 +294,6 @@ export default class ScreenController {
       square.classList.add("board__square--missed");
     }
   }
-
-  updateWinner(playerName) {
-    this.gameboardScreen.updateWinner(playerName);
-  }
-
-  showWonDialog() {
-    this.gameboardScreen.showWonDialog();
-  }
-
-  loadGameBoardScreen(info) {
-    this.gameboardScreen.init(info);
-
-    return this.gameboardScreen.clone;
-  }
-
-  getSquare(coordinate, id) {
-    return this.gameboardScreen.clone.querySelector(
-      `[data-coordinate = "${coordinate}"][data-player = "${id}"]`,
-    );
-  }
-
   disableBoard(gameboard, id) {
     Object.keys(gameboard).forEach((square) =>
       this.getSquare(square, id).classList.add("board__square--disabled"),
@@ -354,5 +303,36 @@ export default class ScreenController {
     Object.keys(gameboard).forEach((square) =>
       this.getSquare(square, id).classList.remove("board__square--disabled"),
     );
+  }
+
+  // External Utilities
+  loadShips(ships = []) {
+    this.placeShipsScreen.loadShips(ships);
+  }
+  updateWinner(playerName) {
+    this.gameboardScreen.updateWinner(playerName);
+  }
+
+  // Dialog access
+  showReadyDialog() {
+    this.placeShipsScreen.showReadyDialog();
+  }
+  closeReadyDialog() {
+    this.placeShipsScreen.closeReadyDialog();
+  }
+  showNextPlayerDialog() {
+    this.placeShipsScreen.showNextPlayerDialog();
+  }
+  closeNextPlayerDialog() {
+    this.placeShipsScreen.closeNextPlayerDialog();
+  }
+  showOpenDialogBtn() {
+    this.placeShipsScreen.showOpenDialogBtn();
+  }
+  hideOpenDialogBtn() {
+    this.placeShipsScreen.hideOpenDialogBtn();
+  }
+  showWonDialog() {
+    this.gameboardScreen.showWonDialog();
   }
 }

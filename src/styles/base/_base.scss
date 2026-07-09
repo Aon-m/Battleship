@@ -3,21 +3,6 @@
   /* Main colors */
   --color-primary: rgb(34, 43, 65);
 
-  /* Accent colors */
-  --color-accent-0: hsl(43, 84%, 65%);
-  --color-accent-1: hsl(15, 100%, 70%);
-  --color-accent-2: hsl(195, 74%, 62%);
-  --color-accent-3: hsl(348, 100%, 68%);
-  --color-accent-4: hsl(145, 58%, 55%);
-  --color-accent-5: hsl(264, 64%, 52%);
-
-  /* Fun Colors */
-  --color-fun-0: hsl(330, 65%, 68%); /* pink */
-  --color-fun-1: hsl(15, 80%, 70%); /* peach */
-  --color-fun-2: hsl(85, 55%, 62%); /* lime */
-  --color-fun-3: hsl(195, 55%, 60%); /* sky */
-  --color-fun-4: hsl(280, 60%, 70%); /* lavender */
-
   /* Neutral colors */
   --color-neutral-0: hsl(0, 0%, 100%);
   --color-neutral-1: hsl(0, 0%, 87.5%);
@@ -49,15 +34,12 @@
   --fs-xl: clamp(4rem, calc(4rem + 3vw), 10rem);
 
   /* Font weights */
-  --fw-thin: 100;
-  --fw-xlight: 200;
   --fw-light: 300;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
   --fw-xbold: 800;
-  --fw-black: 900;
 
   /* Tablet and Desktop */
   @media screen and (min-width: 40rem) {

@@ -13,42 +13,13 @@ export default class ScreenPlaceShips {
   }
 
   init() {
-    this.main.appendChild(this.create());
+    this.main.appendChild(this.#create());
     this.clone.classList.add("hidden");
 
     return this.clone;
   }
 
-  create() {
-    const fragment = this.template.content.cloneNode(true);
-
-    this.clone = fragment.firstElementChild;
-
-    const gameboard = this.clone.querySelector(".board");
-
-    for (let i = 1; i <= 100; i++) {
-      gameboard.appendChild(this.createBtn(i));
-    }
-
-    const ships = this.clone.querySelector(".board__ships");
-    this.clone.appendChild(ships);
-    this.readyDialog = this.createReadyDialog().init();
-    this.nextPlayerDialog = this.createNextPlayerDialog().init();
-
-    return fragment;
-  }
-
-  createBtn(i) {
-    const button = document.createElement("button");
-
-    button.className = "board__square";
-    button.type = "button";
-    button.dataset.coordinate = numberToCoordinate(i);
-    button.dataset.hasShip = "false";
-
-    return button;
-  }
-
+  // Utilities
   loadShips(ships) {
     const container = this.clone.querySelector(".board__ships");
 
@@ -58,45 +29,66 @@ export default class ScreenPlaceShips {
       );
     });
   }
-
-  createReadyDialog() {
-    const dialog = new DialogReady(this.clone);
-    return dialog;
-  }
-
-  createNextPlayerDialog() {
-    const dialog = new DialogNextPlayer(this.clone);
-    return dialog;
-  }
-
   showReadyDialog() {
     this.readyDialog.showModal();
   }
-
   closeReadyDialog() {
     this.readyDialog.close();
   }
-
   showNextPlayerDialog() {
     this.nextPlayerDialog.showModal();
   }
-
   closeNextPlayerDialog() {
     this.nextPlayerDialog.close();
   }
-
   showOpenDialogBtn() {
     document
       .querySelector(`[data-action= "open-dialog"]`)
       .classList.remove("hidden");
   }
-
   hideOpenDialogBtn() {
     document
       .querySelector(`[data-action= "open-dialog"]`)
       .classList.remove("hidden");
   }
 
+  // Creation related methods
+  #create() {
+    const fragment = this.template.content.cloneNode(true);
+
+    this.clone = fragment.firstElementChild;
+
+    const gameboard = this.clone.querySelector(".board");
+
+    for (let i = 1; i <= 100; i++) {
+      gameboard.appendChild(this.#createBtn(i));
+    }
+
+    const ships = this.clone.querySelector(".board__ships");
+    this.clone.appendChild(ships);
+    this.readyDialog = this.#createReadyDialog().init();
+    this.nextPlayerDialog = this.#createNextPlayerDialog().init();
+
+    return fragment;
+  }
+  #createBtn(i) {
+    const button = document.createElement("button");
+
+    button.className = "board__square";
+    button.type = "button";
+    button.dataset.coordinate = numberToCoordinate(i);
+    button.dataset.hasShip = "false";
+
+    return button;
+  }
+  #createReadyDialog() {
+    const dialog = new DialogReady(this.clone);
+    return dialog;
+  }
+  #createNextPlayerDialog() {
+    const dialog = new DialogNextPlayer(this.clone);
+    return dialog;
+  }
   #createShipDiv(shipName, shipId, shipLength) {
     const ship = document.createElement("div");
     ship.classList.add("board__ship");

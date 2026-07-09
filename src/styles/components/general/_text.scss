@@ -1,26 +1,11 @@
-// @font-face {
-// }
-
 .text {
   font-family: "Space Mono", monospace, sans-serif;
-
-  &__description {
-    max-width: 40ch;
-    line-height: 1.5;
-
-    @media screen and (min-width: 40rem) {
-      max-width: 45ch;
-    }
-  }
 
   &--primary {
     color: var(--color-neutral-0);
   }
   &--secondary {
     color: var(--color-neutral-2);
-  }
-  &--tertiary {
-    color: var(--color-neutral-4);
   }
 
   &--small {
@@ -43,12 +28,6 @@
     text-transform: lowercase;
   }
 
-  &--thin {
-    font-weight: var(--fw-thin);
-  }
-  &--xlight {
-    font-weight: var(--fw-xlight);
-  }
   &--light {
     font-weight: var(--fw-light);
   }
@@ -67,21 +46,8 @@
   &--xbold {
     font-weight: var(--fw-xbold);
   }
-  &--black {
-    font-weight: var(--fw-black);
-  }
+
   &--center {
     text-align: center;
-  }
-  &--wide-screen-align-left {
-    @media screen and (min-width: 40rem) {
-      text-align: left;
-    }
-  }
-}
-
-@media screen and (min-width: 65rem) {
-  .text {
-    text-align: left;
   }
 }
