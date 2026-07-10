@@ -92,7 +92,7 @@ export default class Player {
     if (!result) return false;
 
     ship.placed = true;
-    ship.position = coordinate;
+    ship.coordinate = coordinate;
 
     return result;
   }
