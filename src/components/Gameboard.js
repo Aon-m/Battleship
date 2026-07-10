@@ -97,7 +97,7 @@ export default class GameBoard {
     this.missedShots = [];
     this.shots = [];
   }
-  cleaned(board = this.board) {
+  info(board = this.board) {
     const coordinates = {};
 
     board.forEach((row, rowIndex) => {

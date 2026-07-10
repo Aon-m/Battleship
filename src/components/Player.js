@@ -18,10 +18,10 @@ export default class Player {
   fillGameboard() {
     const letters = "ABCDEFGHIJ";
 
-    for (const shipData of Object.values(this.ships)) {
+    for (const ship of Object.values(this.ships)) {
       const placements = [];
 
-      const length = shipData.ship.length;
+      const length = ship.length;
 
       // Horizontal placements
       for (let row = 0; row < 10; row++) {
@@ -51,11 +51,7 @@ export default class Player {
       }
 
       for (const { orientation, coordinate } of placements) {
-        const result = this.gameboard.placeShip(
-          shipData.ship,
-          orientation,
-          coordinate,
-        );
+        const result = this.gameboard.placeShip(ship, orientation, coordinate);
 
         if (result) break;
       }
@@ -71,23 +67,19 @@ export default class Player {
     this.#createShips();
   }
   findShip(shipId) {
-    for (const shipData of Object.values(this.ships)) {
-      if (shipData.ship.id === shipId) {
-        return {
-          shipData,
-          ship: shipData.ship,
-        };
+    for (const ship of Object.values(this.ships)) {
+      if (ship.id === shipId) {
+        return ship;
       }
     }
 
     return null;
   }
-  placeShip(shipId, orientation, coordinate) {
-    const data = this.findShip(shipId);
-    if (!data || data.placed === true) return false;
-    const ship = data.ship;
+  placeShip(shipId, coordinate) {
+    const ship = this.findShip(shipId);
+    if (!ship || ship.placed === true) return false;
 
-    const result = this.gameboard.placeShip(ship, orientation, coordinate);
+    const result = this.gameboard.placeShip(ship, ship.orientation, coordinate);
 
     if (!result) return false;
 
@@ -96,17 +88,17 @@ export default class Player {
 
     return result;
   }
-
-  // Creation related methods
-  #createShip(name, length, orientation = "horizontal") {
+  info() {
     return {
-      ship: new Ship(length),
-      name,
-      orientation,
-      placed: false,
-      coordinate: null,
+      name: this.name,
+      id: this.id,
+      type: this.type,
+      avatar: this.avatar,
+      gameboard: this.gameboard.info(),
     };
   }
+
+  // Creation related methods
   #validName(name, fallback) {
     if (name.trim() === "") return fallback;
     if (!name) return fallback;
@@ -115,11 +107,11 @@ export default class Player {
   }
   #createShips() {
     this.ships = {
-      carrier: this.#createShip("carrier", 5),
-      battleship: this.#createShip("battleship", 4),
-      cruiser: this.#createShip("cruiser", 3),
-      submarine: this.#createShip("submarine", 3),
-      destroyer: this.#createShip("destroyer", 2),
+      carrier: new Ship(5, "carrier"),
+      battleship: new Ship(4, "battleship"),
+      cruiser: new Ship(3, "cruiser"),
+      submarine: new Ship(3, "submarine"),
+      destroyer: new Ship(2, "destroyer"),
     };
   }
 }

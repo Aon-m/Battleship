@@ -175,7 +175,7 @@ export default class MainController {
   }
   #placeShipsScreenFunctionality() {
     let ships = Object.values(this.currentPlayer.ships).map((ship) =>
-      this.#extractShipInfo(ship),
+      ship.info(),
     );
     this.view.loadShips(ships);
     this.view.bindPlaceShipsActions(this.#handler.bind(this));
@@ -214,13 +214,9 @@ export default class MainController {
 
     if (!ship) return;
 
-    if (target.dataset.shipOrientation === "horizontal") {
-      ship.orientation = "vertical";
-      target.dataset.shipOrientation === "vertical";
-    } else {
-      ship.orientation = "horizontal";
-      target.dataset.shipOrientation === "horizontal";
-    }
+    ship.orientation =
+      ship.orientation === "horizontal" ? "vertical" : "horizontal";
+
     this.view.changeShipOrientation(target);
   }
   #boardSquareOnHover(square, domShip) {
@@ -228,14 +224,12 @@ export default class MainController {
     if (this.currentSquare === square) return;
     this.currentSquare = square;
 
-    const shipId = domShip.dataset.shipId;
-    const shipOrientation = domShip.dataset.shipOrientation;
+    const ship = this.currentPlayer.findShip(domShip.dataset.shipId);
     const coordinate = square.dataset.coordinate;
-    const ship = this.currentPlayer.findShip(shipId).ship;
 
     const result = this.currentPlayer.gameboard.validateCoordinate(
       ship,
-      shipOrientation,
+      ship.orientation,
       coordinate,
     );
 
@@ -260,14 +254,9 @@ export default class MainController {
     if (square.dataset.hasShip === "true") return;
 
     const shipId = domShip.dataset.shipId;
-    const shipOrientation = domShip.dataset.shipOrientation;
     const coordinate = square.dataset.coordinate;
 
-    const result = this.currentPlayer.placeShip(
-      shipId,
-      shipOrientation,
-      coordinate,
-    );
+    const result = this.currentPlayer.placeShip(shipId, coordinate);
 
     if (!result) {
       this.view.removeHighlights();
@@ -286,9 +275,6 @@ export default class MainController {
   }
 
   // Utilities
-  #extractShipInfo(ship) {
-    return { name: ship.name, id: ship.ship.id, length: ship.ship.length };
-  }
   #createPlayer(name, image) {
     const player = new Player(name, "human", image);
     player.init();
@@ -310,15 +296,6 @@ export default class MainController {
 
     const randomIndex = Math.floor(Math.random() * availablePlayers.length);
     return availablePlayers[randomIndex].id;
-  }
-  #cleanInfo(player) {
-    return {
-      name: player.name,
-      id: player.id,
-      type: player.type,
-      avatar: player.avatar,
-      gameboard: player.gameboard.cleaned(),
-    };
   }
 
   // Dialog controls
@@ -369,14 +346,14 @@ export default class MainController {
   }
   #turnInit() {
     this.view.enableBoard(
-      this.currentPlayer?.gameboard.cleaned(),
+      this.currentPlayer?.gameboard.info(),
       this.currentPlayer?.id,
     );
     this.currentPlayer = this.turnSystem.getCurrentPlayer();
     this.currentPlayer.allowedFires = 1;
 
     this.view.disableBoard(
-      this.currentPlayer.gameboard.cleaned(),
+      this.currentPlayer.gameboard.info(),
       this.currentPlayer.id,
     );
   }
@@ -467,7 +444,7 @@ export default class MainController {
     const info = [];
 
     this.players.forEach((player) => {
-      info.push(this.#cleanInfo(player));
+      info.push(player.info());
     });
 
     const screen = this.view.loadGameBoardScreen(info);
