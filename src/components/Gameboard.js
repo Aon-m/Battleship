@@ -1,4 +1,5 @@
 import coordinateToPosition from "../utils/coordinateToPosition.js";
+import positionToCoordinate from "../utils/positionToCoordinate.js";
 export default class GameBoard {
   constructor(size = 10) {
     this.board = this.#createBoard(size);
@@ -95,6 +96,19 @@ export default class GameBoard {
     this.board = this.#createBoard(size);
     this.missedShots = [];
     this.shots = [];
+  }
+  cleaned(board = this.board) {
+    const coordinates = {};
+
+    board.forEach((row, rowIndex) => {
+      row.forEach((square, colIndex) => {
+        const coordinate = positionToCoordinate(rowIndex, colIndex);
+
+        coordinates[coordinate] = square ? square.id : null;
+      });
+    });
+
+    return coordinates;
   }
 
   // Creation related methods

@@ -310,21 +310,8 @@ export default class MainController {
       id: player.id,
       type: player.type,
       avatar: player.avatar,
-      gameboard: this.#cleanGameboard(player.gameboard.board),
+      gameboard: player.gameboard.cleaned(),
     };
-  }
-  #cleanGameboard(board) {
-    const coordinates = {};
-
-    board.forEach((row, rowIndex) => {
-      row.forEach((square, colIndex) => {
-        const coordinate = positionToCoordinate(rowIndex, colIndex);
-
-        coordinates[coordinate] = square ? square.id : null;
-      });
-    });
-
-    return coordinates;
   }
 
   // Dialog controls
@@ -375,14 +362,14 @@ export default class MainController {
   }
   #turnInit() {
     this.view.enableBoard(
-      this.#cleanGameboard(this.currentPlayer?.gameboard.board),
+      this.currentPlayer?.gameboard.cleaned(),
       this.currentPlayer?.id,
     );
     this.currentPlayer = this.turnSystem.getCurrentPlayer();
     this.currentPlayer.allowedFires = 1;
 
     this.view.disableBoard(
-      this.#cleanGameboard(this.currentPlayer.gameboard.board),
+      this.currentPlayer.gameboard.cleaned(),
       this.currentPlayer.id,
     );
   }
