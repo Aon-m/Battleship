@@ -8,6 +8,29 @@
   overflow: hidden;
   position: relative;
 
+  &--enabled {
+    .board__ship--preview {
+      opacity: 0;
+      border: 1rem solid red;
+    }
+  }
+  &--disabled {
+    cursor: not-allowed;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(95, 95, 95, 0.25);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .board__ship--preview {
+      opacity: 1;
+    }
+  }
+
   &__square {
     aspect-ratio: 1 / 1;
     background: none;
@@ -44,11 +67,6 @@
     &--missed {
       background: url(../assets/icons/icon-x.png) center center / contain
         no-repeat;
-    }
-
-    &--disabled {
-      cursor: not-allowed;
-      background: rgba(95, 95, 95, 0.208);
     }
   }
 

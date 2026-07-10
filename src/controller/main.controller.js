@@ -344,22 +344,24 @@ export default class MainController {
       this.#isComputer();
     }, 5000);
   }
-  #turnInit() {
-    this.view.enableBoard(
-      this.currentPlayer?.gameboard.info(),
-      this.currentPlayer?.id,
-    );
+  #turnInit(modeCheck = false) {
+    if (modeCheck === true && this.currentMode === "single") {
+      this.currentPlayer = this.turnSystem.getCurrentPlayer();
+      this.currentPlayer.allowedFires = 1;
+
+      return;
+    }
+
+    this.view.enableBoard(this.currentPlayer?.id);
+
     this.currentPlayer = this.turnSystem.getCurrentPlayer();
     this.currentPlayer.allowedFires = 1;
 
-    this.view.disableBoard(
-      this.currentPlayer.gameboard.info(),
-      this.currentPlayer.id,
-    );
+    this.view.disableBoard(this.currentPlayer.id);
   }
-  #changeTurn() {
+  #changeTurn(modeCheck) {
     this.turnSystem.nextTurn();
-    this.#turnInit();
+    this.#turnInit(modeCheck);
   }
   #attackSquare(square) {
     const coordinate = square.dataset.coordinate;
@@ -396,7 +398,7 @@ export default class MainController {
       }
 
       setTimeout(() => {
-        this.#changeTurn();
+        this.#changeTurn(true);
         this.#isComputer();
       }, 3000);
       return;

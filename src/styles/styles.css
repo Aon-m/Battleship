@@ -68,6 +68,24 @@ body {
   overflow: hidden;
   position: relative;
 }
+.board--enabled .board__ship--preview {
+  opacity: 0;
+  border: 1rem solid red;
+}
+.board--disabled {
+  cursor: not-allowed;
+}
+.board--disabled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(95, 95, 95, 0.25);
+  z-index: 999;
+  pointer-events: none;
+}
+.board--disabled .board__ship--preview {
+  opacity: 1;
+}
 .board__square {
   aspect-ratio: 1/1;
   background: none;
@@ -95,10 +113,6 @@ body {
 }
 .board__square--missed {
   background: url(../assets/icons/icon-x.png) center center/contain no-repeat;
-}
-.board__square--disabled {
-  cursor: not-allowed;
-  background: rgba(95, 95, 95, 0.208);
 }
 .board__ships {
   background: var(--color-primary);

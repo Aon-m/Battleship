@@ -69,6 +69,7 @@ export default class ScreenGameboard {
     }
 
     gameboard.player = id;
+    gameboard.classList.add("board--enabled");
   }
   #createSquare(coordinate, hasShip, id) {
     const square = document.createElement("button");

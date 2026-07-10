@@ -276,15 +276,13 @@ export default class ScreenController {
       square.classList.add("board__square--missed");
     }
   }
-  disableBoard(gameboard, id) {
-    Object.keys(gameboard).forEach((square) =>
-      this.getSquare(square, id).classList.add("board__square--disabled"),
-    );
+  disableBoard(id) {
+    this.findGameboard(id)?.classList.remove("board--enabled");
+    this.findGameboard(id)?.classList.add("board--disabled");
   }
-  enableBoard(gameboard, id) {
-    Object.keys(gameboard).forEach((square) =>
-      this.getSquare(square, id).classList.remove("board__square--disabled"),
-    );
+  enableBoard(id) {
+    this.findGameboard(id)?.classList.remove("board--disabled");
+    this.findGameboard(id)?.classList.add("board--enabled");
   }
 
   // External Utilities
@@ -384,6 +382,9 @@ export default class ScreenController {
     ship.style.position = "absolute";
     ship.style.left = `calc(var(--size-square) * ${col})`;
     ship.style.top = `calc(var(--size-square) * ${row})`;
+    ship.classList.add("board__ship--preview");
+
+    ship.style.zIndex = 1;
 
     board.appendChild(ship);
   }
