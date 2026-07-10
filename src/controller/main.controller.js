@@ -210,10 +210,17 @@ export default class MainController {
     });
   }
   #changeShipOrientation(target) {
-    target.dataset.shipOrientation =
-      target.dataset.shipOrientation === "horizontal"
-        ? "vertical"
-        : "horizontal";
+    const ship = this.currentPlayer.findShip(target.dataset.shipId);
+
+    if (!ship) return;
+
+    if (target.dataset.shipOrientation === "horizontal") {
+      ship.orientation = "vertical";
+      target.dataset.shipOrientation === "vertical";
+    } else {
+      ship.orientation = "horizontal";
+      target.dataset.shipOrientation === "horizontal";
+    }
     this.view.changeShipOrientation(target);
   }
   #boardSquareOnHover(square, domShip) {
