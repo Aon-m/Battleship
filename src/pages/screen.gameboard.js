@@ -63,9 +63,9 @@ export default class ScreenGameboard {
 
     return fragment;
   }
-  #createGameboard(gameboard, container, id) {
-    for (const [key, value] of Object.entries(gameboard)) {
-      container.appendChild(this.#createSquare(key, value, id));
+  #createGameboard(coordinates, gameboard, id) {
+    for (const [key, value] of Object.entries(coordinates)) {
+      gameboard.appendChild(this.#createSquare(key, value, id));
     }
   }
   #createSquare(coordinate, hasShip, id) {
