@@ -8,12 +8,14 @@
 ## To do
 
 <!-- Game flow -->
-- Load ship images with the board
 - Allow randomized ship placements
-- Allowing ship previews
+  - Use fillgameboard
+  - Load ship images
+- Passing Screen
 
 <!-- User experience -->
-- Make accessible
+
 - Add animation
 - Add sound effects
 - Mobile Support
+- Make accessible
