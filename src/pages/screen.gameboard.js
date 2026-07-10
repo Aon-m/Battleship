@@ -67,6 +67,8 @@ export default class ScreenGameboard {
     for (const [key, value] of Object.entries(coordinates)) {
       gameboard.appendChild(this.#createSquare(key, value, id));
     }
+
+    gameboard.player = id;
   }
   #createSquare(coordinate, hasShip, id) {
     const square = document.createElement("button");

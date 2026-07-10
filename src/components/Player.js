@@ -51,7 +51,8 @@ export default class Player {
       }
 
       for (const { orientation, coordinate } of placements) {
-        const result = this.gameboard.placeShip(ship, orientation, coordinate);
+        ship.orientation = orientation;
+        const result = this.placeShip(ship.id, coordinate);
 
         if (result) break;
       }
@@ -95,6 +96,7 @@ export default class Player {
       type: this.type,
       avatar: this.avatar,
       gameboard: this.gameboard.info(),
+      ships: this.gameboard.ships(),
     };
   }
 

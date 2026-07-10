@@ -110,6 +110,12 @@ export default class GameBoard {
 
     return coordinates;
   }
+  ships() {
+    const ships = this.board.flat().filter((obj) => obj !== null);
+
+    if (ships.length === 0) return null;
+    return ships;
+  }
 
   // Creation related methods
   #createBoard(size) {

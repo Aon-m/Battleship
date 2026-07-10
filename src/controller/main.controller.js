@@ -449,6 +449,14 @@ export default class MainController {
 
     const screen = this.view.loadGameBoardScreen(info);
     this.view.bindGameboardActions(this.#handler.bind(this));
+
+    this.players.forEach((player) => {
+      const board = this.view.findGameboard(player.id);
+      if (!board) return;
+
+      this.view.loadGameboardWithShipImages(player.gameboard.ships(), board);
+    });
+
     return screen;
   }
 }

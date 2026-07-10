@@ -267,25 +267,7 @@ export default class ScreenController {
       square.dataset.hasShip = "true";
     });
 
-    const [row, col] = coordinateToPosition(coords[0]);
-
-    // domShip cleaning
-    domShip.classList.remove(
-      "dragging",
-      "board__ship--notDeployed",
-      "draggable",
-    );
-    domShip.draggable = false;
-    delete domShip.dataset.action;
-    const cleanShip = domShip.cloneNode(true);
-    domShip.replaceWith(cleanShip);
-
-    // Board placement
-    cleanShip.style.position = "absolute";
-    cleanShip.style.left = `calc(var(--size-square) * ${col})`;
-    cleanShip.style.top = `calc(var(--size-square) * ${row})`;
-
-    document.querySelector(".board").appendChild(cleanShip);
+    this.#placeDomShip(this.#cleanShip(domShip), coords[0]);
   }
   renderAttack(playerId, square) {
     if (square.dataset?.hasShip === "true") {
@@ -312,6 +294,26 @@ export default class ScreenController {
   updateWinner(playerName) {
     this.gameboardScreen.updateWinner(playerName);
   }
+  loadGameboardWithShipImages(ships, board) {
+    ships.forEach((ship) => {
+      this.#placeDomShip(
+        this.#createDomShip(ship.name, ship.orientation, ship.length),
+        ship.coordinate,
+        board,
+      );
+    });
+  }
+  findGameboard(playerId) {
+    const board = document.querySelector(`.board[data-player="${playerId}"]`);
+    if (board) return board;
+
+    const square = document.querySelector(
+      `.board__square[data-player="${playerId}"]`,
+    );
+    if (square) return square.closest(".board");
+
+    return null;
+  }
 
   // Dialog access
   showReadyDialog() {
@@ -334,5 +336,55 @@ export default class ScreenController {
   }
   showWonDialog() {
     this.gameboardScreen.showWonDialog();
+  }
+
+  // Internal Helpers
+  #cleanShip(domShip) {
+    domShip.classList.remove(
+      "dragging",
+      "board__ship--notDeployed",
+      "draggable",
+    );
+
+    domShip.draggable = false;
+    delete domShip.dataset.action;
+
+    const cleanShip = domShip.cloneNode(true);
+    domShip.replaceWith(cleanShip);
+
+    return cleanShip;
+  }
+  #createDomShip(name, orientation, length) {
+    const ship = document.createElement("div");
+
+    ship.classList.add("board__ship");
+    ship.classList.add(`board__ship--${name}`);
+
+    if (orientation === "vertical") {
+      ship.classList.add("vertical");
+    }
+
+    for (let i = 0; i < Number(length); i++) {
+      const square = document.createElement("div");
+      square.classList.add("board__ship__square");
+      ship.append(square);
+    }
+
+    return ship;
+  }
+  #placeDomShip(
+    ship,
+    coordinate,
+    board = this.placeShipsScreen.clone.querySelector(".board"),
+  ) {
+    // coordinate = A1
+    const [row, col] = coordinateToPosition(coordinate);
+
+    // Board placement
+    ship.style.position = "absolute";
+    ship.style.left = `calc(var(--size-square) * ${col})`;
+    ship.style.top = `calc(var(--size-square) * ${row})`;
+
+    board.appendChild(ship);
   }
 }
