@@ -267,6 +267,7 @@ export default class ScreenController {
       square.dataset.hasShip = "true";
     });
 
+    if (!domShip) return;
     this.#placeDomShip(this.#cleanShip(domShip), coords[0]);
   }
   renderAttack(playerId, square) {
@@ -284,6 +285,11 @@ export default class ScreenController {
     this.findGameboard(id)?.classList.remove("board--disabled");
     this.findGameboard(id)?.classList.add("board--enabled");
   }
+  removeDomShips() {
+    document
+      .querySelectorAll(".board__ship--notDeployed")
+      ?.forEach((ship) => ship.remove());
+  }
 
   // External Utilities
   loadShips(ships = []) {
@@ -293,7 +299,7 @@ export default class ScreenController {
     this.gameboardScreen.updateWinner(playerName);
   }
   loadGameboardWithShipImages(ships, board) {
-    ships.forEach((ship) => {
+    ships?.forEach((ship) => {
       this.#placeDomShip(
         this.#createDomShip(ship.name, ship.orientation, ship.length),
         ship.coordinate,

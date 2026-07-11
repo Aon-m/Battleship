@@ -93,6 +93,9 @@ export default class MainController {
       case "next-player":
         this.#switchToCharacterInfoScreen();
         break;
+      case "randomize-gameboard":
+        this.#randomizeGameboard();
+        break;
 
       // Dialog Controls
       case "close-dialog":
@@ -192,7 +195,7 @@ export default class MainController {
     });
   }
   #resetPlaceShipsScreen() {
-    this.currentPlayer.resetGameboard();
+    this.currentPlayer.reset();
 
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenNoAnimation(this.currentScreen, screen);
@@ -272,6 +275,27 @@ export default class MainController {
     if (document.querySelector(".board__ship--notDeployed")) return;
 
     this.#openDialog();
+  }
+  #randomizeGameboard() {
+    this.#resetPlaceShipsScreen();
+
+    this.currentPlayer.fillGameboard();
+    this.view.loadGameboardWithShipImages(
+      this.currentPlayer.gameboard.ships(),
+      this.view.placeShipsScreenContainer().querySelector(".board"),
+    );
+
+    // Get coordinate with ships
+    const coordinates = this.currentPlayer.gameboard.info();
+    const coords = [];
+    for (const [key, value] of Object.entries(coordinates)) {
+      if (value) coords.push(key);
+    }
+
+    this.view.updateBoard(coords, null); // Add styles to the squares with ships
+    this.view.removeDomShips();
+
+    this.view.showOpenDialogBtn();
   }
 
   // Utilities

@@ -58,13 +58,11 @@ export default class Player {
       }
     }
   }
-  resetGameboard() {
-    this.gameboard = new GameBoard(this.size);
-  }
   init() {
     this.#createShips();
   }
   reset() {
+    this.#resetGameboard();
     this.#createShips();
   }
   findShip(shipId) {
@@ -100,6 +98,7 @@ export default class Player {
     };
   }
 
+  // Internal methods
   // Creation related methods
   #validName(name, fallback) {
     if (name.trim() === "") return fallback;
@@ -115,5 +114,10 @@ export default class Player {
       submarine: new Ship(3, "submarine"),
       destroyer: new Ship(2, "destroyer"),
     };
+  }
+
+  // Utility internal methods
+  #resetGameboard() {
+    this.gameboard = new GameBoard(this.size);
   }
 }

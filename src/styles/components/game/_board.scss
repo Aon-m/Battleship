@@ -10,8 +10,7 @@
 
   &--enabled {
     .board__ship--preview {
-      opacity: 0;
-      border: 1rem solid red;
+      display: none;
     }
   }
   &--disabled {
@@ -27,7 +26,7 @@
     }
 
     .board__ship--preview {
-      opacity: 1;
+      display: initial;
     }
   }
 

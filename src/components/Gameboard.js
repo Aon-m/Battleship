@@ -114,7 +114,7 @@ export default class GameBoard {
     const ships = this.board.flat().filter((obj) => obj !== null);
 
     if (ships.length === 0) return null;
-    return ships;
+    return [...new Set(ships)];
   }
 
   // Creation related methods

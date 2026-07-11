@@ -69,8 +69,7 @@ body {
   position: relative;
 }
 .board--enabled .board__ship--preview {
-  opacity: 0;
-  border: 1rem solid red;
+  display: none;
 }
 .board--disabled {
   cursor: not-allowed;
@@ -84,7 +83,7 @@ body {
   pointer-events: none;
 }
 .board--disabled .board__ship--preview {
-  opacity: 1;
+  display: initial;
 }
 .board__square {
   aspect-ratio: 1/1;
