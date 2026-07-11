@@ -8,9 +8,6 @@
 ## To do
 
 <!-- Game flow -->
-- Allow randomized ship placements
-  - Use fillgameboard
-  - Load ship images
 - Passing Screen
 
 <!-- User experience -->
