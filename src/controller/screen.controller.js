@@ -14,6 +14,8 @@ export default class ScreenController {
     this.bufferingScreen = new ScreenBuffering();
     this.placeShipsScreen = new ScreenPlaceShips();
     this.gameboardScreen = new ScreenGameboard();
+
+    this.main = document.querySelector(`[data-page="container"]`);
     this.isTransitioning = false;
   }
 
@@ -166,7 +168,7 @@ export default class ScreenController {
       () => {
         screen1.remove();
         screen2.style.opacity = 1;
-        document.body.appendChild(screen2);
+        this.main.appendChild(screen2);
         screen2.classList.remove("hidden");
         screen2.classList.add("enter-screen");
         this.isTransitioning = false;
@@ -179,7 +181,7 @@ export default class ScreenController {
     );
   }
   changeScreenNoAnimation(screen1, screen2) {
-    document.body.appendChild(screen2);
+    this.main.appendChild(screen2);
     screen1.remove();
     screen2.style.opacity = 1;
     screen2.classList.remove("hidden");
@@ -205,7 +207,7 @@ export default class ScreenController {
     this.gameboardScreen.passingScreen.hide();
   }
   showPassingScreen() {
-    this.gameboardScreen.passingScreen.hide();
+    this.gameboardScreen.passingScreen.show();
   }
 
   // Dom Access

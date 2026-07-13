@@ -15,9 +15,11 @@ export default class DialogPassing {
   }
   show() {
     this.clone.classList.remove("hidden");
+    this.clone.style.opacity = 1;
   }
   hide() {
     this.clone.classList.add("hidden");
+    this.clone.style.opacity = 0;
   }
 
   // Creation related methods

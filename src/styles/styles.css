@@ -760,7 +760,7 @@ body {
   content: "calibrating...";
 }
 .loader--passing:before {
-  content: "passing device...";
+  content: "Passing device...";
 }
 
 @keyframes l4 {
@@ -854,7 +854,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 999;
 }
 .container__header {
   display: flex;
