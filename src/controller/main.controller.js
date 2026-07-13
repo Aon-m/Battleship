@@ -337,15 +337,13 @@ export default class MainController {
     this.view.showNextPlayerDialog();
   }
   #closeDialog(target) {
-    const dialog = target.closest(".dialog").dataset.dialog;
+    const dialog = target.closest(".dialog");
 
-    if (dialog === "nextPlayer") {
-      this.view.closeNextPlayerDialog();
-    } else if (dialog === "ready") {
-      this.view.closeReadyDialog();
-    } else {
-      return;
-    }
+    if (!dialog) return;
+
+    dialog.close();
+
+    if (this.gameHasStarted) return;
 
     this.view.showOpenDialogBtn();
   }
