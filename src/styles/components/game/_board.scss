@@ -6,6 +6,7 @@
   aspect-ratio: 1 / 1;
   border: 1px solid var(--color-neutral-0);
   overflow: hidden;
+  z-index: 1;
   position: relative;
 
   &--enabled {
@@ -21,7 +22,7 @@
       position: absolute;
       inset: 0;
       background: rgba(95, 95, 95, 0.25);
-      z-index: 999;
+      z-index: 2;
       pointer-events: none;
     }
 

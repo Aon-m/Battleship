@@ -335,6 +335,9 @@ export default class ScreenController {
   showWonDialog() {
     this.gameboardScreen.showWonDialog();
   }
+  showPassingDialog() {
+    this.gameboardScreen.passingDialog.show();
+  }
 
   // Internal Helpers
   #cleanShip(domShip) {

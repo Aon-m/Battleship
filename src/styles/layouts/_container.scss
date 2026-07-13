@@ -2,7 +2,6 @@
 
 .container {
   padding-block: var(--size-md);
-  position: relative;
   margin-inline: auto;
 
   &--wide {
@@ -21,6 +20,18 @@
     grid-template-columns: repeat(2, calc(10 * var(--size-square)));
     justify-content: center;
     gap: var(--size-lg);
+  }
+
+  &--fixed {
+    background-color: var(--color-primary);
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
   }
 
   &__header {

@@ -1,4 +1,5 @@
 import DialogWon from "./dialog.won.js";
+import DialogPassing from "./dialog.passing.js";
 
 export default class ScreenGameboard {
   constructor() {
@@ -10,6 +11,7 @@ export default class ScreenGameboard {
     this.rect = null;
 
     this.wonDialog = null;
+    this.passingDialog = null;
   }
 
   init(info = []) {
@@ -23,7 +25,6 @@ export default class ScreenGameboard {
     this.wonDialog.showModal();
   }
   updateWinner(name) {
-    console.log(this.wonDialog);
     this.wonDialog.getWinner().textContent = name;
   }
   closeWonDialog() {
@@ -36,8 +37,7 @@ export default class ScreenGameboard {
 
     this.clone = fragment.firstElementChild;
 
-    this.wonDialog = new DialogWon(this.clone);
-    this.wonDialog.init();
+    this.#createDialogs();
 
     info.forEach((player) => {
       this.clone
@@ -46,6 +46,13 @@ export default class ScreenGameboard {
     });
 
     return fragment;
+  }
+  #createDialogs() {
+    this.wonDialog = new DialogWon(this.clone);
+    this.wonDialog.init();
+
+    this.passingDialog = new DialogPassing(this.clone);
+    this.passingDialog.init();
   }
   #createPlayer(info = {}) {
     const fragment = this.playerTemplate.content.cloneNode(true);

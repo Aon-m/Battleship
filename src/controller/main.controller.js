@@ -91,7 +91,11 @@ export default class MainController {
         this.#resetPlaceShipsScreen();
         break;
       case "next-player":
-        this.#switchToCharacterInfoScreen();
+        this.#loadBufferingScreen();
+
+        setTimeout(() => {
+          this.#switchToCharacterInfoScreen();
+        }, 5000);
         break;
       case "randomize-gameboard":
         this.#randomizeGameboard();
@@ -421,6 +425,10 @@ export default class MainController {
 
       setTimeout(() => {
         this.#changeTurn(true);
+
+        if (this.currentPlayer.type !== "ai")
+          return this.view.showPassingDialog();
+
         this.#isComputer();
       }, 3000);
       return;
