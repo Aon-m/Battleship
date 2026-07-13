@@ -13,7 +13,14 @@ export default class DialogReady {
     return this.clone;
   }
   show() {
+    console.log(this.clone);
+    console.log(this.clone.open);
+    console.log(this.clone.matches(":modal"));
+
     this.clone.showModal();
+
+    console.log(this.clone.open);
+    console.log(this.clone.matches(":modal"));
   }
 
   // Creation related methods

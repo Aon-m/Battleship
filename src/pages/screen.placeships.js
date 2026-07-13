@@ -8,6 +8,7 @@ export default class ScreenPlaceShips {
     this.template = document.querySelector("#screen-placeships");
 
     this.clone = null;
+
     this.readyDialog = null;
     this.nextPlayerDialog = null;
   }
@@ -44,8 +45,8 @@ export default class ScreenPlaceShips {
 
     const ships = this.clone.querySelector(".board__ships");
     this.clone.appendChild(ships);
-    this.readyDialog = this.#createReadyDialog().init();
-    this.nextPlayerDialog = this.#createNextPlayerDialog().init();
+
+    this.#createDialogs();
 
     return fragment;
   }
@@ -59,13 +60,12 @@ export default class ScreenPlaceShips {
 
     return button;
   }
-  #createReadyDialog() {
-    const dialog = new DialogReady(this.clone);
-    return dialog;
-  }
-  #createNextPlayerDialog() {
-    const dialog = new DialogNextPlayer(this.clone);
-    return dialog;
+  #createDialogs() {
+    this.readyDialog = new DialogReady(this.clone);
+    this.readyDialog.init();
+
+    this.nextPlayerDialog = new DialogNextPlayer(this.clone);
+    this.nextPlayerDialog.init();
   }
   #createShipDiv(shipName, shipId, shipLength) {
     const ship = document.createElement("div");

@@ -331,7 +331,7 @@ export default class ScreenController {
   }
   showPassingDialog() {
     this.gameboardScreen.passingDialog.show();
-  }  
+  }
   showOpenDialogBtn() {
     document
       .querySelector(`[data-action= "open-dialog"]`)
@@ -342,7 +342,6 @@ export default class ScreenController {
       .querySelector(`[data-action= "open-dialog"]`)
       .classList.remove("hidden");
   }
-
 
   // Internal Helpers
   #cleanShip(domShip) {

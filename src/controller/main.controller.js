@@ -341,7 +341,7 @@ export default class MainController {
     this.view.showNextPlayerDialog();
   }
   #closeDialog(target) {
-    const dialog = target.closest(".dialog");
+    const dialog = target.closest("dialog");
 
     if (!dialog) return;
 
