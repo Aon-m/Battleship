@@ -6,17 +6,15 @@ export default class DialogPassing {
     this.clone = null;
   }
 
+  // Utilities
   init() {
     this.container.appendChild(this.#create());
 
     return this.clone;
   }
-
-  // Utilities
   show() {
     this.clone.showModal();
   }
-
   close() {
     this.clone.close();
   }

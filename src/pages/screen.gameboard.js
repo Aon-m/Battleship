@@ -21,14 +21,8 @@ export default class ScreenGameboard {
   }
 
   // Utilities
-  showWonDialog() {
-    this.wonDialog.showModal();
-  }
   updateWinner(name) {
     this.wonDialog.getWinner().textContent = name;
-  }
-  closeWonDialog() {
-    this.wonDialog.close();
   }
 
   // Creation related methods

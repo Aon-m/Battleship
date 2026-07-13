@@ -17,7 +17,7 @@ export default class DialogWon {
   getWinner() {
     return this.clone.querySelector("#winning-player-name");
   }
-  showModal() {
+  show() {
     this.clone.showModal();
   }
   close() {

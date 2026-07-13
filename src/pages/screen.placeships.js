@@ -29,28 +29,6 @@ export default class ScreenPlaceShips {
       );
     });
   }
-  showReadyDialog() {
-    this.readyDialog.showModal();
-  }
-  closeReadyDialog() {
-    this.readyDialog.close();
-  }
-  showNextPlayerDialog() {
-    this.nextPlayerDialog.showModal();
-  }
-  closeNextPlayerDialog() {
-    this.nextPlayerDialog.close();
-  }
-  showOpenDialogBtn() {
-    document
-      .querySelector(`[data-action= "open-dialog"]`)
-      .classList.remove("hidden");
-  }
-  hideOpenDialogBtn() {
-    document
-      .querySelector(`[data-action= "open-dialog"]`)
-      .classList.remove("hidden");
-  }
 
   // Creation related methods
   #create() {

@@ -6,10 +6,14 @@ export default class DialogReady {
     this.clone = null;
   }
 
+  // Utilities
   init() {
     this.container.appendChild(this.#create());
 
     return this.clone;
+  }
+  show() {
+    this.clone.showModal();
   }
 
   // Creation related methods

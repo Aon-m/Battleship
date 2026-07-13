@@ -321,23 +321,28 @@ export default class ScreenController {
 
   // Dialog access
   showReadyDialog() {
-    this.placeShipsScreen.showReadyDialog();
+    this.placeShipsScreen.readyDialog.show();
   }
   showNextPlayerDialog() {
-    this.placeShipsScreen.showNextPlayerDialog();
-  }
-  showOpenDialogBtn() {
-    this.placeShipsScreen.showOpenDialogBtn();
-  }
-  hideOpenDialogBtn() {
-    this.placeShipsScreen.hideOpenDialogBtn();
+    this.placeShipsScreen.nextPlayerDialog.show();
   }
   showWonDialog() {
-    this.gameboardScreen.showWonDialog();
+    this.gameboardScreen.wonDialog.show();
   }
   showPassingDialog() {
     this.gameboardScreen.passingDialog.show();
+  }  
+  showOpenDialogBtn() {
+    document
+      .querySelector(`[data-action= "open-dialog"]`)
+      .classList.remove("hidden");
   }
+  hideOpenDialogBtn() {
+    document
+      .querySelector(`[data-action= "open-dialog"]`)
+      .classList.remove("hidden");
+  }
+
 
   // Internal Helpers
   #cleanShip(domShip) {
