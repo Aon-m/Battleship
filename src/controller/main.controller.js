@@ -119,6 +119,9 @@ export default class MainController {
       case "attack-square":
         this.#attackSystem(target);
         break;
+      case "hide-passing-screen":
+        this.view.hidePassingScreen();
+        break;
 
       // Gameend
       case "end-game":
@@ -341,11 +344,7 @@ export default class MainController {
     this.view.showNextPlayerDialog();
   }
   #closeDialog(target) {
-    const dialog = target.closest("dialog");
-
-    if (!dialog) return;
-
-    dialog.close();
+    this.view.closeDialog(target);
 
     if (this.gameHasStarted) return;
 
@@ -427,7 +426,7 @@ export default class MainController {
         this.#changeTurn(true);
 
         if (this.currentPlayer.type !== "ai")
-          return this.view.showPassingDialog();
+          return this.view.showPassingScreen();
 
         this.#isComputer();
       }, 3000);

@@ -200,6 +200,14 @@ export default class ScreenController {
     return this.placeShipsScreen.clone;
   }
 
+  // Passing Screen
+  hidePassingScreen() {
+    this.gameboardScreen.passingScreen.hide();
+  }
+  showPassingScreen() {
+    this.gameboardScreen.passingScreen.hide();
+  }
+
   // Dom Access
   gamemodeScreenContainer() {
     return this.gamemodeScreen.clone;
@@ -329,9 +337,6 @@ export default class ScreenController {
   showWonDialog() {
     this.gameboardScreen.wonDialog.show();
   }
-  showPassingDialog() {
-    this.gameboardScreen.passingDialog.show();
-  }
   showOpenDialogBtn() {
     document
       .querySelector(`[data-action= "open-dialog"]`)
@@ -341,6 +346,13 @@ export default class ScreenController {
     document
       .querySelector(`[data-action= "open-dialog"]`)
       .classList.remove("hidden");
+  }
+  closeDialog(target) {
+    const dialog = target.closest("dialog");
+
+    if (!dialog) return;
+
+    dialog.close();
   }
 
   // Internal Helpers

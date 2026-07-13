@@ -1,5 +1,5 @@
 import DialogWon from "./dialog.won.js";
-import DialogPassing from "./dialog.passing.js";
+import ScreenPassing from "./screen.passing.js";
 
 export default class ScreenGameboard {
   constructor() {
@@ -11,7 +11,7 @@ export default class ScreenGameboard {
     this.rect = null;
 
     this.wonDialog = null;
-    this.passingDialog = null;
+    this.passingScreen = null;
   }
 
   init(info = []) {
@@ -31,7 +31,7 @@ export default class ScreenGameboard {
 
     this.clone = fragment.firstElementChild;
 
-    this.#createDialogs();
+    this.#createComponent();
 
     info.forEach((player) => {
       this.clone
@@ -41,12 +41,12 @@ export default class ScreenGameboard {
 
     return fragment;
   }
-  #createDialogs() {
+  #createComponent() {
     this.wonDialog = new DialogWon(this.clone);
     this.wonDialog.init();
 
-    this.passingDialog = new DialogPassing(this.clone);
-    this.passingDialog.init();
+    this.passingScreen = new ScreenPassing(this.clone);
+    this.passingScreen.init();
   }
   #createPlayer(info = {}) {
     const fragment = this.playerTemplate.content.cloneNode(true);

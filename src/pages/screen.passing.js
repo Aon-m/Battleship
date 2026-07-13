@@ -1,7 +1,7 @@
 export default class DialogPassing {
   constructor(container) {
     this.container = container;
-    this.template = document.querySelector("#dialog-passing");
+    this.template = document.querySelector("#screen-passing");
 
     this.clone = null;
   }
@@ -9,14 +9,15 @@ export default class DialogPassing {
   // Utilities
   init() {
     this.container.appendChild(this.#create());
+    this.hide();
 
     return this.clone;
   }
   show() {
-    this.clone.showModal();
+    this.clone.classList.remove("hidden");
   }
-  close() {
-    this.clone.close();
+  hide() {
+    this.clone.classList.add("hidden");
   }
 
   // Creation related methods
