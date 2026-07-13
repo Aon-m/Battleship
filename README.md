@@ -8,7 +8,7 @@
 ## To do
 
 <!-- Game flow -->
-- Passing Screen
+- Fix image not loading prop
 
 <!-- User experience -->
 
