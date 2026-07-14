@@ -190,6 +190,7 @@
             <button
               type="submit"
               data-action="submit-character-info"
+              data-once
               class="button--rectangle button button--secondary text text--small text--primary"
             >
               Done?
@@ -203,7 +204,10 @@
       </section>
     </template>
     <template id="screen-placeships">
-      <section class="container container--flex flex-column board__container">
+      <section
+        data-page="screen-placeships"
+        class="container container--flex flex-column board__container"
+      >
         <h2
           class="container__header text text--primary text--medium text--bold floating"
         >
@@ -261,7 +265,10 @@
       </section>
     </template>
     <template id="screen-buffering">
-      <section class="container container--fixed container--flex flex-column">
+      <section
+        data-page="screen-buffering"
+        class="container container--fixed container--flex flex-column"
+      >
         <div class="spinner" aria-hidden="true"></div>
         <p
           class="loader loader--calibrating text text--primary text--medium text--bold"
@@ -271,8 +278,8 @@
     </template>
     <template id="screen-gameboard">
       <section
-        data-page="screen-gamemode"
-        class="container container--flex flex-column fade-in"
+        data-page="screen-gameboard"
+        class="container container--flex flex-column"
       >
         <h2
           class="container__header text text--primary text--medium text--bold floating"
@@ -284,7 +291,10 @@
       </section>
     </template>
     <template id="screen-passing">
-      <div class="container container--fixed container--flex flex-column">
+      <div
+        data-page="screen-passing"
+        class="container container--fixed container--flex flex-column"
+      >
         <span class="animation-passing" aria-hidden="true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -323,6 +333,7 @@
               class="button button--rectangle button--primary text text--small text--bold"
               type="button"
               data-action="start-game"
+              data-once
             >
               Start
             </button>
@@ -348,6 +359,7 @@
               class="button button--rectangle button--primary text text--small text--bold"
               type="button"
               data-action="next-player"
+              data-once
             >
               Next Player
             </button>
@@ -373,6 +385,7 @@
               class="button button--rectangle button--primary text text--small text--bold"
               type="button"
               data-action="back-to-menu"
+              data-once
             >
               Back to Menu
             </button>

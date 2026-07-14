@@ -39,12 +39,15 @@ export default class ScreenController {
         bindClick(btn, () => handler(btn.dataset.action, btn), true);
       });
   }
+
   bindCharacterInfoActions(handler) {
     // Character Info Screen
     this.characterInfoScreenContainer()
       .querySelectorAll("button")
       .forEach((btn) => {
-        bindClick(btn, () => handler(btn.dataset.action, btn));
+        const once = btn.dataset.once !== undefined;
+
+        bindClick(btn, () => handler(btn.dataset.action, btn), once);
       });
   }
   bindPlaceShipsActions(handler) {
@@ -52,7 +55,13 @@ export default class ScreenController {
     this.placeShipsScreenContainer()
       .querySelectorAll("[data-action]")
       .forEach((element) => {
-        bindClick(element, () => handler(element.dataset.action, element));
+        const once = element.dataset.once !== undefined;
+
+        bindClick(
+          element,
+          () => handler(element.dataset.action, element),
+          once,
+        );
       });
 
     document.addEventListener("dragover", (e) =>
@@ -64,7 +73,13 @@ export default class ScreenController {
     this.gameboardScreen.clone
       .querySelectorAll("[data-action]")
       .forEach((element) => {
-        bindClick(element, () => handler(element.dataset.action, element));
+        const once = element.dataset.once !== undefined;
+
+        bindClick(
+          element,
+          () => handler(element.dataset.action, element),
+          once,
+        );
       });
   }
 

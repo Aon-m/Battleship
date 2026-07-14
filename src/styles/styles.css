@@ -81,10 +81,12 @@ body {
   inset: 0;
   background: rgba(95, 95, 95, 0.25);
   z-index: 2;
-  pointer-events: none;
 }
 .board--disabled .board__ship--preview {
-  display: initial;
+  display: inherit;
+}
+.board--disabled .board__square {
+  pointer-events: none;
 }
 .board__square {
   aspect-ratio: 1/1;
@@ -842,9 +844,14 @@ body {
 }
 .container--grid {
   display: grid;
-  grid-template-columns: repeat(2, calc(10 * var(--size-square)));
+  grid-template-columns: 1fr;
   justify-content: center;
   gap: var(--size-lg);
+}
+@media screen and (min-width: 100rem) {
+  .container--grid {
+    grid-template-columns: repeat(2, calc(10 * var(--size-square)));
+  }
 }
 .container--fixed {
   background-color: var(--color-primary);
