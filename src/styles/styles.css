@@ -84,6 +84,7 @@ body {
 }
 .board--disabled .board__ship--preview {
   display: inherit;
+  background-color: hsla(0, 0%, 100%, 0.5);
 }
 .board--disabled .board__square {
   pointer-events: none;
