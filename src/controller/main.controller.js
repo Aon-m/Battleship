@@ -425,8 +425,7 @@ export default class MainController {
       setTimeout(() => {
         this.#changeTurn(true);
 
-        if (this.currentPlayer.type !== "ai")
-          return this.view.showPassingScreen();
+        if (this.currentMode !== "single") return this.view.showPassingScreen();
 
         this.#isComputer();
       }, 3000);
