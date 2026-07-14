@@ -7,12 +7,10 @@
 
 ## To do
 
-<!-- Game flow -->
-- Fix image not loading prop
-
 <!-- User experience -->
 
-- Add animation
-- Add sound effects
 - Mobile Support
 - Make accessible
+- Add animation
+  - Complete Passing Screen Animation
+- Add sound effects
