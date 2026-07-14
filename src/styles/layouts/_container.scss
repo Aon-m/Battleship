@@ -17,9 +17,13 @@
 
   &--grid {
     display: grid;
-    grid-template-columns: repeat(2, calc(10 * var(--size-square)));
+    grid-template-columns: 1fr;
     justify-content: center;
     gap: var(--size-lg);
+
+    @media screen and (min-width: 100rem) {
+      grid-template-columns: repeat(2, calc(10 * var(--size-square)));
+    }
   }
 
   &--fixed {

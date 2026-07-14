@@ -23,11 +23,14 @@
       inset: 0;
       background: rgba(95, 95, 95, 0.25);
       z-index: 2;
-      pointer-events: none;
     }
 
     .board__ship--preview {
       display: initial;
+    }
+
+    .board__square {
+      pointer-events: none;
     }
   }
 
