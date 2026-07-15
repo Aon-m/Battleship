@@ -57,6 +57,7 @@ export default class ScreenPlaceShips {
     button.type = "button";
     button.dataset.coordinate = numberToCoordinate(i);
     button.dataset.hasShip = "false";
+    button.dataset.action = "accept-ship"
 
     return button;
   }
@@ -73,6 +74,7 @@ export default class ScreenPlaceShips {
     ship.classList.add(`board__ship--${shipName}`);
     ship.classList.add(`board__ship--notDeployed`);
     ship.classList.add(`draggable`);
+    ship.dataset.action = "select-ship"
 
     ship.dataset.shipId = shipId;
 

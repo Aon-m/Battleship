@@ -9,8 +9,10 @@
 
 <!-- User experience -->
 
-- Mobile Support
-- Make accessible
-- Add animation
+- Accessibility (keyboard navigation, ARIA, focus management)
+- Animations
   - Complete Passing Screen Animation
-- Add sound effects
+  - Attack animation
+  - Miss animation
+  - Wrong placement animation
+- Sound effects

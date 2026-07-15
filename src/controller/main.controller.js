@@ -24,6 +24,7 @@ export default class MainController {
     this.players = [];
     this.currentPlayer = null;
     this.currentSquare = null;
+    this.selectedShip = null;
 
     this.gameHasStarted = false;
     this.winCheck = null;
@@ -99,6 +100,15 @@ export default class MainController {
         break;
       case "randomize-gameboard":
         this.#randomizeGameboard();
+        break;
+      case "select-ship":
+        this.#selectShip(target);
+        break;
+      case "accept-ship":
+        this.#acceptShip(target);
+        break;
+      case "remove-ship-selection":
+        this.#removeShipSelection();
         break;
 
       // Dialog Controls
@@ -304,6 +314,23 @@ export default class MainController {
 
     this.view.showOpenDialogBtn();
   }
+  #selectShip(domShip) {
+    this.selectedShip = this.selectedShip === domShip ? null : domShip;
+
+    this.view.selectShip(domShip);
+  }
+  #acceptShip(square) {
+    if (!this.selectedShip) return;
+
+    this.#boardSquareOnDrop(square, this.selectedShip);
+    this.#removeShipSelection();
+  }
+  #removeShipSelection() {
+    if (!this.selectedShip) return;
+
+    this.selectedShip?.classList.remove("board__ship--selected");
+    this.selectedShip = null;
+  }
 
   // Utilities
   #createPlayer(name, image) {
@@ -465,6 +492,7 @@ export default class MainController {
     this.currentMode = null;
     this.players = [];
     this.currentSquare = null;
+    this.selectedShip = null;
 
     this.init();
   }

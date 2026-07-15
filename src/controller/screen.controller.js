@@ -67,6 +67,12 @@ export default class ScreenController {
     document.addEventListener("dragover", (e) =>
       handler("remove-highlights", e),
     );
+
+    document.addEventListener("keydown", (event) => {
+      if (["Escape", "Delete", "Backspace"].includes(event.key)) {
+        handler("remove-ship-selection");
+      }
+    });
   }
   bindGameboardActions(handler) {
     // Gameboard Screen
@@ -315,6 +321,15 @@ export default class ScreenController {
       .querySelectorAll(".board__ship--notDeployed")
       ?.forEach((ship) => ship.remove());
   }
+  selectShip(ship) {
+    document.querySelectorAll(".board__ship--selected").forEach((domShip) => {
+      if (domShip !== ship) {
+        domShip.classList.remove("board__ship--selected");
+      }
+    });
+
+    ship.classList.toggle("board__ship--selected");
+  }
 
   // External Utilities
   loadShips(ships = []) {
@@ -377,6 +392,7 @@ export default class ScreenController {
     domShip.classList.remove(
       "dragging",
       "board__ship--notDeployed",
+      "board__ship--selected",
       "draggable",
     );
 

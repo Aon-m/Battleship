@@ -96,12 +96,19 @@
     background-repeat: no-repeat;
     background-position: center;
 
+    border: 0.25rem solid transparent;
+
     &--notDeployed {
       cursor: grab;
 
       &.dragging {
         opacity: 0.5;
       }
+    }
+
+    &--selected {
+      border: 0.25rem solid var(--color-neutral-0);
+      border-radius: 1rem;
     }
 
     &.vertical {

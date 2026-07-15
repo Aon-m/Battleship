@@ -135,12 +135,17 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  border: 0.25rem solid transparent;
 }
 .board__ship--notDeployed {
   cursor: grab;
 }
 .board__ship--notDeployed.dragging {
   opacity: 0.5;
+}
+.board__ship--selected {
+  border: 0.25rem solid var(--color-neutral-0);
+  border-radius: 1rem;
 }
 .board__ship.vertical {
   grid-auto-flow: row;
