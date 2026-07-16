@@ -15,12 +15,16 @@
 
     <!-- Header -->
     <header>
-      <img class="icon icon--large" src="./assets/favicon.png" alt="" />
+      <img
+        class="icon icon--large"
+        src="./assets/favicon.png"
+        alt="Battleship logo"
+      />
       <h1 class="text text--primary text--large text--xbold">BattleShip</h1>
     </header>
 
     <!-- Main content -->
-    <main id="main-content" data-page="container"></main>
+    <main id="main-content" data-page="container" role="main"></main>
 
     <!-- Screen templates -->
     <template id="screen-gamemode">
@@ -94,6 +98,7 @@
                   class="button button--navigation button--navigation--left icon icon--large icon--primary icon--bold fast-slow-hover"
                   id="back"
                   data-action="move-back"
+                  aria-label="Previous character"
                 >
                   <svg
                     width="15"
@@ -139,7 +144,7 @@
                       class="character character--default"
                       src="./assets/characters/character-1.png"
                       id="current-preview"
-                      alt="character-image"
+                      alt="Black haired Male wearing a brown jacket"
                     />
                   </div>
                   <div
@@ -170,6 +175,7 @@
                   class="button button--navigation button--navigation--right icon icon--large icon--primary icon--bold fast-slow-hover"
                   id="forward"
                   data-action="move-forward"
+                  aria-label="Next character"
                 >
                   <svg
                     width="14"
@@ -224,13 +230,14 @@
               class="button"
               data-action="change-all-ships-orientation"
               title="change ship orientation"
+              aria-label="Change orientation of all ships"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
                 fill="currentColor"
                 class="icon icon--large icon--secondary"
-                aria-label="change the orientation of all ships"
+                aria-hidden="true"
               >
                 <path
                   d="M440-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T80-440q0-150 105-255t255-105h6l-62-62 56-58 160 160-160 160-56-58 62-62h-6q-117 0-198.5 81.5T160-440q0 117 81.5 198.5T440-160q35 0 69-8.5t65-25.5l58 58q-43 28-92 42T440-80Zm240-120L440-440l240-240 240 240-240 240Zm0-114 126-126-126-126-126 126 126 126Zm0-126Z"
@@ -272,7 +279,9 @@
         <div class="spinner" aria-hidden="true"></div>
         <p
           class="loader loader--calibrating text text--primary text--medium text--bold"
-          aria-label="loading"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
         ></p>
       </section>
     </template>
@@ -309,6 +318,8 @@
         </span>
         <p
           class="loader loader--passing text text--primary text--medium text--bold"
+          aria-live="assertive"
+          aria-atomic="true"
         ></p>
         <button
           type="button"
@@ -323,9 +334,17 @@
     <!-- Component templates -->
     <!-- Dialogs -->
     <template id="dialog-ready">
-      <dialog class="dialog" data-dialog="ready">
+      <dialog
+        class="dialog"
+        data-dialog="ready"
+        role="dialog"
+        aria-labelledby="dialog-ready-title"
+      >
         <div class="dialog__content">
-          <h3 class="dialog__header text text--medium text--bold text--primary">
+          <h3
+            id="dialog-ready-title"
+            class="dialog__header text text--medium text--bold text--primary"
+          >
             Ready?
           </h3>
           <div class="dialog__buttons flex-row">
@@ -349,9 +368,17 @@
       </dialog>
     </template>
     <template id="dialog-nextPlayer">
-      <dialog class="dialog" data-dialog="nextPlayer">
+      <dialog
+        class="dialog"
+        data-dialog="nextPlayer"
+        role="dialog"
+        aria-labelledby="dialog-nextplayer-title"
+      >
         <div class="dialog__content">
-          <h3 class="dialog__header text text--medium text--bold text--primary">
+          <h3
+            id="dialog-nextplayer-title"
+            class="dialog__header text text--medium text--bold text--primary"
+          >
             Ready?
           </h3>
           <div class="dialog__buttons flex-row">
@@ -375,10 +402,19 @@
       </dialog>
     </template>
     <template id="dialog-won">
-      <dialog class="dialog" data-dialog="won">
+      <dialog
+        class="dialog"
+        data-dialog="won"
+        role="dialog"
+        aria-labelledby="dialog-won-title"
+      >
         <div class="dialog__content">
-          <p class="dialog__header text text--medium text--bold text--primary">
-            The Winner is: <span id="winning-player-name"></span>
+          <p
+            id="dialog-won-title"
+            class="dialog__header text text--medium text--bold text--primary"
+          >
+            The Winner is:
+            <span id="winning-player-name" aria-live="polite"></span>
           </p>
           <div class="dialog__buttons flex-row">
             <button

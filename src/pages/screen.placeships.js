@@ -39,6 +39,8 @@ export default class ScreenPlaceShips {
 
     const gameboard = this.clone.querySelector(".board");
 
+    gameboard.setAttribute("role", "grid");
+    gameboard.setAttribute("aria-label", "Ship placement grid");
     for (let i = 1; i <= 100; i++) {
       gameboard.appendChild(this.#createBtn(i));
     }
@@ -51,13 +53,19 @@ export default class ScreenPlaceShips {
     return fragment;
   }
   #createBtn(i) {
+    const coordinate = numberToCoordinate(i);
     const button = document.createElement("button");
 
     button.className = "board__square";
     button.type = "button";
-    button.dataset.coordinate = numberToCoordinate(i);
+
+    button.dataset.coordinate = coordinate;
     button.dataset.hasShip = "false";
-    button.dataset.action = "accept-ship"
+    button.dataset.action = "accept-ship";
+
+    button.setAttribute("role", "gridcell");
+    button.setAttribute("aria-label", `Place ship at ${coordinate}`);
+    button.setAttribute("aria-selected", "false");
 
     return button;
   }
@@ -70,13 +78,25 @@ export default class ScreenPlaceShips {
   }
   #createShipDiv(shipName, shipId, shipLength) {
     const ship = document.createElement("div");
-    ship.classList.add("board__ship");
-    ship.classList.add(`board__ship--${shipName}`);
-    ship.classList.add(`board__ship--notDeployed`);
-    ship.classList.add(`draggable`);
-    ship.dataset.action = "select-ship"
 
+    ship.classList.add(
+      "board__ship",
+      `board__ship--${shipName}`,
+      "board__ship--notDeployed",
+      "draggable",
+    );
+
+    ship.dataset.action = "select-ship";
     ship.dataset.shipId = shipId;
+    ship.dataset.shipName = shipName;
+
+    ship.tabIndex = 0;
+    ship.setAttribute("role", "button");
+    ship.setAttribute(
+      "aria-label",
+      `${shipName.replace("-", " ")} (${shipLength} squares)`,
+    );
+    ship.setAttribute("aria-pressed", "false");
 
     for (let i = 0; i < Number(shipLength); i++) {
       const square = document.createElement("div");

@@ -81,7 +81,7 @@ export default class MainController {
 
       // Place Ships Screen
       case "change-all-ships-orientation": {
-        this.#changeAllShipOrientation(target);
+        this.#changeAllShipOrientation();
         break;
       }
       case "remove-highlights": {
@@ -171,6 +171,8 @@ export default class MainController {
     this.currentScreen = screen;
   }
   #loadCharacterInfoScreen() {
+    this.view.setBusy(false);
+
     this.view.loadCharacterInfoScreen();
     this.view.bindCharacterInfoActions(this.#handler.bind(this));
     this.move = new Move(this.view.characterInfoScreenContainer());
@@ -180,6 +182,8 @@ export default class MainController {
 
   // Buffering screen
   #loadBufferingScreen() {
+    this.view.setBusy(true);
+
     const screen = this.view.loadBufferingScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
@@ -187,6 +191,8 @@ export default class MainController {
 
   // Place ships screen
   #loadPlaceShipsScreen() {
+    this.view.setBusy(false);
+
     const screen = this.view.loadPlaceShipsScreen();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
@@ -222,9 +228,7 @@ export default class MainController {
   }
 
   // Ship placement tools
-  #changeAllShipOrientation(btn) {
-    btn.classList.add("selected");
-
+  #changeAllShipOrientation() {
     document.querySelectorAll(".board__ship--notDeployed").forEach((ship) => {
       this.#changeShipOrientation(ship);
     });
@@ -288,6 +292,7 @@ export default class MainController {
     );
 
     this.view.updateBoard(coordinates, domShip);
+    this.view.announce(`${domShip?.shipName} placed at ${coordinate}.`);
 
     if (document.querySelector(".board__ship--notDeployed")) return;
 
@@ -318,6 +323,7 @@ export default class MainController {
     this.selectedShip = this.selectedShip === domShip ? null : domShip;
 
     this.view.selectShip(domShip);
+    this.view.announce("Ship selected.");
   }
   #acceptShip(square) {
     if (!this.selectedShip) return;
@@ -380,6 +386,8 @@ export default class MainController {
 
   // Gameplay
   #startGame() {
+    this.view.setBusy(false);
+
     const screen = this.#loadGameBoards();
     this.view.changeScreenAnimation(this.currentScreen, screen);
     this.currentScreen = screen;
@@ -414,6 +422,7 @@ export default class MainController {
   #changeTurn(modeCheck) {
     this.turnSystem.nextTurn();
     this.#turnInit(modeCheck);
+    this.view.announce(`${this.currentPlayer.name}'s turn.`);
   }
   #attackSquare(square) {
     const coordinate = square.dataset.coordinate;
@@ -444,11 +453,13 @@ export default class MainController {
 
     if (!won) {
       if (hit) {
+        this.view.announce("Hit!");
         this.currentPlayer.allowedFires = 1;
         this.#isComputer();
         return;
       }
 
+      this.view.announce("Miss!");
       setTimeout(() => {
         this.#changeTurn(true);
 
@@ -482,6 +493,7 @@ export default class MainController {
     this.gameHasStarted = false;
     this.view.updateWinner(this.currentPlayer.name);
     this.view.showWonDialog();
+    this.view.announce(`${this.currentPlayer.name} wins!`);
   }
   #resetAll() {
     this.#resetGame();

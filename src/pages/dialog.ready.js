@@ -1,5 +1,8 @@
-export default class DialogReady {
+import Dialog from "../components/Dialog.js";
+export default class DialogReady extends Dialog {
   constructor(container) {
+    super();
+
     this.container = container;
     this.template = document.querySelector("#dialog-ready");
 
@@ -11,9 +14,6 @@ export default class DialogReady {
     this.container.appendChild(this.#create());
 
     return this.clone;
-  }
-  show() {
-    this.clone.showModal();
   }
 
   // Creation related methods

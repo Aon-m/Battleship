@@ -33,11 +33,14 @@ export default class ScreenGameboard {
 
     this.#createComponent();
 
+    const players = this.clone.querySelector("#players");
+
     info.forEach((player) => {
-      this.clone
-        .querySelector("#players")
-        .appendChild(this.#createPlayer(player));
+      players.appendChild(this.#createPlayer(player));
     });
+
+    players.setAttribute("role", "group");
+    players.setAttribute("aria-label", "Players");
 
     return fragment;
   }
@@ -52,19 +55,35 @@ export default class ScreenGameboard {
     const fragment = this.playerTemplate.content.cloneNode(true);
 
     const clone = fragment.querySelector(".player");
+
+    clone.setAttribute("role", "region");
+    clone.setAttribute("aria-labelledby", `player-${info.id}`);
+
     const playerInfo = clone.querySelector(".player__info");
 
-    playerInfo.querySelector(".player__name").textContent = info.name;
-    playerInfo.querySelector(".player__avatar").src = info.avatar;
+    const name = playerInfo.querySelector(".player__name");
+
+    name.id = `player-${info.id}`;
+    name.textContent = info.name;
+
+    const avatar = playerInfo.querySelector(".player__avatar");
+
+    avatar.src = info.avatar;
+    avatar.alt = `${info.name}'s avatar`;
+
     this.#createGameboard(
       info.gameboard,
       clone.querySelector(".player__gameboard"),
       info.id,
+      info.name,
     );
 
     return fragment;
   }
-  #createGameboard(coordinates, gameboard, id) {
+  #createGameboard(coordinates, gameboard, id, name) {
+    gameboard.setAttribute("role", "grid");
+    gameboard.setAttribute("aria-label", `${name}'s gameboard`);
+
     for (const [key, value] of Object.entries(coordinates)) {
       gameboard.appendChild(this.#createSquare(key, value, id));
     }
@@ -77,12 +96,15 @@ export default class ScreenGameboard {
 
     square.className = "board__square";
     square.type = "button";
+
     square.dataset.coordinate = coordinate;
-    square.dataset.hasShip = "false";
+    square.dataset.hasShip = hasShip ? "true" : "false";
     square.dataset.action = "attack-square";
     square.dataset.player = id;
 
-    if (hasShip) square.dataset.hasShip = "true";
+    square.setAttribute("role", "gridcell");
+    square.setAttribute("aria-label", `Attack ${coordinate}`);
+    square.setAttribute("aria-disabled", "false");
 
     return square;
   }

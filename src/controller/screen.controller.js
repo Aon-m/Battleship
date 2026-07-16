@@ -17,6 +17,8 @@ export default class ScreenController {
 
     this.main = document.querySelector(`[data-page="container"]`);
     this.isTransitioning = false;
+
+    this.announcer = this.#createAnnouncer();
   }
 
   init() {
@@ -69,8 +71,29 @@ export default class ScreenController {
     );
 
     document.addEventListener("keydown", (event) => {
-      if (["Escape", "Delete", "Backspace"].includes(event.key)) {
-        handler("remove-ship-selection");
+      switch (event.key) {
+        case "Escape":
+        case "Delete":
+        case "Backspace":
+          handler("remove-ship-selection");
+          break;
+
+        case "r":
+        case "R":
+          handler("change-all-ships-orientation");
+          break;
+
+        case "Enter":
+        case " ":
+          if (document.activeElement?.dataset.action) {
+            event.preventDefault();
+
+            handler(
+              document.activeElement.dataset.action,
+              document.activeElement,
+            );
+          }
+          break;
       }
     });
   }
@@ -196,6 +219,9 @@ export default class ScreenController {
 
         screen2.addEventListener("animationend", () => {
           screen2.classList.remove("enter-screen");
+
+          // Accessibility
+          this.#focusScreen(screen2);
         });
       },
       { once: true },
@@ -206,6 +232,9 @@ export default class ScreenController {
     screen1.remove();
     screen2.style.opacity = 1;
     screen2.classList.remove("hidden");
+
+    // Accessibility
+    this.#focusScreen(screen2);
   }
 
   // Display Screen
@@ -267,7 +296,16 @@ export default class ScreenController {
 
   // Dom manipulation
   changeShipOrientation(target) {
-    target.closest(".board__ship").classList.toggle("vertical");
+    const ship = target.closest(".board__ship");
+
+    ship.classList.toggle("vertical");
+
+    ship.setAttribute(
+      "aria-label",
+      `${ship.dataset?.shipName} ${
+        ship.classList.contains("vertical") ? "vertical" : "horizontal"
+      }`,
+    );
   }
   highlightSquares(isValid, coords) {
     // Add new highlights
@@ -295,7 +333,10 @@ export default class ScreenController {
 
       square.classList.remove("board__square--success", "board__square--error");
       square.classList.add("board__square--selected");
+
       square.dataset.hasShip = "true";
+
+      this.#updateSquareState(square, "occupied");
     });
 
     if (!domShip) return;
@@ -304,17 +345,40 @@ export default class ScreenController {
   renderAttack(playerId, square) {
     if (square.dataset?.hasShip === "true") {
       square.classList.add("board__square--damaged");
+      this.#updateSquareState(square, "hit");
     } else {
       square.classList.add("board__square--missed");
+      this.#updateSquareState(square, "miss");
     }
+
+    square.disabled = true;
+    square.setAttribute("aria-disabled", "true");
   }
   disableBoard(id) {
-    this.findGameboard(id)?.classList.remove("board--enabled");
-    this.findGameboard(id)?.classList.add("board--disabled");
+    const board = this.findGameboard(id);
+
+    board?.classList.remove("board--enabled");
+    board?.classList.add("board--disabled");
+
+    board?.querySelectorAll(".board__square").forEach((square) => {
+      square.disabled = true;
+      square.setAttribute("aria-disabled", "true");
+    });
   }
   enableBoard(id) {
-    this.findGameboard(id)?.classList.remove("board--disabled");
-    this.findGameboard(id)?.classList.add("board--enabled");
+    const board = this.findGameboard(id);
+
+    board?.classList.remove("board--disabled");
+    board?.classList.add("board--enabled");
+
+    board
+      ?.querySelectorAll(
+        ".board__square:not(.board__square--damaged):not(.board__square--missed)",
+      )
+      .forEach((square) => {
+        square.disabled = false;
+        square.setAttribute("aria-disabled", "false");
+      });
   }
   removeDomShips() {
     document
@@ -325,10 +389,15 @@ export default class ScreenController {
     document.querySelectorAll(".board__ship--selected").forEach((domShip) => {
       if (domShip !== ship) {
         domShip.classList.remove("board__ship--selected");
+        domShip.setAttribute("aria-pressed", "false");
       }
     });
 
     ship.classList.toggle("board__ship--selected");
+    ship.setAttribute(
+      "aria-pressed",
+      ship.classList.contains("board__ship--selected"),
+    );
   }
 
   // External Utilities
@@ -358,6 +427,16 @@ export default class ScreenController {
 
     return null;
   }
+  announce(message) {
+    this.announcer.textContent = "";
+
+    requestAnimationFrame(() => {
+      this.announcer.textContent = message;
+    });
+  }
+  setBusy(isBusy) {
+    this.main.setAttribute("aria-busy", isBusy);
+  }
 
   // Dialog access
   showReadyDialog() {
@@ -377,7 +456,7 @@ export default class ScreenController {
   hideOpenDialogBtn() {
     document
       .querySelector(`[data-action= "open-dialog"]`)
-      .classList.remove("hidden");
+      .classList.add("hidden");
   }
   closeDialog(target) {
     const dialog = target.closest("dialog");
@@ -398,6 +477,10 @@ export default class ScreenController {
 
     domShip.draggable = false;
     delete domShip.dataset.action;
+
+    domShip.removeAttribute("role");
+    domShip.removeAttribute("tabindex");
+    domShip.removeAttribute("aria-pressed");
 
     const cleanShip = domShip.cloneNode(true);
     domShip.replaceWith(cleanShip);
@@ -439,5 +522,54 @@ export default class ScreenController {
     ship.style.zIndex = 1;
 
     board.appendChild(ship);
+  }
+  #createAnnouncer() {
+    const announcer = document.createElement("div");
+
+    announcer.id = "announcer";
+    announcer.className = "sr-only";
+    announcer.setAttribute("role", "status");
+    announcer.setAttribute("aria-live", "polite");
+    announcer.setAttribute("aria-atomic", "true");
+
+    document.body.appendChild(announcer);
+
+    return announcer;
+  }
+  #focusScreen(screen) {
+    const target =
+      screen.querySelector("[autofocus]") ??
+      screen.querySelector("h1, h2, button, input");
+
+    if (!target) return;
+
+    if (target.matches("h1, h2, h3, h4, h5, h6")) {
+      target.tabIndex = -1;
+    }
+
+    target.focus();
+  }
+  #updateSquareState(square, state) {
+    switch (state) {
+      case "occupied":
+        square.setAttribute(
+          "aria-label",
+          `${square.dataset.coordinate}, occupied`,
+        );
+        square.setAttribute("aria-selected", "true");
+        break;
+
+      case "hit":
+        square.setAttribute("aria-label", `${square.dataset.coordinate}, hit`);
+        square.disabled = true;
+        square.setAttribute("aria-disabled", "true");
+        break;
+
+      case "miss":
+        square.setAttribute("aria-label", `${square.dataset.coordinate}, miss`);
+        square.disabled = true;
+        square.setAttribute("aria-disabled", "true");
+        break;
+    }
   }
 }

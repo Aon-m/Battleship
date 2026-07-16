@@ -1,5 +1,8 @@
-export default class DialogWon {
+import Dialog from "../components/Dialog.js";
+export default class DialogWon extends Dialog {
   constructor(container) {
+    super();
+
     this.container = container;
     this.template = document.querySelector("#dialog-won");
 
@@ -16,12 +19,6 @@ export default class DialogWon {
   // Utilities
   getWinner() {
     return this.clone.querySelector("#winning-player-name");
-  }
-  show() {
-    this.clone.showModal();
-  }
-  close() {
-    this.clone.close();
   }
 
   // Creation related methods
