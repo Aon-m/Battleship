@@ -9,10 +9,11 @@
 
 <!-- User experience -->
 
-- Accessibility (keyboard navigation, ARIA, focus management)
+- Sound effects (class)
+- Accessibility
+  - give character images a proper alt (data.json)
+  - spinner should calibrate properly (announcer)
+  - arrow navigation (class)
+- Mobile Styles
 - Animations
-  - Complete Passing Screen Animation
-  - Attack animation
-  - Miss animation
-  - Wrong placement animation
-- Sound effects
+  - Complete Passing Screen Animation (style)
