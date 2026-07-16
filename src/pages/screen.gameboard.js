@@ -81,7 +81,6 @@ export default class ScreenGameboard {
     square.dataset.hasShip = "false";
     square.dataset.action = "attack-square";
     square.dataset.player = id;
-    square.dataset.once = "";
 
     if (hasShip) square.dataset.hasShip = "true";
 
