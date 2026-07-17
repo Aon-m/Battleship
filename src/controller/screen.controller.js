@@ -6,6 +6,7 @@ import ScreenBuffering from "../pages/screen.buffering-screen.js";
 import ScreenPlaceShips from "../pages/screen.placeships.js";
 import coordinateToPosition from "../utils/coordinateToPosition.js";
 import ScreenGameboard from "../pages/screen.gameboard.js";
+import AudioController from "./audio.controller.js";
 
 export default class ScreenController {
   constructor() {
@@ -19,6 +20,7 @@ export default class ScreenController {
     this.isTransitioning = false;
 
     this.announcer = this.#createAnnouncer();
+    this.sfx = new AudioController();
   }
 
   init() {
@@ -26,6 +28,17 @@ export default class ScreenController {
   }
 
   // Event Listeners
+  bindHeader(handler) {
+    if (typeof handler !== "function") return;
+
+    // Header
+    document.querySelectorAll("header [data-action]").forEach((btn) => {
+      const once = btn.dataset.once !== undefined;
+
+      bindClick(btn, () => handler(btn.dataset.action, btn), once);
+    });
+  }
+
   bindGamemodeActions(handler) {
     if (typeof handler !== "function") return;
 
@@ -43,6 +56,8 @@ export default class ScreenController {
   }
 
   bindCharacterInfoActions(handler) {
+    if (typeof handler !== "function") return;
+
     // Character Info Screen
     this.characterInfoScreenContainer()
       .querySelectorAll("button")
@@ -53,6 +68,8 @@ export default class ScreenController {
       });
   }
   bindPlaceShipsActions(handler) {
+    if (typeof handler !== "function") return;
+
     // Place Ships Screen
     this.placeShipsScreenContainer()
       .querySelectorAll("[data-action]")
@@ -98,6 +115,8 @@ export default class ScreenController {
     });
   }
   bindGameboardActions(handler) {
+    if (typeof handler !== "function") return;
+
     // Gameboard Screen
     this.gameboardScreen.clone
       .querySelectorAll("[data-action]")
@@ -129,9 +148,9 @@ export default class ScreenController {
     return video;
   }
   playCursorAnimation(e) {
-    if (e.target.closest("button")) return;
-    if (e.target.closest(".container")) return;
-    if (e.target.closest("form")) return;
+    if (e.target.closest("button")) return false;
+    if (e.target.closest(".container")) return false;
+    if (e.target.closest("form")) return false;
 
     const video = this.loadCursorAnimation();
 
@@ -154,6 +173,8 @@ export default class ScreenController {
         video.remove();
       }, 1500);
     }, 1500);
+
+    return true;
   }
   videoAnimation(btn) {
     const video = document.createElement("video");
@@ -201,31 +222,39 @@ export default class ScreenController {
 
   // Screen transitions
   changeScreenAnimation(screen1, screen2) {
-    // screen = section
-    if (this.isTransitioning) return;
+    if (this.isTransitioning) {
+      return Promise.resolve(false);
+    }
+
     this.isTransitioning = true;
 
-    screen1.classList.add("expand-and-collapse");
+    return new Promise((resolve) => {
+      screen1.classList.add("expand-and-collapse");
 
-    screen1.addEventListener(
-      "animationend",
-      () => {
-        screen1.remove();
-        screen2.style.opacity = 1;
-        this.main.appendChild(screen2);
-        screen2.classList.remove("hidden");
-        screen2.classList.add("enter-screen");
-        this.isTransitioning = false;
+      screen1.addEventListener(
+        "animationend",
+        () => {
+          screen1.remove();
+          screen2.style.opacity = 1;
+          this.main.appendChild(screen2);
+          screen2.classList.remove("hidden");
+          screen2.classList.add("enter-screen");
 
-        screen2.addEventListener("animationend", () => {
-          screen2.classList.remove("enter-screen");
+          screen2.addEventListener(
+            "animationend",
+            () => {
+              screen2.classList.remove("enter-screen");
+              this.#focusScreen(screen2);
 
-          // Accessibility
-          this.#focusScreen(screen2);
-        });
-      },
-      { once: true },
-    );
+              this.isTransitioning = false;
+              resolve(true);
+            },
+            { once: true },
+          );
+        },
+        { once: true },
+      );
+    });
   }
   changeScreenNoAnimation(screen1, screen2) {
     this.main.appendChild(screen2);
@@ -398,6 +427,10 @@ export default class ScreenController {
       "aria-pressed",
       ship.classList.contains("board__ship--selected"),
     );
+  }
+  toggleMute(btn) {
+    btn.classList.toggle("button--volume--mute");
+    btn.classList.toggle("button--volume--unmute");
   }
 
   // External Utilities

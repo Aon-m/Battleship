@@ -24,6 +24,7 @@ export default defineConfig([
         URL: "readonly",
         require: "readonly",
         alert: "readonly",
+        Audio: "readonly",
       },
     },
   },

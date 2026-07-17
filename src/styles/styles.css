@@ -578,6 +578,31 @@ body {
   justify-self: flex-end;
   margin-inline-start: auto;
 }
+.button--float {
+  display: fixed;
+  position: absolute;
+  bottom: var(--size-md);
+  left: var(--size-md);
+}
+.button--volume {
+  width: var(--size-md);
+  padding: var(--size-sm);
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  background: center/cover no-repeat;
+}
+.button--volume:hover {
+  transform: scale(1.2);
+}
+.button--volume:active {
+  transform: scale(1);
+}
+.button--volume--unmute {
+  background-image: url("../assets/icons/icon-unmute.png");
+}
+.button--volume--mute {
+  background-image: url("../assets/icons/icon-mute.png");
+}
 
 .dialog {
   top: 50%;
@@ -715,7 +740,7 @@ body {
   width: clamp(0.5rem, 0.3rem + 0.3vw, 0.8rem);
 }
 .icon--medium {
-  width: clamp(0.8rem, 0.5rem + 0.5vw, 1.2rem);
+  width: clamp(1rem, 1.5rem + 0.5vw, 2.5rem);
 }
 .icon--large {
   width: clamp(2.5rem, 2rem + 0.8vw, 5rem);

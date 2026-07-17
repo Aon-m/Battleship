@@ -33,7 +33,7 @@ export default {
         type: "asset/resource",
       },
       {
-        test: /\.(mp4|webm|ogg)$/i,
+        test: /\.(mp4|webm|ogg|mp3)$/i,
         type: "asset/resource",
       },
     ],

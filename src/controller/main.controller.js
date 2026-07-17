@@ -1,4 +1,5 @@
 import ScreenController from "./screen.controller.js";
+import AudioController from "./audio.controller.js";
 import throttle from "../utils/throttle.js";
 import Player from "../components/Player.js";
 import Form from "../components/Form.js";
@@ -11,6 +12,7 @@ import WinCheck from "../components/WinCheck.js";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
+    this.sfx = new AudioController();
 
     this.move = null;
     this.currentScreen = null;
@@ -29,19 +31,31 @@ export default class MainController {
     this.gameHasStarted = false;
     this.winCheck = null;
     this.turnSystem = null;
+
+    this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
   }
 
   init() {
     this.currentScreen = this.view.init();
 
+    this.sfx.init();
+
+    this.view.bindHeader(this.#handler.bind(this));
     this.view.bindGamemodeActions(this.#handler.bind(this));
   }
 
   #handler(action, target) {
     switch (action) {
+      // Audio
+      case "toggle-mute":
+        this.sfx.toggleMute();
+        this.view.toggleMute(target);
+        break;
+
       // Animation
       case "cursor-animation": {
-        this.throttledPlayCursorAnimation(target);
+        const result = this.throttledPlayCursorAnimation(target);
+        if (result) this.throttledPlaySfx("hit");
         break;
       }
       case "btn-animation":
@@ -53,28 +67,36 @@ export default class MainController {
 
       // Move
       case "move-back":
+        this.sfx.play("select3");
         this.move.prev();
         break;
       case "move-forward":
+        this.sfx.play("select3");
         this.move.next();
         break;
 
       // Gamemode
       case "gamemode-single":
+        this.sfx.play("stretch");
         this.#singlePlayer();
         break;
       case "gamemode-multi":
+        this.sfx.play("stretch");
         this.#multiPlayer();
         break;
 
       // Create Player
       case "submit-character-info": {
+        this.sfx.play("select3");
         const data = Form.getData();
         this.currentPlayer = this.#createPlayer(data.name, data.image);
         this.#loadBufferingScreen();
 
         setTimeout(() => {
           this.#loadPlaceShipsScreen();
+          setTimeout(() => {
+            this.sfx.play("select2");
+          }, 1500);
         }, 5000);
         break;
       }
@@ -96,6 +118,9 @@ export default class MainController {
 
         setTimeout(() => {
           this.#switchToCharacterInfoScreen();
+          setTimeout(() => {
+            this.sfx.play("select2");
+          }, 1500);
         }, 5000);
         break;
       case "randomize-gameboard":
@@ -103,6 +128,7 @@ export default class MainController {
         break;
       case "select-ship":
         this.#selectShip(target);
+        this.sfx.play("select3");
         break;
       case "accept-ship":
         this.#acceptShip(target);
@@ -124,6 +150,9 @@ export default class MainController {
         this.#loadBufferingScreen();
         setTimeout(() => {
           this.#startGame();
+          setTimeout(() => {
+            this.sfx.play("select2");
+          }, 1500);
         }, 5000);
         break;
       case "attack-square":
@@ -284,6 +313,7 @@ export default class MainController {
 
     if (!result) {
       this.view.removeHighlights();
+      this.sfx.play("wrong");
       return;
     }
 
@@ -291,6 +321,7 @@ export default class MainController {
       positionToCoordinate(row, col),
     );
 
+    this.sfx.play("success");
     this.view.updateBoard(coordinates, domShip);
     this.view.announce(`${domShip?.shipName} placed at ${coordinate}.`);
 
@@ -454,12 +485,14 @@ export default class MainController {
     if (!won) {
       if (hit) {
         this.view.announce("Hit!");
+        this.sfx.play("hit");
         this.currentPlayer.allowedFires = 1;
         this.#isComputer();
         return;
       }
 
       this.view.announce("Miss!");
+      this.sfx.play("waterSplash");
       setTimeout(() => {
         this.#changeTurn(true);
 
@@ -493,6 +526,7 @@ export default class MainController {
     this.gameHasStarted = false;
     this.view.updateWinner(this.currentPlayer.name);
     this.view.showWonDialog();
+    this.sfx.play("won");
     this.view.announce(`${this.currentPlayer.name} wins!`);
   }
   #resetAll() {

@@ -12,7 +12,7 @@
     width: clamp(0.5rem, calc(0.3rem + 0.3vw), 0.8rem);
   }
   &--medium {
-    width: clamp(0.8rem, calc(0.5rem + 0.5vw), 1.2rem);
+    width: clamp(1rem, calc(1.5rem + 0.5vw), 2.5rem);
   }
   &--large {
     width: clamp(2.5rem, calc(2rem + 0.8vw), 5rem);

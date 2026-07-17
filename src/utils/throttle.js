@@ -6,7 +6,9 @@ export default function throttle(func, delay) {
 
     if (now - lastCall >= delay) {
       lastCall = now;
-      func.apply(this, args);
+      return func.apply(this, args);
     }
+
+    return false;
   };
 }

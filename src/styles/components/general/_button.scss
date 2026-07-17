@@ -43,4 +43,36 @@
       margin-inline-start: auto;
     }
   }
+
+  &--float {
+    display: fixed;
+    position: absolute;
+    bottom: var(--size-md);
+    left: var(--size-md);
+  }
+
+  &--volume {
+    width: var(--size-md);
+    padding: var(--size-sm);
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+
+    background: center / cover no-repeat;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+
+    &--unmute {
+      background-image: url("../assets/icons/icon-unmute.png");
+    }
+
+    &--mute {
+      background-image: url("../assets/icons/icon-mute.png");
+    }
+  }
 }
