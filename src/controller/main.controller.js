@@ -32,6 +32,7 @@ export default class MainController {
     this.winCheck = null;
     this.turnSystem = null;
 
+    this.sfxStart = false;
     this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
   }
 
@@ -48,8 +49,16 @@ export default class MainController {
     switch (action) {
       // Audio
       case "toggle-mute":
+        if (this.sfxStart === false) {
+          this.sfx.backgroundInit();
+          this.sfxStart === true;
+        }
+
         this.sfx.toggleMute();
         this.view.toggleMute(target);
+        break;
+      case "hover-sound":
+        this.sfx.play("click");
         break;
 
       // Animation
@@ -67,12 +76,16 @@ export default class MainController {
 
       // Move
       case "move-back":
-        this.sfx.play("select3");
         this.move.prev();
+        setTimeout(() => {
+          this.sfx.play("select3");
+        }, 400);
         break;
       case "move-forward":
-        this.sfx.play("select3");
         this.move.next();
+        setTimeout(() => {
+          this.sfx.play("select3");
+        }, 400);
         break;
 
       // Gamemode
@@ -95,7 +108,7 @@ export default class MainController {
         setTimeout(() => {
           this.#loadPlaceShipsScreen();
           setTimeout(() => {
-            this.sfx.play("select2");
+            this.sfx.play("success");
           }, 1500);
         }, 5000);
         break;
@@ -119,7 +132,7 @@ export default class MainController {
         setTimeout(() => {
           this.#switchToCharacterInfoScreen();
           setTimeout(() => {
-            this.sfx.play("select2");
+            this.sfx.play("success");
           }, 1500);
         }, 5000);
         break;
@@ -151,7 +164,7 @@ export default class MainController {
         setTimeout(() => {
           this.#startGame();
           setTimeout(() => {
-            this.sfx.play("select2");
+            this.sfx.play("success");
           }, 1500);
         }, 5000);
         break;
@@ -487,7 +500,10 @@ export default class MainController {
         this.view.announce("Hit!");
         this.sfx.play("hit");
         this.currentPlayer.allowedFires = 1;
-        this.#isComputer();
+
+        setTimeout(() => {
+          this.#isComputer();
+        }, 2000);
         return;
       }
 
@@ -499,7 +515,7 @@ export default class MainController {
         if (this.currentMode !== "single") return this.view.showPassingScreen();
 
         this.#isComputer();
-      }, 3000);
+      }, 2000);
       return;
     }
 

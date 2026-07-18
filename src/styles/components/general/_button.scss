@@ -45,8 +45,7 @@
   }
 
   &--float {
-    display: fixed;
-    position: absolute;
+    position: fixed;
     bottom: var(--size-md);
     left: var(--size-md);
   }

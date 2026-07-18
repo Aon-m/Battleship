@@ -68,6 +68,7 @@ body {
   overflow: hidden;
   z-index: 1;
   position: relative;
+  background-color: rgba(255, 255, 255, 0.251);
 }
 .board--enabled .board__ship--preview {
   display: none;
@@ -579,8 +580,7 @@ body {
   margin-inline-start: auto;
 }
 .button--float {
-  display: fixed;
-  position: absolute;
+  position: fixed;
   bottom: var(--size-md);
   left: var(--size-md);
 }
@@ -853,6 +853,17 @@ body {
 body {
   background: url("../assets/background/tablet.jpg") center center/cover no-repeat;
   cursor: url("../assets/icons/cursor-aim.png") 16 16, crosshair;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.279);
 }
 @media screen and (min-width: 768px) {
   body {
@@ -939,6 +950,10 @@ body {
     max-width: 80rem;
   }
 }
+main {
+  padding-block-end: var(--size-lg);
+}
+
 header {
   display: flex;
   flex-direction: row;

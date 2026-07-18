@@ -52,6 +52,8 @@ export default class ScreenController {
         bindClick(btn, () => handler("btn-animation", btn));
         bindClick(btn, () => handler("video-animation", btn));
         bindClick(btn, () => handler(btn.dataset.action, btn), true);
+
+        btn.addEventListener("pointerenter", () => handler("hover-sound", btn));
       });
   }
 
@@ -65,6 +67,15 @@ export default class ScreenController {
         const once = btn.dataset.once !== undefined;
 
         bindClick(btn, () => handler(btn.dataset.action, btn), once);
+        btn.addEventListener("pointerenter", () => handler("hover-sound", btn));
+      });
+
+    this.characterInfoScreenContainer()
+      .querySelectorAll("input")
+      .forEach((input) => {
+        input.addEventListener("pointerenter", () =>
+          handler("hover-sound", input),
+        );
       });
   }
   bindPlaceShipsActions(handler) {
@@ -80,6 +91,9 @@ export default class ScreenController {
           element,
           () => handler(element.dataset.action, element),
           once,
+        );
+        element.addEventListener("pointerenter", () =>
+          handler("hover-sound", element),
         );
       });
 
@@ -127,6 +141,9 @@ export default class ScreenController {
           element,
           () => handler(element.dataset.action, element),
           once,
+        );
+        element.addEventListener("pointerenter", () =>
+          handler("hover-sound", element),
         );
       });
   }
