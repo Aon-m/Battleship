@@ -46,13 +46,13 @@
 
   &--float {
     position: fixed;
-    bottom: var(--size-md);
-    left: var(--size-md);
+    bottom: var(--size-sm);
+    left: var(--size-sm);
   }
 
   &--volume {
-    width: var(--size-md);
-    padding: var(--size-sm);
+    width: var(--size-sm);
+    padding: calc(var(--size-xs) * 2);
     overflow: hidden;
     aspect-ratio: 1 / 1;
 
@@ -67,11 +67,11 @@
     }
 
     &--unmute {
-      background-image: url("../assets/icons/icon-unmute.png");
+      background-image: url("../assets/icons/icon-unmute.svg");
     }
 
     &--mute {
-      background-image: url("../assets/icons/icon-mute.png");
+      background-image: url("../assets/icons/icon-mute.svg");
     }
   }
 }

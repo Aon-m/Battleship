@@ -79,7 +79,9 @@
           <fieldset class="form__fieldset text--small">
             <legend class="form__legend sr-only">Enter name:</legend>
             <div class="form__field">
-              <label class="form__label" for="character-name"
+              <label
+                class="form__label text text--small text--secondary text--bold"
+                for="character-name"
                 >What's yer name Captain?
               </label>
               <input
@@ -91,7 +93,11 @@
             </div>
 
             <div class="form__field">
-              <label for="character-image">Choose yer looks:</label>
+              <label
+                class="form__label text text--small text--secondary text--bold"
+                for="character-image"
+                >Choose yer looks:</label
+              >
               <input
                 type="hidden"
                 name="character-image"
@@ -202,7 +208,7 @@
               type="submit"
               data-action="submit-character-info"
               data-once
-              class="button--rectangle button button--secondary text text--small text--primary"
+              class="button--rectangle button button--secondary text text--small text--primary text--bold"
             >
               Done?
             </button>
@@ -224,55 +230,59 @@
         >
           Place Ships
         </h2>
-        <div class="board drag-container"></div>
-        <div class="board__ships container">
-          <div class="container__header">
-            <h3 class="text text--medium text--bold text--primary">
-              Deployable Ships:
-            </h3>
+        <div class="container__sub-container container--flex flex flex-mobile-column">
+          <div class="board drag-container"></div>
+          <div class="board__controls">
+            <div class="board__ships container">
+              <div class="container__header">
+                <h3 class="text text--medium text--bold text--primary">
+                  Deployable Ships:
+                </h3>
+                <button
+                  type="button"
+                  class="button"
+                  data-action="change-all-ships-orientation"
+                  title="change ship orientation"
+                  aria-label="Change orientation of all ships"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 -960 960 960"
+                    fill="currentColor"
+                    class="icon icon--large icon--secondary"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M440-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T80-440q0-150 105-255t255-105h6l-62-62 56-58 160 160-160 160-56-58 62-62h-6q-117 0-198.5 81.5T160-440q0 117 81.5 198.5T440-160q35 0 69-8.5t65-25.5l58 58q-43 28-92 42T440-80Zm240-120L440-440l240-240 240 240-240 240Zm0-114 126-126-126-126-126 126 126 126Zm0-126Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="container__buttons flex-mobile-column">
+              <button
+                type="button"
+                data-action="reset-gameboard"
+                class="button button--rectangle button--primary text text--small text--bold"
+              >
+                Reset Gameboard
+              </button>
+              <button
+                type="button"
+                data-action="randomize-gameboard"
+                class="button button--rectangle button--primary text text--small text--bold"
+              >
+                Randomize Gameboard
+              </button>
+            </div>
             <button
               type="button"
-              class="button"
-              data-action="change-all-ships-orientation"
-              title="change ship orientation"
-              aria-label="Change orientation of all ships"
+              data-action="open-dialog"
+              class="button button--rectangle button--primary text text--small text--bold hidden"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                fill="currentColor"
-                class="icon icon--large icon--secondary"
-                aria-hidden="true"
-              >
-                <path
-                  d="M440-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T80-440q0-150 105-255t255-105h6l-62-62 56-58 160 160-160 160-56-58 62-62h-6q-117 0-198.5 81.5T160-440q0 117 81.5 198.5T440-160q35 0 69-8.5t65-25.5l58 58q-43 28-92 42T440-80Zm240-120L440-440l240-240 240 240-240 240Zm0-114 126-126-126-126-126 126 126 126Zm0-126Z"
-                />
-              </svg>
+              Ready?
             </button>
           </div>
-        </div>
-        <div class="container__buttons">
-          <button
-            type="button"
-            data-action="reset-gameboard"
-            class="button button--rectangle button--primary text text--small text--bold"
-          >
-            Reset Gameboard
-          </button>
-          <button
-            type="button"
-            data-action="randomize-gameboard"
-            class="button button--rectangle button--primary text text--small text--bold"
-          >
-            Randomize Gameboard
-          </button>
-          <button
-            type="button"
-            data-action="open-dialog"
-            class="button button--rectangle button--primary text text--small text--bold hidden"
-          >
-            Ready?
-          </button>
         </div>
       </section>
     </template>

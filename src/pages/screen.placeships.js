@@ -45,9 +45,6 @@ export default class ScreenPlaceShips {
       gameboard.appendChild(this.#createBtn(i));
     }
 
-    const ships = this.clone.querySelector(".board__ships");
-    this.clone.appendChild(ships);
-
     this.#createDialogs();
 
     return fragment;

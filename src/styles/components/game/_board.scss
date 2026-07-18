@@ -163,3 +163,11 @@
     }
   }
 }
+
+@media screen and (min-width: 1440px) {
+  .board {
+    &__ships {
+      width: clamp(30rem, calc(20rem + 5vw), 50rem);
+    }
+  }
+}

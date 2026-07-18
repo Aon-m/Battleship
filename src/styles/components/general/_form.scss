@@ -2,12 +2,13 @@
 
 .form {
   @include m.flex(column);
-  width: min(80vw, 30rem);
+  width: min(85vw, 30rem);
   background: var(--color-neutral-0);
   border-radius: var(--size-sm);
   padding: var(--size-sm);
   gap: var(--size-sm);
   position: relative;
+  overflow: hidden;
   cursor: default;
 
   @media screen and (min-width: 60rem) {
@@ -15,7 +16,8 @@
   }
 
   &__field {
-    gap: var(--size-sm);
+    @include m.flex(column, unset);
+    gap: var(--size-xs);
     width: 100%;
     margin-block-end: calc(var(--size-xs) + 0.5rem);
   }

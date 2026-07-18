@@ -218,6 +218,7 @@ export default class MainController {
     this.view.loadCharacterInfoScreen();
     this.view.bindCharacterInfoActions(this.#handler.bind(this));
     this.move = new Move(this.view.characterInfoScreenContainer());
+    this.move.init();
 
     return this.view.characterInfoScreenContainer();
   }

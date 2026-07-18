@@ -25,7 +25,7 @@
   --size-sm: clamp(1rem, calc(1.25rem + 0.5vw), 1.75rem);
   --size-md: clamp(1.5rem, calc(2rem + 0.5vw), 3rem);
   --size-lg: clamp(2.5rem, calc(3.25rem + 1vw), 4rem);
-  --size-square: clamp(2.5rem, calc(2rem + 1vw), 5rem);
+  --size-square: calc(80vw / 10);
 
   /* Font sizes */
   --fs-sm: clamp(1rem, calc(0.8rem + 0.7vw), 1.3rem);
@@ -48,5 +48,8 @@
     --fs-md: clamp(1.5rem, calc(1.3rem + 0.3vw), 5rem);
     --fs-lg: clamp(3rem, calc(2rem + 0.5vw), 9rem);
     --fs-xl: clamp(5rem, calc(4.5rem + 2vw), 15rem);
+
+    /* Sizes */
+    --size-square: clamp(2.5rem, calc(2rem + 2vw), 5rem);
   }
 }
