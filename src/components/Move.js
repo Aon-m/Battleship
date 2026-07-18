@@ -1,3 +1,4 @@
+import characters from "../data/character.json";
 import character1 from "../assets/characters/character-1.png";
 import character2 from "../assets/characters/character-2.png";
 import character3 from "../assets/characters/character-3.png";
@@ -13,13 +14,13 @@ export default class Move {
     container,
     animator = new MoveAnimation(),
     previews = [
-      character1,
-      character2,
-      character3,
-      character4,
-      character5,
-      character6,
-      character7,
+      { src: character1, alt: characters[0].alt },
+      { src: character2, alt: characters[1].alt },
+      { src: character3, alt: characters[2].alt },
+      { src: character4, alt: characters[3].alt },
+      { src: character5, alt: characters[4].alt },
+      { src: character6, alt: characters[5].alt },
+      { src: character7, alt: characters[6].alt },
     ],
   ) {
     this.container = container;
@@ -70,11 +71,20 @@ export default class Move {
   #render(state) {
     const e = this.elements;
 
-    e.left.src = state.offscreenLeft;
-    e.prev.src = state.previous;
-    e.current.src = state.current;
-    e.next.src = state.next;
-    e.right.src = state.offscreenRight;
+    e.left.src = state.offscreenLeft.src;
+    e.left.alt = state.offscreenLeft.alt;
+
+    e.prev.src = state.previous.src;
+    e.prev.alt = state.previous.alt;
+
+    e.current.src = state.current.src;
+    e.current.alt = state.current.alt;
+
+    e.next.src = state.next.src;
+    e.next.alt = state.next.alt;
+
+    e.right.src = state.offscreenRight.src;
+    e.right.alt = state.offscreenRight.alt;
   }
   #bindElements() {
     return {

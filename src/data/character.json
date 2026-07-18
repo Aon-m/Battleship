@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "image": "character-1.png",
+    "alt": "Male character with black hair, a brown jacket, and black shoes."
+  },
+  {
+    "id": 2,
+    "image": "character-2.png",
+    "alt": "Female character with blue hair, a black headband, a dark green shirt, a purple skirt, dark purple leggings, a chain, and black shoes."
+  },
+  {
+    "id": 3,
+    "image": "character-3.png",
+    "alt": "Female character with black hair, a red headband, a white shirt, dark green pants, and red shoes."
+  },
+  {
+    "id": 4,
+    "image": "character-4.png",
+    "alt": "Male character with black hair, a white shirt with blue patterns, blue pants, and reddish-brown shoes."
+  },
+  {
+    "id": 5,
+    "image": "character-5.png",
+    "alt": "Older woman with gray hair, glasses, a blue vest over a white shirt, a dark green skirt, and black shoes."
+  },
+  {
+    "id": 6,
+    "image": "character-6.png",
+    "alt": "Male character with blond hair, a green sweater over a white shirt, blue pants, and black shoes."
+  },
+  {
+    "id": 7,
+    "image": "character-7.png",
+    "alt": "Girl with brunette hair, a pink top, a purple skirt, a white belt, and black shoes."
+  }
+]
