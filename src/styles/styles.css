@@ -200,32 +200,34 @@ body {
   align-items: center;
   justify-content: center;
 }
-.carousel__offscreen {
+.carousel__slot--offscreen {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-.carousel__offscreen--right {
+.carousel__slot--offscreen--right {
   right: 1rem;
 }
-.carousel__offscreen--left {
+.carousel__slot--offscreen--left {
   left: 1rem;
 }
-.carousel__preview {
+.carousel__slot--preview {
   opacity: 0.7;
 }
-.carousel__current {
+.carousel__slot--current {
   z-index: 3;
   opacity: 1;
 }
 
 .character {
   height: 75%;
-  max-width: 5rem;
+  width: clamp(3rem, 3rem + 2vw, 4rem);
   padding-block-end: var(--size-sm);
 }
-.character__previews {
-  position: relative;
+@media screen and (min-width: 400px) {
+  .character {
+    width: 5rem;
+  }
 }
 .character--offscreen {
   transform: scale(0);

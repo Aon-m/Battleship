@@ -1,10 +1,10 @@
 .character {
   height: 75%;
-  max-width: 5rem;
+  width: clamp(3rem, calc(3rem + 2vw), 4rem);
   padding-block-end: var(--size-sm);
 
-  &__previews {
-    position: relative;
+  @media screen and (min-width: 400px) {
+    width: 5rem;
   }
 
   &--offscreen {

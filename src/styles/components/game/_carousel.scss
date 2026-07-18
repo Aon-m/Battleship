@@ -3,26 +3,28 @@
 .carousel {
   @include m.flex(row);
 
-  &__offscreen {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+  &__slot {
+    &--offscreen {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
 
-    &--right {
-      right: 1rem;
+      &--right {
+        right: 1rem;
+      }
+
+      &--left {
+        left: 1rem;
+      }
     }
 
-    &--left {
-      left: 1rem;
+    &--preview {
+      opacity: 0.7;
     }
-  }
 
-  &__preview {
-    opacity: 0.7;
-  }
-
-  &__current {
-    z-index: 3;
-    opacity: 1;
+    &--current {
+      z-index: 3;
+      opacity: 1;
+    }
   }
 }

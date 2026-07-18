@@ -21,17 +21,19 @@ export default class Move {
       character6,
       character7,
     ],
-    step = 75,
   ) {
     this.container = container;
     this.animator = animator;
 
     this.currentIndex = 0;
-    this.step = step;
-
     this.elements = this.#bindElements();
 
     this.previews = previews;
+
+    this.step = 75;
+    window.addEventListener("resize", () => {
+      this.step = this.#calculateStep();
+    });
 
     this.next = throttle(this.next.bind(this), 500);
     this.prev = throttle(this.prev.bind(this), 500);
@@ -40,6 +42,7 @@ export default class Move {
   // External methods
   init() {
     this.#render(this.#getInitialState());
+    this.step = this.#calculateStep();
   }
   next() {
     return this.#update("next");
@@ -169,5 +172,17 @@ export default class Move {
       next: previews[(nextIndex + 1) % length],
       offscreenRight: previews[(nextIndex + 2) % length],
     };
+  }
+  #calculateStep() {
+    const { prev, current } = this.elements;
+
+    console.log(
+      current.getBoundingClientRect().left - prev.getBoundingClientRect().left,
+    );
+    return (
+      current.getBoundingClientRect().left -
+      prev.getBoundingClientRect().left +
+      15
+    );
   }
 }
