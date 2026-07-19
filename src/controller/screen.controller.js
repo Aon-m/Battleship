@@ -481,11 +481,9 @@ export default class ScreenController {
   }
   showDamagedShip(shipName, playerId) {
     const gameboard = this.findGameboard(playerId);
-    console.log(gameboard);
     if (!gameboard) return;
 
     const ship = gameboard.querySelector(`[data-name="${shipName}"]`);
-    console.log(ship);
     if (!ship) return;
 
     ship.classList.remove("board__ship--preview");

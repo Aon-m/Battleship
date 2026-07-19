@@ -188,9 +188,6 @@ export default class Move {
   #calculateStep() {
     const { prev, current } = this.elements;
 
-    console.log(
-      current.getBoundingClientRect().left - prev.getBoundingClientRect().left,
-    );
     return (
       current.getBoundingClientRect().left -
       prev.getBoundingClientRect().left +
