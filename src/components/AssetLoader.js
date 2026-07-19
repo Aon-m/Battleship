@@ -25,7 +25,7 @@ export default class AssetLoader {
         new Promise((resolve, reject) => {
           const img = new Image();
           img.onload = resolve;
-          img.onerror = reject;
+          img.onerror = () => reject(new Error(`Failed to load ${src}`));
           img.src = src;
         }),
       );
@@ -39,9 +39,10 @@ export default class AssetLoader {
         new Promise((resolve, reject) => {
           const sound = new Audio();
           sound.preload = "auto";
-          sound.oncanplaythrough = resolve;
-          sound.onerror = reject;
+          sound.onloadeddata = resolve;
+          sound.onerror = () => reject(new Error(`Failed to load ${src}`));
           sound.src = src;
+          sound.load();
         }),
       );
     });
@@ -55,8 +56,9 @@ export default class AssetLoader {
           const video = document.createElement("video");
           video.preload = "auto";
           video.onloadeddata = resolve;
-          video.onerror = reject;
+          video.onerror = () => reject(new Error(`Failed to load ${src}`));
           video.src = src;
+          video.load();
         }),
       );
     });
