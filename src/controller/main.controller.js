@@ -405,9 +405,9 @@ export default class MainController {
 
     return null;
   }
-  #getRandomId(excludedPlayer) {
+  #getRandomId(excludedPlayerId) {
     const availablePlayers = this.players.filter(
-      (player) => player.id !== excludedPlayer.id,
+      (player) => player.id !== excludedPlayerId,
     );
 
     const randomIndex = Math.floor(Math.random() * availablePlayers.length);
@@ -558,7 +558,7 @@ export default class MainController {
     const coordiniate = this.currentPlayer.attack();
     const square = this.view.getSquare(
       coordiniate,
-      this.#getRandomId(this.currentPlayer),
+      this.#getRandomId(this.currentPlayer.id),
     );
 
     this.#attackSystem(square);
