@@ -563,6 +563,7 @@ body {
 .animation-passing {
   animation: animation-passing 700ms ease-out infinite;
   will-change: transform;
+  animation-delay: 500ms;
 }
 
 @keyframes animation-passing {
