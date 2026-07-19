@@ -279,7 +279,7 @@
 }
 
 .animation-passing {
-  animation: animation-passing 700ms ease-out forwards;
+  animation: animation-passing 700ms ease-out infinite;
   will-change: transform;
 }
 

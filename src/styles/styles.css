@@ -561,18 +561,16 @@ body {
   }
 }
 .animation-passing {
-  animation: animation-passing 700ms ease-out forwards;
+  animation: animation-passing 700ms ease-out infinite;
   will-change: transform;
 }
 
 @keyframes animation-passing {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.8;
+  from {
+    transform: rotate(-45deg);
   }
-  100% {
-    transform: scale(0);
-    opacity: 0;
+  to {
+    transform: rotate(15deg);
   }
 }
 .button {
