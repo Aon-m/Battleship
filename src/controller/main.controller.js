@@ -344,7 +344,7 @@ export default class MainController {
 
     this.sfx.play("success");
     this.view.updateBoard(coordinates, domShip);
-    this.view.announce(`${domShip?.shipName} placed at ${coordinate}.`);
+    this.view.announce(`${domShip?.dataset.shipName} placed at ${coordinate}.`);
 
     if (document.querySelector(".board__ship--notDeployed")) return;
 
@@ -591,10 +591,8 @@ export default class MainController {
     this.view = new ScreenController();
 
     this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
-    
+
     this.init();
-
-
   }
 
   // Gameboard init
