@@ -4,16 +4,11 @@
 - [cursor](https://icons8.com/icons/set/aim)
 - [missed-square](https://freepik.com)
 - [battleships](https://freepik.com)
+- [sound effects](https://pixabay.com/sound-effects/)
 
 ## To do
 
 <!-- User experience -->
 
-- Sound effects (class)
 - Accessibility
-  - give character images a proper alt (data.json)
-  - spinner should calibrate properly (announcer)
   - arrow navigation (class)
-- Mobile Styles
-- Animations
-  - Complete Passing Screen Animation (style)
