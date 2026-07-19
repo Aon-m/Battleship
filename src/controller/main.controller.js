@@ -498,11 +498,16 @@ export default class MainController {
 
     if (!won) {
       if (hit) {
-        this.view.announce("Hit!");
         this.currentPlayer.allowedFires = 1;
         const sunked = this.#shipSunk(ship);
-        if (!sunked) this.sfx.play("hit");
-        else this.sfx.play("explosion");
+
+        if (!sunked) {
+          this.sfx.play("hit");
+          this.view.announce("Hit!");
+        } else {
+          this.sfx.play("explosion");
+          this.view.announce("Ship Sunk!");
+        }
 
         setTimeout(() => {
           this.#isComputer();
