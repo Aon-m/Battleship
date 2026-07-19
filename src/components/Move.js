@@ -44,6 +44,8 @@ export default class Move {
   init() {
     this.#render(this.#getInitialState());
     this.step = this.#calculateStep();
+
+    if (this.step < 15) this.step = 75;
   }
   next() {
     return this.#update("next");
