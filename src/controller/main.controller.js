@@ -577,28 +577,32 @@ export default class MainController {
     this.view.announce(`${this.currentPlayer.name} wins!`);
   }
   #resetAll() {
-    this.turnSystem = null;
-    this.winCheck = null;
-    this.currentPlayer = null;
-    this.gameHasStarted = false;
+    window.location.reload();
 
-    this.currentScreen.remove();
-    this.currentScreen = null;
-    this.currentMode = null;
-    this.currentSquare = null;
-    this.currentPlayer = null;
-    this.selectedShip = null;
+    return;
 
-    this.move = null;
-    this.sfxStart = false;
-    this.players = [];
+    // this.turnSystem = null;
+    // this.winCheck = null;
+    // this.currentPlayer = null;
+    // this.gameHasStarted = false;
 
-    this.sfx = new AudioController();
-    this.view = new ScreenController();
+    // this.currentScreen.remove();
+    // this.currentScreen = null;
+    // this.currentMode = null;
+    // this.currentSquare = null;
+    // this.currentPlayer = null;
+    // this.selectedShip = null;
 
-    this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
+    // this.move = null;
+    // this.sfxStart = false;
+    // this.players = [];
 
-    this.init();
+    // this.sfx = new AudioController();
+    // this.view = new ScreenController();
+
+    // this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
+
+    // this.init();
   }
 
   // Gameboard init
