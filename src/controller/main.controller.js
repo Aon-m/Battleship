@@ -10,6 +10,7 @@ import Computer from "../components/Computer.js";
 import TurnSystem from "../components/TurnSystem.js";
 import WinCheck from "../components/WinCheck.js";
 import AssetLoader from "../components/AssetLoader.js";
+import Clarity from "@microsoft/clarity";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
@@ -171,6 +172,7 @@ export default class MainController {
       case "start-game":
         this.#loadBufferingScreen();
         setTimeout(() => {
+          Clarity.event("game_started");
           this.#startGame();
           setTimeout(() => {
             this.view.announce("game started");
@@ -187,6 +189,7 @@ export default class MainController {
 
       // Gameend
       case "end-game":
+        Clarity.event("game_ended");
         this.#endGame();
         break;
       case "back-to-menu":
