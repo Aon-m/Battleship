@@ -230,9 +230,34 @@
         >
           Place Ships
         </h2>
-        <div class="container__sub-container container--flex flex flex-mobile-column">
+        <div
+          class="container__sub-container container--flex flex flex-mobile-column"
+        >
           <div class="board drag-container"></div>
           <div class="board__controls">
+            <div class="container__buttons flex-mobile-column">
+              <button
+                type="button"
+                data-action="reset-gameboard"
+                class="button button--rectangle button--primary text text--small text--bold"
+              >
+                Reset Gameboard
+              </button>
+              <button
+                type="button"
+                data-action="randomize-gameboard"
+                class="button button--rectangle button--primary text text--small text--bold"
+              >
+                Randomize Gameboard
+              </button>
+            </div>
+            <button
+              type="button"
+              data-action="open-dialog"
+              class="button button--rectangle button--primary text text--small text--bold hidden"
+            >
+              Ready?
+            </button>
             <div class="board__ships container">
               <div class="container__header">
                 <h3 class="text text--medium text--bold text--primary">
@@ -259,29 +284,6 @@
                 </button>
               </div>
             </div>
-            <div class="container__buttons flex-mobile-column">
-              <button
-                type="button"
-                data-action="reset-gameboard"
-                class="button button--rectangle button--primary text text--small text--bold"
-              >
-                Reset Gameboard
-              </button>
-              <button
-                type="button"
-                data-action="randomize-gameboard"
-                class="button button--rectangle button--primary text text--small text--bold"
-              >
-                Randomize Gameboard
-              </button>
-            </div>
-            <button
-              type="button"
-              data-action="open-dialog"
-              class="button button--rectangle button--primary text text--small text--bold hidden"
-            >
-              Ready?
-            </button>
           </div>
         </div>
       </section>

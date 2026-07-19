@@ -188,8 +188,15 @@ body {
 .board__ship--carrier.vertical {
   background-image: url("../assets/ships/ship-carrier-vertical.png");
 }
+.board__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-md);
+}
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1200px) {
   .board__ships {
     width: clamp(30rem, 20rem + 5vw, 50rem);
   }
@@ -1006,7 +1013,7 @@ header {
 .flex-mobile-row {
   flex-direction: row;
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1200px) {
   .flex-mobile-row {
     flex-direction: column;
   }
@@ -1015,7 +1022,7 @@ header {
 .flex-mobile-column {
   flex-direction: column;
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1200px) {
   .flex-mobile-column {
     flex-direction: row;
   }

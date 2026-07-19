@@ -22,14 +22,14 @@
 .flex-mobile-row {
   flex-direction: row;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 1200px) {
     flex-direction: column;
   }
 }
 .flex-mobile-column {
   flex-direction: column;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 1200px) {
     flex-direction: row;
   }
 }

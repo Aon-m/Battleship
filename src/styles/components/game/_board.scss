@@ -162,9 +162,14 @@
       }
     }
   }
+
+  &__controls {
+    @include m.flex(column);
+    gap: var(--size-md);
+  }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1200px) {
   .board {
     &__ships {
       width: clamp(30rem, calc(20rem + 5vw), 50rem);
