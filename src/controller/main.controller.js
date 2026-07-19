@@ -563,12 +563,6 @@ export default class MainController {
 
     this.#attackSystem(square);
   }
-  #resetGame() {
-    this.turnSystem = null;
-    this.winCheck = null;
-    this.currentPlayer = null;
-    this.gameHasStarted = false;
-  }
   #endGame() {
     this.gameHasStarted = false;
     this.view.updateWinner(this.currentPlayer.name);
@@ -577,17 +571,30 @@ export default class MainController {
     this.view.announce(`${this.currentPlayer.name} wins!`);
   }
   #resetAll() {
-    this.#resetGame();
+    this.turnSystem = null;
+    this.winCheck = null;
+    this.currentPlayer = null;
+    this.gameHasStarted = false;
 
-    this.move = null;
     this.currentScreen.remove();
     this.currentScreen = null;
     this.currentMode = null;
-    this.players = [];
     this.currentSquare = null;
+    this.currentPlayer = null;
     this.selectedShip = null;
 
+    this.move = null;
+    this.sfxStart = false;
+    this.players = [];
+
+    this.sfx = new AudioController();
+    this.view = new ScreenController();
+
+    this.throttledPlaySfx = throttle((name) => this.sfx.play(name), 500);
+    
     this.init();
+
+
   }
 
   // Gameboard init
