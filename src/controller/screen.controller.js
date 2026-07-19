@@ -21,6 +21,8 @@ export default class ScreenController {
 
     this.announcer = this.#createAnnouncer();
     this.sfx = new AudioController();
+
+    this.announcementTimer = null;
   }
 
   init() {
@@ -490,11 +492,23 @@ export default class ScreenController {
     ship.classList.add("board__ship--destroyed");
   }
   announce(message) {
+    clearTimeout(this.announcementTimer);
+
+    this.announcer.classList.remove("fade-out");
+    this.announcer.classList.remove("sr-only");
     this.announcer.textContent = "";
 
     requestAnimationFrame(() => {
       this.announcer.textContent = message;
     });
+
+    this.announcementTimer = setTimeout(() => {
+      this.announcer.classList.add("fade-out");
+      this.announcer.addEventListener("animationend", () => {
+        this.announcer.classList.add("sr-only");
+        this.announcer.classList.remove("fade-out");
+      });
+    }, 2000);
   }
   setBusy(isBusy) {
     this.main.setAttribute("aria-busy", isBusy);
@@ -590,10 +604,17 @@ export default class ScreenController {
     const announcer = document.createElement("div");
 
     announcer.id = "announcer";
-    announcer.className = "sr-only";
+    announcer.className = "announcer";
     announcer.setAttribute("role", "status");
     announcer.setAttribute("aria-live", "polite");
     announcer.setAttribute("aria-atomic", "true");
+
+    announcer.classList.add("text");
+    announcer.classList.add("text--secondary");
+    announcer.classList.add("text--small");
+    announcer.classList.add("text--bold");
+
+    announcer.classList.add("sr-only");
 
     document.body.appendChild(announcer);
 

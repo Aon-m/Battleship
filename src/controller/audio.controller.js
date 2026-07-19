@@ -84,6 +84,8 @@ export default class AudioController {
 
   toggleMute() {
     this.#muted ? this.unmute() : this.mute();
+
+    return this.#muted;
   }
 
   setVolume(volume) {

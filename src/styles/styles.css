@@ -9,6 +9,7 @@
 body {
   width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 :root {
@@ -57,7 +58,7 @@ body {
     --fs-lg: clamp(3rem, calc(2rem + 0.5vw), 9rem);
     --fs-xl: clamp(5rem, calc(4.5rem + 2vw), 15rem);
     /* Sizes */
-    --size-square: clamp(2.5rem, calc(2rem + 2vw), 5rem);
+    --size-square: clamp(2.5rem, calc(2rem + 1vw), 5rem);
   }
 }
 
@@ -913,7 +914,6 @@ body::before {
 
 .container {
   padding-block: var(--size-md);
-  margin-inline: auto;
 }
 .container--wide {
   width: 100vw;
@@ -996,6 +996,7 @@ body::before {
 }
 main {
   padding-block-end: var(--size-lg);
+  max-width: 100vw;
 }
 
 header {
@@ -1073,4 +1074,14 @@ header {
 }
 .skip-link:focus {
   transform: translate(-50%, 0);
+}
+
+.announcer {
+  position: fixed;
+  top: var(--size-sm);
+  right: var(--size-lg);
+  border-radius: var(--size-sm);
+  width: 30ch;
+  padding: var(--size-xs) var(--size-sm);
+  background-color: var(--color-neutral-0);
 }

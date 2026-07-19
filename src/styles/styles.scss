@@ -25,3 +25,13 @@
 @use "./layouts/header";
 
 @use "./abstracts/utilities";
+
+.announcer {
+  position: fixed;
+  top: var(--size-sm);
+  right: var(--size-lg);
+  border-radius: var(--size-sm);
+  width: 30ch;
+  padding: var(--size-xs) var(--size-sm);
+  background-color: var(--color-neutral-0);
+}

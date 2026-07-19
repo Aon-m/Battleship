@@ -48,15 +48,17 @@ export default class MainController {
   #handler(action, target) {
     switch (action) {
       // Audio
-      case "toggle-mute":
+      case "toggle-mute": {
         if (this.sfxStart === false) {
           this.sfx.backgroundInit();
           this.sfxStart === true;
         }
 
-        this.sfx.toggleMute();
+        const muted = this.sfx.toggleMute();
         this.view.toggleMute(target);
+        muted === false ? this.view.announce("unmuted") : this.view.announce("muted");
         break;
+      }
       case "hover-sound":
         this.sfx.play("click");
         break;
@@ -91,11 +93,13 @@ export default class MainController {
       // Gamemode
       case "gamemode-single":
         this.sfx.play("stretch");
+        this.view.announce("single-player selected");
         this.#singlePlayer();
         break;
       case "gamemode-multi":
         this.sfx.play("stretch");
         this.#multiPlayer();
+        this.view.announce("multi-player selected");
         break;
 
       // Create Player
@@ -164,6 +168,7 @@ export default class MainController {
         setTimeout(() => {
           this.#startGame();
           setTimeout(() => {
+            this.view.announce("game started")
             this.sfx.play("success");
           }, 1500);
         }, 5000);
