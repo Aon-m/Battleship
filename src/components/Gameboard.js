@@ -75,7 +75,7 @@ export default class GameBoard {
 
     if (ship) {
       ship.hit();
-      return true;
+      return { hit: true, ship };
     }
 
     this.missedShots.push([row, col]);

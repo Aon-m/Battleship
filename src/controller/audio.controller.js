@@ -11,6 +11,7 @@ import waves from "../assets/audio/audio-waves.mp3";
 import won from "../assets/audio/audio-won.mp3";
 import whoosh from "../assets/audio/audio-whoosh.mp3";
 import click from "../assets/audio/audio-click.mp3";
+import explosion from "../assets/audio/audio-explosion.mp3";
 
 export default class AudioController {
   #muted = false;
@@ -29,6 +30,7 @@ export default class AudioController {
     won: new Audio(won),
     whoosh: new Audio(whoosh),
     click: new Audio(click),
+    explosion: new Audio(explosion),
   };
 
   init() {
@@ -44,7 +46,7 @@ export default class AudioController {
   }
 
   /**
-   * @param {"hit" | "wrong" | "success" | "place" | "select1" | "select2" | "select3" | "stretch" | "waterSplash" | "waves" | "won" | "whoosh" | "click"} name
+   * @param {"hit" | "wrong" | "success" | "place" | "select1" | "select2" | "select3" | "stretch" | "waterSplash" | "waves" | "won" | "whoosh" | "click" | "explosion"} name
    */
   play(name) {
     if (this.#muted) return;

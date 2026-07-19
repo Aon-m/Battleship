@@ -477,6 +477,18 @@ export default class ScreenController {
 
     return null;
   }
+  showDamagedShip(shipName, playerId) {
+    const gameboard = this.findGameboard(playerId);
+    console.log(gameboard);
+    if (!gameboard) return;
+
+    const ship = gameboard.querySelector(`[data-name="${shipName}"]`);
+    console.log(ship);
+    if (!ship) return;
+
+    ship.classList.remove("board__ship--preview");
+    ship.classList.add("board__ship--destroyed");
+  }
   announce(message) {
     this.announcer.textContent = "";
 
@@ -542,6 +554,7 @@ export default class ScreenController {
 
     ship.classList.add("board__ship");
     ship.classList.add(`board__ship--${name}`);
+    ship.dataset.name = name;
 
     if (orientation === "vertical") {
       ship.classList.add("vertical");

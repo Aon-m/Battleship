@@ -474,10 +474,10 @@ export default class MainController {
     const attackedPlayer = this.#findPlayer(square.dataset.player);
     if (!attackedPlayer) return false;
 
-    const result = attackedPlayer.gameboard.receiveAttack(coordinate);
+    const { hit, ship } = attackedPlayer.gameboard.receiveAttack(coordinate);
     this.view.renderAttack(attackedPlayer.id, square);
 
-    return { hit: result, attackedPlayer };
+    return { hit, attackedPlayer, ship };
   }
   #attackSystem(square) {
     if (
@@ -491,7 +491,7 @@ export default class MainController {
 
     this.currentPlayer.allowedFires = 0;
 
-    const { hit, attackedPlayer } = this.#attackSquare(square);
+    const { hit, attackedPlayer, ship } = this.#attackSquare(square);
     if (!attackedPlayer) return;
 
     const won = this.winCheck.checkCurrentPlayer(attackedPlayer);
@@ -499,8 +499,10 @@ export default class MainController {
     if (!won) {
       if (hit) {
         this.view.announce("Hit!");
-        this.sfx.play("hit");
         this.currentPlayer.allowedFires = 1;
+        const sunked = this.#shipSunk(ship);
+        if (!sunked) this.sfx.play("hit");
+        else this.sfx.play("explosion");
 
         setTimeout(() => {
           this.#isComputer();
@@ -521,6 +523,14 @@ export default class MainController {
     }
 
     this.#endGame();
+  }
+  #shipSunk(ship) {
+    const playerId = this.#getRandomId(this.currentPlayer.id);
+    const sunk = ship.isSunk();
+    if (!sunk) return false;
+
+    this.view.showDamagedShip(ship.name, playerId);
+    return true;
   }
   #isComputer() {
     if (this.currentPlayer.type !== "ai") return;
