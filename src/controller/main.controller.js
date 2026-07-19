@@ -9,6 +9,7 @@ import positionToCoordinate from "../utils/positionToCoordinate.js";
 import Computer from "../components/Computer.js";
 import TurnSystem from "../components/TurnSystem.js";
 import WinCheck from "../components/WinCheck.js";
+import AssetLoader from "../components/AssetLoader.js";
 export default class MainController {
   constructor() {
     this.view = new ScreenController();
@@ -43,6 +44,8 @@ export default class MainController {
 
     this.view.bindHeader(this.#handler.bind(this));
     this.view.bindGamemodeActions(this.#handler.bind(this));
+
+    AssetLoader.load();
   }
 
   #handler(action, target) {
