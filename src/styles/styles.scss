@@ -29,9 +29,20 @@
 .announcer {
   position: fixed;
   top: var(--size-sm);
-  right: var(--size-lg);
+  right: 50%;
+  transform: translateX(50%);
+
   border-radius: var(--size-sm);
-  width: 30ch;
   padding: var(--size-xs) var(--size-sm);
   background-color: var(--color-neutral-0);
+
+  text-align: center;
+  width: max(80vw, 10rem);
+
+  @media screen and (min-width: 40rem) {
+    transform: none;
+    right: var(--size-lg);
+    width: 30ch;
+    text-align: left;
+  }
 }

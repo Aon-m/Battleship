@@ -56,7 +56,9 @@ export default class MainController {
 
         const muted = this.sfx.toggleMute();
         this.view.toggleMute(target);
-        muted === false ? this.view.announce("unmuted") : this.view.announce("muted");
+        muted === false
+          ? this.view.announce("unmuted")
+          : this.view.announce("muted");
         break;
       }
       case "hover-sound":
@@ -168,7 +170,7 @@ export default class MainController {
         setTimeout(() => {
           this.#startGame();
           setTimeout(() => {
-            this.view.announce("game started")
+            this.view.announce("game started");
             this.sfx.play("success");
           }, 1500);
         }, 5000);
@@ -501,38 +503,46 @@ export default class MainController {
 
     const won = this.winCheck.checkCurrentPlayer(attackedPlayer);
 
-    if (!won) {
-      if (hit) {
-        this.currentPlayer.allowedFires = 1;
-        const sunked = this.#shipSunk(ship);
+    if (hit) {
+      this.currentPlayer.allowedFires = 1;
+      const sunked = this.#shipSunk(ship);
 
-        if (!sunked) {
-          this.sfx.play("hit");
-          this.view.announce("Hit!");
-        } else {
-          this.sfx.play("explosion");
-          this.view.announce("Ship Sunk!");
-        }
-
-        setTimeout(() => {
-          this.#isComputer();
-        }, 2000);
-        return;
+      if (!sunked) {
+        this.sfx.play("hit");
+        this.view.announce("Hit!");
+      } else {
+        this.sfx.play("explosion");
+        this.view.announce("Ship Sunk!");
       }
 
-      this.view.announce("Miss!");
-      this.sfx.play("waterSplash");
       setTimeout(() => {
-        this.#changeTurn(true);
-
-        if (this.currentMode !== "single") return this.view.showPassingScreen();
-
         this.#isComputer();
       }, 2000);
+
+      if (won) {
+        setTimeout(() => {
+          return this.#endGame();
+        }, 1000);
+      }
       return;
     }
 
-    this.#endGame();
+    this.view.announce("Miss!");
+    this.sfx.play("waterSplash");
+
+    if (won) {
+      setTimeout(() => {
+        return this.#endGame();
+      }, 1000);
+    }
+
+    setTimeout(() => {
+      this.#changeTurn(true);
+
+      if (this.currentMode !== "single") return this.view.showPassingScreen();
+
+      this.#isComputer();
+    }, 2000);
   }
   #shipSunk(ship) {
     const playerId = this.#getRandomId(this.currentPlayer.id);
